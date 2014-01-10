@@ -12,7 +12,6 @@ if(isMaintenanceDisabled()) {
 	<head>
 	<meta http-equiv="refresh" content="350; URL=https://openex.pw/system/maintenance.php">
 	<title>Maintenance</title>
-	<link href="../assets/css/base.css" type="text/css" rel="stylesheet" />
 	<style>
 	* {
 		margin: 0px;
@@ -45,7 +44,7 @@ if(isMaintenanceDisabled()) {
 <body>
 	<div class="centered"><br/>
 			<center>
-		<p id="Splash">OpenEx Is Undergoing Maintenace</p><br/>
+		<p id="Splash">OpenEx Is Undergoing Maintenance</p><br/>
 		<p id="message">We'll Be Back Soon! :-)</p>
 			</center>
 	</div>
