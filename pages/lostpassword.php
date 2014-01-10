@@ -190,7 +190,7 @@ if(!empty($_POST))
         }
         ?> 
 			<link rel="stylesheet" type="text/css" href="assets/css/register.css" />
-            <form name="newLostPass" action="index.php?page=lostpassword" method="post">
+            <form name="newLostPass" action="index.php?page=lostpassword" method="post" onsubmit="document.getElementById('#Submit_form').disabled = 1;">
             <table>
             <tr>
                 <td>
@@ -205,7 +205,7 @@ if(!empty($_POST))
             </tr>
             <tr>
 				<td>
-					<input type="submit" value="Login" class="blues" />
+					<input type="submit" value="Login" class="blues" id="Submit_form"/>
 				<td>
 			</tr>
             </table>

@@ -1,4 +1,5 @@
 <?php
+require_once("funcs.general.php");
 class Wallet
 {
 	public $ip;
@@ -21,14 +22,22 @@ class Wallet
 	{
 		return $this->Client->getaccountaddress($account);
 	}
-	public function Withdraw($address,$total,$user)
+	public function Withdraw($address,$total,$user,$coin)
 	{
-		$address = mysql_real_escape_string($address);
+		$address2 = mysql_real_escape_string($address);
 		$total = mysql_real_escape_string($total);
 		$user = mysql_real_escape_string($user);
-		$time = time();
-		mysql_query("INSERT INTO Withdraw_History(`Timestamp`,`User`,`Amount`,`Address`) values('$time','$user','$total','$address')");
-		$this->Client->sendtoaddress($address,$total);
+		$time = mysql_real_escape_string(time());
+		$coin2 = mysql_real_escape_string($coin);
+		$fee = $this->GetTxFee();
+		mysql_query("INSERT INTO Withdraw_History (`Timestamp`,`User`,`Amount`,`Address`,`Coin`) VALUES ('$time','$user','$total','$address2','$coin2');");
+		//echo("INSERT INTO Withdraw_History (`Timestamp`,`User`,`Amount`,`Address`) VALUES ('$time','$user','$total','$address2');");
+		return $this->Client->sendtoaddress($address, (double)sprintf("%.8f", $total - $fee));
+	}
+	public function GetTxFee()
+	{
+		$info = $this->Client->getinfo();
+		return $info["paytxfee"];
 	}
 	public function GetTransactions()
 	{

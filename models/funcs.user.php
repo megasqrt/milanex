@@ -1,25 +1,25 @@
-<?php	function isUserAdmin($user)	{		$sql94 = mysql_query("SELECT * FROM userCake_Users WHERE `User_ID`='$user'");		if (mysql_result($sql94, 0, "Group_ID") == 9) {			return true;		} else {			return false;		}	}
+<?php	function isUserAdmin($user)	{		$sql94 = mysql_query("SELECT `Group_ID` FROM userCake_Users WHERE `User_ID`='$user'");		if (mysql_result($sql94, 0, "Group_ID") == 9) {			return true;		} else {			return false;		}	}
 	
 	function isUserMod($user)
 	{
-		$sql93 = mysql_query("SELECT * FROM userCake_Users WHERE `User_ID`='$user'");
+		$sql93 = mysql_query("SELECT `Group_ID` FROM userCake_Users WHERE `User_ID`='$user'");
 		if (mysql_result($sql93, 0, "Group_ID") == 5) {
 			return true;
 		} else {
 			return false;
 		}
-	}		function isUserNormal($user)	{		$sql92 = mysql_query("SELECT * FROM userCake_Users WHERE `User_ID`='$user'");		if (mysql_result($sql92, 0, "Group_ID") == 1) {			return true;		} else {			return false;		}	}
+	}		function isUserNormal($user)	{		$sql92 = mysql_query("SELECT `Group_ID` FROM userCake_Users WHERE `User_ID`='$user'");		if (mysql_result($sql92, 0, "Group_ID") == 1) {			return true;		} else {			return false;		}	}
 	
 	function isUserCBanned($user)
 	{
-		$sql91 = mysql_query("SELECT * FROM userCake_Users WHERE `User_ID`='$user'");
+		$sql91 = mysql_query("SELECT `ChatBanned` FROM userCake_Users WHERE `User_ID`='$user'");
 		if (mysql_result($sql91, 0, "ChatBanned") == 1) {
 			return true;
 		} else {
 			return false;
 		}
 	}
-	
+	function isBant($user)	{		$sqlxG = mysql_query("SELECT `Banned` FROM userCake_Users WHERE `User_ID`='$user'");		if (mysql_result($sqlxG, 0, "Banned") == 1) {			return true;		} else {			return false;		}	}
 	
 	function usernameExists($username)
 	{
@@ -175,8 +175,8 @@
 	
 	function isUserLoggedIn()
 	{
-		global $loggedInUser,$db,$db_table_prefix;
-		
+		global $loggedInUser,$db,$db_table_prefix;		
+		if($loggedInUser == NULL)		{			return false;		}		else		{
 		$sql = "SELECT User_ID,
 				Password
 				FROM ".$db_table_prefix."Users
@@ -188,12 +188,7 @@
 				Active = 1
 				LIMIT 1";
 		
-		if($loggedInUser == NULL)
-		{
-			return false;
-		}
-		else
-		{
+		
 			//Query the database to ensure they haven't been removed or possibly banned?
 			if(returns_result($sql) > 0)
 			{

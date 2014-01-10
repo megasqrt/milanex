@@ -46,8 +46,7 @@ if(!empty($_POST))
 						$loggedInUser->clean_username = $userdetails["Username_Clean"];		
 						$loggedInUser->updateLastSignIn();						
 		
-						$_SESSION["userCakeUser"] = $loggedInUser;
-						
+						$_SESSION["userCakeUser"] = $loggedInUser;												$getactive = mysql_query("SELECT `users_logged_in` FROM `usersactive` WHERE `id`='1'");						$count = mysql_result($getactive, 0, 'users_logged_in');						$new = $count + 1;						$time = gettime();						$login = mysql_query("UPDATE usersactive SET `users_logged_in`='$new' WHERE `id`=1 ");						$update = mysql_query("UPDATE usersactive SET `last_update`='$time' WHERE `id`=1 ");						sleep(1);
 						echo '<meta http-equiv="refresh" content="0; URL=index.php?page=home">';
 						die();
 					}
@@ -73,7 +72,7 @@ if(!empty($_POST))
 	
 
 	<div id="login-inner">
-	<form method="POST" action="index.php?page=login" autocomplete="on">
+	<form method="POST" action="index.php?page=login" autocomplete="on" onsubmit="document.getElementById('#loginbutton').disabled = 1;">
 		<table border="0" cellpadding="0" cellspacing="0">
 		<tr>
 			<td><input name="username" type="text"  class="field" placeholder="username" /></td>			<br/>

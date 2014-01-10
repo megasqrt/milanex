@@ -34,7 +34,7 @@ if ($opened == 0) { ?><h2>THIS TICKET IS CLOSED</h2>
 <a href="index.php?page=viewticket&id=<?echo $id;?>&action=closev"><input type="button" class="blues"value="Close" /></a>
 <?  } ?>
 <div id="support-thread"><pre><h3><b>Subject:</b> <? echo $subject;?></h3><form  action=""><div class="balloon left"><div class="innertube">
-<b>Started By:</b><? echo GetUser($owner);?> <b>On:</b> <?echo $posted;?></br><b>Message:</b><p class="content-p"><?echo nl2br($post);?></p></div></div>
+<b>Started By:</b><? echo GetUser($owner);?> <b>On:</b> <?echo $posted;?></br><b>Message:</b><div class="mbody"><?echo nl2br($post);?></div></div></div>
 </form>
 <?    
 $replies = @mysql_query("SELECT * FROM TicketReplies WHERE `ticket_id`='$id' ORDER BY `id` ASC");
@@ -44,7 +44,7 @@ $post   = mysql_result($replies, $i, "body");
 $owner  = mysql_result($replies, $i, "user_id");
 $posted = mysql_result($replies, $i, "posted");
 ?><form action="">
-<div class="balloon right"><div class="innertube"><b>Reply From:</b><? echo GetUser($owner);?> <b>On:</b> <?echo $posted;?></br><b>Message:</b><p class="content-p"><?echo nl2br($post);?></p></div></div>
+<div class="balloon right"><div class="innertube"><b>Reply From:</b><? echo GetUser($owner);?> <b>On:</b> <?echo $posted;?></br><b>Message:</b><div class="mbody"><?echo nl2br($post);?></div></div></div>
 </form>
 <? } ?><form action="index.php?page=viewticket&id=<? echo $id; ?>" method="POST"><h3>Reply</h3><div class="balloon bottom"><div class="innertube"><center>
 <textarea name="post" class="shadowfield message-reply"></textarea>

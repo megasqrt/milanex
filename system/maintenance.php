@@ -1,6 +1,16 @@
+<?php
+require_once("../models/config.php");
+if(isMaintenanceDisabled()) {
+	echo '<meta http-equiv="refresh" content="0; URL= https://openex.pw">';
+	die();
+}else{
+
+}
+?>
 <!Doctype html5 lang="en">
 <html>
 	<head>
+	<meta http-equiv="refresh" content="350; URL=https://openex.pw/system/maintenance.php">
 	<title>Maintenance</title>
 	<link href="../assets/css/base.css" type="text/css" rel="stylesheet" />
 	<style>

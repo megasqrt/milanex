@@ -53,7 +53,7 @@
 	));
 	
 	//Miscellaneous
-	$lang = array_merge($lang,array(			"CAPTCHA_FAIL"							=> "Failed Security Code",
+	$lang = array_merge($lang,array(			"CAPTCHA_FAIL"							=> "Failed Security Code",				"FAIL_MINIMUM"							=> "Minimum Withdrawal Amount is .01",				"INVALID_AMOUNT"						=> "No value entered",				"N_A_N"									=> "That is not a number!",				"INS_FUNDS"								=> "Insufficient funds",
 		"CONFIRM"								=> "Confirm",
 		"DENY"									=> "Deny",
 		"SUCCESS"								=> "Success",

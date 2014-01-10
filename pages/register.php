@@ -39,9 +39,8 @@ if(!empty($_POST))
 				{										
 					//Attempt to add the user to the database, carry out finishing  tasks like emailing the user (if required)					$errors[] = 'Successfully registered! Returning you to the login form!';
 					if(!$user->userCakeAddUser())
-					{
-						
-					}									}
+					{					
+					}					$getcountusers = @mysql_query("SELECT COUNT(*) as count FROM userCake_Users");					$count = mysql_result($getcountusers, 0, "count");					$register = mysql_query("UPDATE usersactive SET `total_users`='$count' WHERE `id`=1 ");					$time = gettime();					$update = mysql_query("UPDATE usersactive SET `last_update`='$time' WHERE `id`=1 ");					sleep(1);					echo '<meta http-equiv="refresh" content="0; URL=index.php?page=login">';									}
 		}
 	}
 ?> 

@@ -1,19 +1,15 @@
 <?php
-
 require_once("models/config.php");
-//browsercheck_index();
-//forceSSL();
 $account = $loggedInUser->display_username;
 $id = $loggedInUser->user_id;
 if(isTORnode()){
 	die("Due to legal restrictions users using TOR Browser are not allowed to access this website.");
 }
-if(isIPbanned()) {
-	die("ip address is banned.");
+if(isIPbanned()){
+	die("ip address is banned. You can appeal this decision by contacting the administrator at admin@openex.pw");
 }
-if(isMobile_RedirectDisabled()) {
-}else{
-	mobile_listen();
+if(isBant($id)){
+	echo '<meta http-equiv="refresh" content="0; URL=index.php?page=logout">';
 }
 if(isMaintenanceDisabled()) {
 }else{
@@ -22,21 +18,17 @@ if(isMaintenanceDisabled()) {
 	die();
 	}
 }
-
-//basic bot detection
-echo '<input type="hidden" value="" name="fullname">';
-$is_bot = mysql_real_escape_string($_POST["fullname"]);
-if(isset($_POST["fullname"])) {
-	if($is_bot != "") {
-		echo '<meta http-equiv="refresh" content="0; URL=access_denied.php">';
-	}else{
-	
-	}
-}
 ?>
 <html>
 <head>
 	<title><?php echo $title ?></title>
+	<meta name="keywords" 
+	content="cryptocurrency, bitcoin, trading, altcoin, OpenEx, openex.pw, 
+	litecoin, feathercoin, opensourcecoin, gldcoin, protoshares, 
+	memorycoin, radioactivecoin, 42coin, primecoin, unobtanium, novacoin, 
+	nanotokens, skeincoin, novacoin, blakecoin, mincoin, megacoin, scrypt, 
+	sha-256, open source, crypto exchange">
+	<meta name="description" content="OpenEx.pw, the one and only open source cryptocurrency exchange for all your trading needs.">
 	<link rel="shortcut icon" href="assets/img/favicon.ico" type="image/x-icon" />
 	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
 	<link rel="stylesheet" type="text/css" href="assets/css/trade.css">
@@ -57,17 +49,13 @@ if(isset($_POST["fullname"])) {
 	{
 	var total = document.getElementById('Amount').value;
 	var earn = document.getElementById('Amount').value * document.getElementById('price1').value;
-	document.getElementById('earn1').value = earn;
-	document.getElementById('fee1').value = 0;
-		$.get("system/calculatefees.php?P=" + total,function(data,status){
-		  document.getElementById('fee1').value = data;
-		  
-		});
-		$.get("system/convertnumber.php?P=" + earn,function(data,status){
-		  document.getElementById('earn1').value = data;
-		  
+		$.get("system/calculatefees2.php?P=" + total,function(data,status){
+		document.getElementById('fee1').value = data;
 		});
 
+		$.get("system/calculatefees.php?P=" + earn,function(data,status){
+		  document.getElementById('earn1').value = data;
+		});
 	}
 	function calculateFees2()
 	{
@@ -94,7 +82,7 @@ if(isset($_POST["fullname"])) {
             linkLocation = this.href;
             
             $("#contentloader").slideUp(500, function() {
-                $('.spinner').fadeIn(300, redirectPage);
+                $('.spinner').fadeIn(0, redirectPage);
             });    
         });
          
@@ -106,17 +94,25 @@ if(isset($_POST["fullname"])) {
 
 		var refreshChat = function() 
 		{ 
-		 setTimeout( 
-		  function() 
-		  {
-		   $('#messages').load('ajaxLOAD.php', 
-			function() 
-			{
-			 $('#messages').animate({scrollTop: $('#messages')[0].scrollHeight}, 1000);
-			}
-		   );
-		   refreshChat();
-		  }, 
+			setTimeout( 
+				function() 
+		  		{
+		  			var moveDown = false;
+
+		  			if($('#messages').scrollTop() == ($('#messages')[0].scrollHeight - $('#messages')[0].offsetHeight)) {
+		  				moveDown = true;
+		  			}
+
+		   			$('#messages').load('ajaxLOAD.php', 
+						function() 
+						{
+							if(moveDown) {
+								$('#messages').animate({scrollTop: $('#messages')[0].scrollHeight}, 1000);
+							}
+						}
+		   			);
+		   			refreshChat();
+		  		}, 
 		  2000);
 		};
 		refreshChat();
@@ -157,9 +153,11 @@ if(isset($_POST["fullname"])) {
 		?>
 		$('#ajaxPOST').submit(function() {
 			$.post('ajaxPOST.php', $('#ajaxPOST').serialize(), function(data){
+						
                             $('#message').val('');
                             $('#messages').load('ajaxLOAD.php', function() {
                                 $('#messages').animate({
+									
                                     scrollTop: $('#messages')[0].scrollHeight
                                   }, 1000);
                             }); 
@@ -168,6 +166,9 @@ if(isset($_POST["fullname"])) {
 		});
 
     });
+	
+
+	
 	$('#message').keypress(function(event){
     var char = String.fromCharCode(event.which)
     var txt = $(this).val()
@@ -175,7 +176,7 @@ if(isset($_POST["fullname"])) {
         $(this).val(txt.replace(char, ''));
     }
 	});
-
+	
 
 	</script>
 </head>
@@ -212,8 +213,10 @@ if(isset($_POST["fullname"])) {
 				echo 
 				'
 				<li><a href="index.php?page=account" title="account balances"><i class="fa fa-suitcase"></i></a></li>
+				<li><a href="index.php?page=account_history" title="account history"><i class="fa fa-book"></i></a></li>
 				<li><a href="index.php?page=support" title="support system"><i class="fa fa-warning"></i></a></li>
 				<li><a href="index.php?page=preferences" title="account preferences"><i class="fa fa-cogs"></i></a></li>
+				<li><a href="index.php?page=api" title="API"><i class="fa fa-code"></i></a></li>
 				';
 				} else {
 				
@@ -223,8 +226,13 @@ if(isset($_POST["fullname"])) {
 				echo
 				'
 				<li><a href="index.php?page=admin" title="admin area"><i class="fa fa-terminal"></i></a></li>
+				<li><a href="index.php?page=withdrawalqueue" title="withdrawal queue"><i class="fa fa-clock-o"></i></a></li>
+				<li><a href="index.php?page=withdrawalhist" title="withdrawal history"><i class="fa fa-check-square"></i></a></li>
 				<li><a href="index.php?page=site_monitor" title="site monitor"><i class="fa fa-tachometer"></i></a></li>
 				<li><a href="index.php?page=moderate" title="moderator area"><i class="fa fa-gavel"></i></a></li>
+				<li><a href="index.php?page=access_violations" title="access violations"><i class="fa fa-flag-o"></i></a></li>
+				<li><a href="index.php?page=siteconfig" title="Enable/Disable Features"><i class="fa fa-lock"></i></a></li>
+				<li><a href="index.php?page=addnewcoin" title="Add a coin"><i class="fa fa-plus"></i></a></li>
 				';
 				} else {
 				
@@ -270,10 +278,11 @@ if(isset($_POST["fullname"])) {
 	</div>
 	
 	<div id="main_content">
+		<center>
 		<div id="contentloader">
-			<center>
 			<div id="contentchild">
-				<div class="spinner"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+			<center>
+				<div class="spinner"><i class="fa fa-spinner"></i><i class="fa fa-spinner"></i><i class="fa fa-spinner"></i><i class="fa fa-spinner"></i><i class="fa fa-spinner"></i><i class="fa fa-spinner"></i><i class="fa fa-spinner"></i><i class="fa fa-spinner"></i><i class="fa fa-spinner"></i><i class="fa fa-spinner"></i><i class="fa fa-spinner"></i><i class="fa fa-spinner"></i></div>
 				<?php
 					if($_GET["page"] == "")
 					{
@@ -288,12 +297,18 @@ if(isset($_POST["fullname"])) {
 					} 
 					else
 					{
-						include("pages/".$_GET["page"].".php");
+						$p="pages/".basename($_GET['page']).".php";
+			            if(file_exists($p)){
+							include($p);  
+			            }else{
+							exit('Page Not Found');
+			            }
 					}
 				?>
 			</center>
 			</div>
 		</div>
+		</center>
 	</div>
 	
 	<div id="bar" class="semi-translucent color">

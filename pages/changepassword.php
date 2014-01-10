@@ -67,7 +67,7 @@ if(!empty($_POST))
         <?php } }?>
 
 		<link rel="stylesheet" type="text/css" href="assets/css/register.css" />
-            <form name="changePass" action="index.php?page=changepassword" method="post">
+            <form name="changePass" action="index.php?page=changepassword" method="post" onsubmit="document.getElementById('#Update_PW').disabled = 1;">
 				<table>
 					<tr>
 						<td><center><h3>Change Password</h3></center></td>
@@ -85,7 +85,7 @@ if(!empty($_POST))
 					</tr>
 					
 					<tr>
-						<td><input type="submit" value="Update Password"  class="blues" /></td>
+						<td><input type="submit" value="Update Password" id="Update_PW" class="blues" /></td>
 				   </tr>
 				</table>       
             </form>

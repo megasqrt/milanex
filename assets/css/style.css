@@ -37,6 +37,7 @@ body{
   right: 0;
   height: 30;
   position: fixed;
+  border-bottom: 1px solid #fff;
 }
 #logo {
 	height: 30px;
@@ -65,6 +66,7 @@ body{
 	right: 0;
 	bottom: 0;
 	left: 0;
+	border-top: 1px solid #fff;
 }
 #main_content {
 	position: fixed;
@@ -73,6 +75,7 @@ body{
 	right: 0;
 	bottom: 30;
 	overflow-y: scroll;
+	margin: 0 auto;
 }
 #chat_toggle {
 	float: right;
@@ -228,7 +231,7 @@ margin: 0 auto;
 .color {
 	background: #FFF;
 	background-image:-moz-radial-gradient(center -100px 45deg, circle farthest-corner, #444 150px, #111 300px);
-	background-image:-webkit-gradient(radial, 50% 0, 150, 50% 0, 300, from(#444), to(#111));
+	background-image:-webkit-gradient(radial, 10% 0, 150, 50% 0, 300, from(#444), to(#111));
 }
 .color2 {
     background: #333;
@@ -388,12 +391,17 @@ margin: 0 auto;
   }
 }
 h1,h2,h3,h4,h5,h6 {
-	font-family: 'Comfortaa-Regular', sans-serif;
+	font-family: 'ws-ui', sans-serif;
 }
 #contentloader {
 	width: 90%;
 	height: 100%;
 	color: #fff;
+	padding: 2% 0;
+}
+#contentchild {
+	margin:0 auto;
+	padding: 2% 0;
 }
 #contentloader a:link {
 	color: #fff; 
@@ -622,7 +630,7 @@ background-image: linear-gradient(to bottom,#005ab4 0,#175ea6 100%);
 	display:block;
 	height:auto;
 	margin:0 0 30px;
-	padding:0;
+	padding:10px;
 	position:relative;
 	width: 70%;
 	text-align: left;
@@ -728,4 +736,13 @@ background-image: linear-gradient(to bottom,#005ab4 0,#175ea6 100%);
 }
 .message-subject {
 	width: 60%;
+}
+.mbody {
+	width: 60%;
+	word-wrap: break-word;
+	color: #000 !important;
+	padding: 5px;
+	overflow: hidden;
+	white-space: wrap;
+	text-overflow: ellipsis;
 }

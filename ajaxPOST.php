@@ -9,14 +9,12 @@ $id = $loggedInUser->user_id;
 
 $username = $loggedInUser->display_username;
 //___
+if (isUserCBanned($id)) {
 
-
-if (isUserCBanned($id))
-	{
 	die();
-	}
-else
-	{
+	
+}else{
+
 	if(isUserAdmin($id)) 
 	{
 		$color = "#0404B4";
@@ -32,8 +30,19 @@ else
 	$color_ = $db->real_escape_string(htmlentities(($color)));
 	$user = $db->real_escape_string(htmlentities(($username))); 
 	$message = $db->real_escape_string(strip_tags(($_POST['message']), '<a>'));
-
 	$timestamp = $db->real_escape_string(gettime());
-	$db->Query("INSERT INTO messages (color, username, message, timestamp) VALUES ('$color_','$user','$message','$timestamp')");
+	if($color_ == null){
+		die("no username color");
 	}
+	if($user == null){
+		die("not logged in");
+	}
+	if($message == null){
+		die("no message entered");
+	}
+	if($timestamp == null){
+		die("no timestamp");
+	}
+	$db->Query("INSERT INTO messages (color, username, message, timestamp) VALUES ('$color_','$user','$message','$timestamp')");
+}	
 ?>

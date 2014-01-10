@@ -18,15 +18,32 @@ $type = $name;
 </tr>
 <?php
 $sql = mysql_query("SELECT * FROM trades WHERE `Type`='$type' ORDER BY `Value` ASC");
+$previous = "";
+$amount = 0;
 while ($row = mysql_fetch_assoc($sql)) {
 if($row["To"] == "BTC") { 
+if(sprintf("%.8f",$row["Value"]) != sprintf("%.8f",$previous))
+{
+$value = sprintf("%.8f",$row["Value"]);
+$amount = 0;
+$sqls = mysql_query("SELECT * FROM trades WHERE `Value`='$value' AND `From`='$type' AND `Type`='$type'");
+$num = mysql_num_rows($sqls);
+while ($rows = mysql_fetch_assoc($sqls))
+{
+	$amount += $rows["Amount"];
+}
+
+
 ?>
 <tr>
-	<td style="width: 33%;"><?php echo sprintf('%.9f',$row["Value"]);?></td>
-    <td style="width: 33%;"><?php echo $row["Amount"];?></td>
-	<td style="width: 33%;"><?php echo sprintf('%.9f',$row["Amount"] * $row["Value"]);?></td>
+	<td style="width: 33%;"><?php echo sprintf('%.8f',$row["Value"]);?></td>
+    <td style="width: 33%;"><?php echo sprintf('%.8f',$amount);?></td>
+	<td style="width: 33%;"><?php echo sprintf('%.8f',$amount * $value);?></td>
 </tr>
 <?php
+$previous = sprintf("%.8f",$row["Value"]);
+}
+//$amount = 0;
 }
 }
 ?>
