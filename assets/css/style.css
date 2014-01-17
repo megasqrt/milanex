@@ -25,7 +25,16 @@ body{
 	background-image:url('../img/bg0.png');
 	font-family: 'ws-ui', sans-serif;
 }
-
+.button {
+    text-decoration: none;
+    background-color: #EEEEEE;
+    color: #333333;
+    padding: 2px 6px 2px 6px;
+    border-top: 1px solid #CCCCCC;
+    border-right: 1px solid #333333;
+    border-bottom: 1px solid #333333;
+    border-left: 1px solid #CCCCCC;
+   }
 /**********************
  *
  divs/id's
@@ -81,7 +90,9 @@ body{
 	float: right;
 	margin-right: 30px;
 	height: 30px;
-	width: 30px;
+	width: 100px;
+	font-family: 'ws-ui', sans-serif;
+	color: #FFF;
 	border-left: 1px solid #FFF;
 	border-right: 1px solid #FFF;
 	font-size:18px;
@@ -160,9 +171,10 @@ margin: 0 auto;
  **********************/
 .nobullets {
 	list-style: none;
+	text-align: justify;
 }
 .left {
-	
+	text-align: justify;
 	font-size: 22px;
 	cursor: pointer;
 	margin-left: 5px;
@@ -177,6 +189,7 @@ margin: 0 auto;
 	text-align: justify;
 }
 .price {
+	text-align: justify;
 	color: #FFF;
 	font-size: 22px;
 	font-weight: bold;
@@ -744,5 +757,173 @@ background-image: linear-gradient(to bottom,#005ab4 0,#175ea6 100%);
 	padding: 5px;
 	overflow: hidden;
 	white-space: wrap;
-	text-overflow: ellipsis;
 }
+#page table{
+	border: 1px solid #fff;
+	width: 80%;
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+#page th {
+	background: #005798;
+	border-bottom: 3px solid #002480;
+	font-size: 18px;
+	color: #fff;
+	height: 30px;
+	padding: 5px;
+	margin: 1px;
+}
+
+#page tr {
+	color: #fff;
+	background: #005798;
+	padding: 5px;
+	font-size: 18px;
+	font-weight: bold;
+	border-right: 1px solid #fff;
+	border-left: 1px solid #fff;
+    border-bottom: 3px solid #002480;
+}
+#page tr:hover, #page tr a:hover{
+	color: #fff;
+	background: #005798;
+}
+#page td {
+	
+}
+.fullversion {
+	height: 95% !important;
+}
+#page.b1 {
+	border-right: 1px #333;
+}
+.aboutlist {
+	text-align: left;
+}
+
+label, input {
+    /* in order to define widths */
+    display: inline-block;
+	height: 25px;
+	font-size: 21px;
+}
+
+label {
+    width: 30%;
+    /* positions the label text beside the input */
+    text-align: right;
+}
+label + input {
+    width: 30%;
+    /* large margin-right to force the next element to the new-line
+       and margin-left to create a gutter between the label and input */
+    margin: 0 30% 0 4%;
+}
+
+/* only the submit button is matched by this selector,
+   but to be sure you could use an id or class for that button */
+input + input {
+	margin: 0 auto;
+	padding: 1 px;
+	height: 30 px;
+}
+#chart {
+	margin-top: 10px;
+	margin-bottom: 10px;
+	margin-left: auto;
+	margin-right: auto;
+}
+#boxA {
+	clear:left;
+	float:left;
+	width:100%;
+}
+#boxB {
+	float:left;
+	width:100%;
+	position:relative;
+	right:50%;
+}
+#col1 {
+	float:left;
+	width:46%;
+	position:relative;
+	left:52%;
+	overflow:hidden;
+}
+#sellform {
+	border: 1px solid #FFF;
+	height: 250px;
+	color: #FFF;
+}
+#sellorders {
+	border: 1px solid #FFF;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	height: 250px;
+	color: #FFF;
+}
+#col2 {
+	float:left;
+	width:46%;
+	position:relative;
+	left:56%;
+	overflow:hidden;
+}
+#buyform {
+	border: 1px solid #FFF;
+	height: 250px;
+	color: #FFF;
+}
+
+#buyorders {
+	border: 1px solid #FFF;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	height: 250px;
+	color: #FFF;	
+}
+#user-orders {
+	width: 95.75%;
+}
+.top {
+	text-transform: uppercase;
+	font-weight: bold;
+	padding: 5;
+	font-size: 22px;
+	overflow: hidden;
+	border-bottom: 3px solid #002480;
+}
+.box {
+	border: 1px solid #FFF;
+	color: #FFF;
+	padding:0;
+	overflow-y: scroll;
+	height:200px;
+	width:100%;
+}
+a[title]:hover:after {
+	content: attr(title);
+	padding: 4px 8px;
+	color: #333;
+	position: absolute;
+	left: 0;
+	top: 100%;
+	white-space: nowrap;
+	z-index: 10;
+	-moz-border-radius: 1px;
+	-webkit-border-radius: 1px;
+	border-radius: 1px;
+	-moz-box-shadow: 0px 0px 2px #222;
+	-webkit-box-shadow: 0px 0px 2px #222;
+	box-shadow: 0px 0px 2px #222;
+	background: #feffff;
+	background: -moz-linear-gradient(top,  #feffff 0%, #d2ebf9 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#feffff), color-stop(100%,#d2ebf9));
+	background: -webkit-linear-gradient(top,  #feffff 0%,#d2ebf9 100%);
+	background: -o-linear-gradient(top,  #feffff 0%,#d2ebf9 100%);
+	background: -ms-linear-gradient(top,  #feffff 0%,#d2ebf9 100%);
+	background: linear-gradient(to bottom,  #feffff 0%,#d2ebf9 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#feffff', endColorstr='#d2ebf9',GradientType=0 );
+}
+

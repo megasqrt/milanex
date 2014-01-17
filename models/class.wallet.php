@@ -29,10 +29,15 @@ class Wallet
 		$user = mysql_real_escape_string($user);
 		$time = mysql_real_escape_string(time());
 		$coin2 = mysql_real_escape_string($coin);
-		$fee = $this->GetTxFee();
+		//$fee = $this->GetTxFee();
 		mysql_query("INSERT INTO Withdraw_History (`Timestamp`,`User`,`Amount`,`Address`,`Coin`) VALUES ('$time','$user','$total','$address2','$coin2');");
 		//echo("INSERT INTO Withdraw_History (`Timestamp`,`User`,`Amount`,`Address`) VALUES ('$time','$user','$total','$address2');");
-		return $this->Client->sendtoaddress($address, (double)sprintf("%.8f", $total - $fee));
+		if ($total > 1000000) {
+			return $this->Client->sendtoaddress($address, round($total));
+		}else{
+			return $this->Client->sendtoaddress($address, (double)sprintf("%.8f", $total));
+		}
+		
 	}
 	public function GetTxFee()
 	{

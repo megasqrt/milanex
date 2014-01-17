@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jan 10, 2014 at 10:54 AM
+-- Generation Time: Jan 17, 2014 at 10:48 PM
 -- Server version: 5.1.60
 -- PHP Version: 5.5.4
 
@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Database: `db`
+-- Database: `testing`
 --
 
 -- --------------------------------------------------------
@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS `access_violations` (
   `user_agent` varchar(55) NOT NULL,
   `time` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1343 ;
 
 -- --------------------------------------------------------
 
@@ -47,7 +47,7 @@ CREATE TABLE IF NOT EXISTS `Api_Keys` (
   `Public_Key` text NOT NULL,
   `Authentication_Key` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=166 ;
 
 -- --------------------------------------------------------
 
@@ -63,7 +63,7 @@ CREATE TABLE IF NOT EXISTS `balances` (
   `Pending` int(11) NOT NULL,
   `Wallet_ID` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=26680 ;
 
 -- --------------------------------------------------------
 
@@ -76,7 +76,27 @@ CREATE TABLE IF NOT EXISTS `bantables_ip` (
   `ip` varchar(55) NOT NULL,
   `id` int(11) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=18 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Canceled_Trades`
+--
+
+CREATE TABLE IF NOT EXISTS `Canceled_Trades` (
+  `Id` int(11) NOT NULL AUTO_INCREMENT,
+  `To` text NOT NULL,
+  `From` text NOT NULL,
+  `Amount` text NOT NULL,
+  `Value` double NOT NULL,
+  `User_ID` int(11) NOT NULL,
+  `Type` text NOT NULL,
+  `Finished` int(11) NOT NULL DEFAULT '0',
+  `Fee` text NOT NULL,
+  `Total` text NOT NULL,
+  PRIMARY KEY (`Id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2276 ;
 
 -- --------------------------------------------------------
 
@@ -90,20 +110,6 @@ CREATE TABLE IF NOT EXISTS `config` (
   `setting` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10 ;
-
---
--- Dumping data for table `config`
---
-
-INSERT INTO `config` (`id`, `name`, `setting`) VALUES
-(1, 'registration', 0),
-(2, 'login', 0),
-(3, 'maintenance', 0),
-(4, 'debug_nav', 1),
-(5, 'withdrawal', 0),
-(6, 'deposit', 0),
-(7, 'mobile_redirect', 1),
-(8, 'trade_engine', 1);
 
 -- --------------------------------------------------------
 
@@ -119,7 +125,7 @@ CREATE TABLE IF NOT EXISTS `deposits` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `Account` text,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5901 ;
 
 -- --------------------------------------------------------
 
@@ -136,7 +142,7 @@ CREATE TABLE IF NOT EXISTS `messages` (
   `timestamp` text NOT NULL,
   `hidden` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1455 ;
 
 -- --------------------------------------------------------
 
@@ -151,7 +157,7 @@ CREATE TABLE IF NOT EXISTS `TicketReplies` (
   `posted` text NOT NULL,
   `id` int(11) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=249 ;
 
 -- --------------------------------------------------------
 
@@ -167,7 +173,7 @@ CREATE TABLE IF NOT EXISTS `Tickets` (
   `opened` int(11) DEFAULT '1',
   `body` longblob NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=142 ;
 
 -- --------------------------------------------------------
 
@@ -187,7 +193,7 @@ CREATE TABLE IF NOT EXISTS `trades` (
   `Fee` text NOT NULL,
   `Total` text NOT NULL,
   PRIMARY KEY (`Id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2280 ;
 
 -- --------------------------------------------------------
 
@@ -203,8 +209,10 @@ CREATE TABLE IF NOT EXISTS `Trade_History` (
   `trade_id` int(11) NOT NULL AUTO_INCREMENT,
   `Buyer` int(11) NOT NULL,
   `Seller` int(11) NOT NULL,
+  `B_Receive` text,
+  `S_Receive` text,
   PRIMARY KEY (`trade_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1185 ;
 
 -- --------------------------------------------------------
 
@@ -218,15 +226,6 @@ CREATE TABLE IF NOT EXISTS `userCake_Groups` (
   `Color` text NOT NULL,
   PRIMARY KEY (`Group_ID`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
-
---
--- Dumping data for table `userCake_Groups`
---
-
-INSERT INTO `userCake_Groups` (`Group_ID`, `Group_Name`, `Color`) VALUES
-(1, 'User', 'Black'),
-(9, 'Admin', 'Blue'),
-(5, 'Mod', 'Orange');
 
 -- --------------------------------------------------------
 
@@ -251,9 +250,9 @@ CREATE TABLE IF NOT EXISTS `userCake_Users` (
   `BannedBy` varchar(55) DEFAULT NULL,
   `Shares` int(11) DEFAULT NULL,
   `Banned` int(11) DEFAULT NULL,
-  `api_key` text,
+  `LastTimeSeen` datetime DEFAULT NULL,
   PRIMARY KEY (`User_ID`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=677 ;
 
 -- --------------------------------------------------------
 
@@ -268,13 +267,6 @@ CREATE TABLE IF NOT EXISTS `usersactive` (
   `last_update` text NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
-
---
--- Dumping data for table `usersactive`
---
-
-INSERT INTO `usersactive` (`id`, `users_logged_in`, `total_users`, `last_update`) VALUES
-(1, 0, 0, '');
 
 -- --------------------------------------------------------
 
@@ -295,7 +287,7 @@ CREATE TABLE IF NOT EXISTS `Wallets` (
   `disabled` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`Id`),
   UNIQUE KEY `Id` (`Id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=100 ;
 
 -- --------------------------------------------------------
 
@@ -313,7 +305,7 @@ CREATE TABLE IF NOT EXISTS `Withdraw_History` (
   `Buyer` int(11) NOT NULL DEFAULT '0',
   `Seller` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=460 ;
 
 -- --------------------------------------------------------
 
@@ -330,7 +322,7 @@ CREATE TABLE IF NOT EXISTS `Withdraw_Requests` (
   `Account` varchar(55) NOT NULL,
   `CoinAcronymn` varchar(55) NOT NULL,
   PRIMARY KEY (`Id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=620 ;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

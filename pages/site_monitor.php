@@ -79,7 +79,8 @@ if (isset($_POST["userstats"])) {
 		<table id="page">';
 			
 			$getusers = mysql_query("SELECT * FROM usersactive WHERE `id`=1");
-			$loggedin = mysql_result($getusers, 0, "users_logged_in");
+			$getloggedin = mysql_query("SELECT COUNT(*) AS `count` FROM `userCake_Users` WHERE LastTimeSeen > DATE_SUB(NOW(), INTERVAL 5 MINUTE)");
+			$loggedin = mysql_result($getloggedin, 0, "count");
 			$total = mysql_result($getusers, 0, "total_users");
 			$upda = mysql_result($getusers, 0, "last_update");
 				echo "

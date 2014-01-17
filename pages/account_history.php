@@ -9,7 +9,11 @@ $user = $loggedInUser->user_id;
 $act_name = $loggedInUser->display_username;
 
 ?>
-
+<b style='color: red;'>Don't panic. The history is wrong because the order<br/> 
+stacking causes all orders to execute simultaneously</br> 
+when possible, causing one history record for many trades</br>.
+ we'll have this issue resolved shortly. just calm down.
+ Thank you.</b><br/>
 <div style="margin: 0 auto;">
 <h1>All History for <?php echo $act_name; ?></h1>
 <div class="top">
@@ -72,6 +76,34 @@ while ($row = mysql_fetch_assoc($sqlz)) {
 	<td style="width: 25%;"><?php echo $row["Coin"];?></td>
     <td style="width: 25%;"><?php echo sprintf('%.9f',$row["Amount"]);?></td>
 	<td style="width: 25%;"><?php echo $row["Transaction_Id"];?></td>
+</tr>
+<?php
+}
+?>
+</thead>
+</table>
+</div>
+
+<div class="top">
+<center>Your Pending Withdrawals</center>
+</div>
+<div class="box">
+<table id="page" class="data" style="width: 100%;">
+<thead>
+<tr>
+	<th style="width: 25%;">Coin</th>
+	<th style="width: 25%;">Quantity</th>	
+	<th style="width: 25%;">Address</th>	
+</tr>
+<?php
+$sqlza = mysql_query("SELECT * FROM Withdraw_Requests WHERE `User_Id`='$user'");
+while ($row = mysql_fetch_assoc($sqlza)) {
+
+?>
+<tr>
+	<td style="width: 25%;"><?php echo $row["CoinAcronymn"];?></td>
+    <td style="width: 25%;"><?php echo sprintf('%.9f',$row["Amount"]);?></td>
+	<td style="width: 25%;"><?php echo $row["Address"];?></td>
 </tr>
 <?php
 }

@@ -11,6 +11,7 @@ if(isMaintenanceDisabled()) {
 <html>
 	<head>
 	<meta http-equiv="refresh" content="350; URL=https://openex.pw/system/maintenance.php">
+	<link rel="stylesheet" href="../assets/css/style.css" type="text/css" />
 	<title>Maintenance</title>
 	<style>
 	* {

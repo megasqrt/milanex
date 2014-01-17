@@ -10,4 +10,5 @@ $config['table'] = '';
 
 $db = new DB($config);
 
+
 ?>

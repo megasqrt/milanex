@@ -36,7 +36,7 @@ while ($rows = mysql_fetch_assoc($sqls))
 
 ?>
 <tr>
-	<td style="width: 33%;"><?php echo sprintf('%.8f',$row["Value"]);?></td>
+	<td style="width: 33%;"><p onclick="document.getElementById('Amount2').value = '<?php echo sprintf('%.8f',$amount*$value); ?>'; document.getElementById('price2').value = '<?php echo sprintf('%.8f',$value); ?>'; "><?php echo sprintf('%.8f',$row["Value"]);?></p></td>
     <td style="width: 33%;"><?php echo sprintf('%.8f',$amount);?></td>
 	<td style="width: 33%;"><?php echo sprintf('%.8f',$amount * $value);?></td>
 </tr>

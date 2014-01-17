@@ -1,3 +1,14 @@
+<?php
+
+$aboutpage = true;
+
+if($aboutpage = true) {
+
+	echo "under construction";
+}else{
+
+?>
+
 <h1>About</h1>
 <hr>
 <br/>
@@ -38,11 +49,9 @@
 	<div class="aboutlist">
 		<li>r3wt- Administrator/Project Manager/Lead Designer</li>
 		<li>justin7674- Administrator/Lead Developer/Support Specialist</li>
-		<li>shakezula- Administrator/Support Staff</li>
 		<li>gorgorom- Penetration Tester/Risk Analyst</li>
 		<li>Koontas- Forum Administrator/Chat Moderator/Customer Support</li>
 		<li>fivemil420- ChatModerator/Customer Support</li>
-		<li>number6- ChatModerator/Foreign Support Specialist</li>
 		<li>Krichwins- ChatModerator/Customer Support</li>
 		<br/>
 	</div>
@@ -149,3 +158,6 @@
 		</table>
 		</center>
 	</div>
+<?php
+}
+?>

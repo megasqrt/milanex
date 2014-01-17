@@ -17,28 +17,31 @@ $type = $name;
 	<th style="width: 33%;">Total</th>
 </tr>
 <?php
-$sql = mysql_query("SELECT * FROM trades WHERE `Type`='$type' ORDER BY Value DESC");
+$sql = mysql_query("SELECT * FROM trades WHERE `Type`='$type' ORDER BY `Value` DESC");
 $previous = "";
 $amount = 0;
 while ($row = mysql_fetch_assoc($sql)) {
-if($row["Value"] != sprintf("%.8f",$previous))
+if($row["From"] == "BTC") { 
+if(sprintf("%.8f",$row["Value"]) != sprintf("%.8f",$previous))
 {
-$previous = sprintf("%.8f",$row["Value"]);
 $value = sprintf("%.8f",$row["Value"]);
-$sqls = mysql_query("SELECT * FROM trades WHERE `Type`='$type' AND `Value`='$value' AND `To`='$type'");
 $amount = 0;
+$sqls = mysql_query("SELECT * FROM trades WHERE `Value`='$value' AND `From`='BTC' AND `Type`='$type'");
+$num = mysql_num_rows($sqls);
 while ($rows = mysql_fetch_assoc($sqls))
 {
-$amount = $amount + $rows["Amount"];
+	$amount += $rows["Amount"];
 }
-if($row["To"] == $name) { 
+
+
 ?>
 <tr>
-	<td style="width: 33%;"><?php echo sprintf('%.8f',$row["Value"]);?></td>
-    <td style="width: 33%;"><?php echo sprintf('%.8f',$amount); ?></td>
-	<td style="width: 33%;"><?php echo sprintf('%.8f',$amount * $value); ?></td>
+	<td style="width: 33%;"><p onclick="document.getElementById('Amount').value = '<?php echo sprintf('%.8f',$amount); ?>'; document.getElementById('price1').value = '<?php echo sprintf('%.8f',$value); ?>'; "><?php echo sprintf('%.8f',$row["Value"]);?></p></td>
+    <td style="width: 33%;"><?php echo sprintf('%.8f',$amount);?></td>
+	<td style="width: 33%;"><?php echo sprintf('%.8f',$amount * $value);?></td>
 </tr>
 <?php
+$previous = sprintf("%.8f",$row["Value"]);
 }
 }
 }

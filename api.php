@@ -1,8 +1,18 @@
 <?php
 header('Content-type: text/json');
 require_once("models/config.php");
+error_reporting(E_ALL);
+ini_set('display_errors', '1'); 
+if(isset($_GET["Pub"]) && isset($_GET["Priv"]))
+{
 $pub = mysql_real_escape_string($_GET["Pub"]);
 $priv = mysql_real_escape_string($_GET["Priv"]);
+}
+else
+{
+$pub = null;
+$priv = null;
+}
 $method = $_GET["Method"];
 $user_id = 0; //Store user id. If a user does not give their api information they can still access public api functions.
 $status = false;
@@ -12,6 +22,7 @@ if($method == NULL)
 {
 	$errors[count($errors)] = "Method not defined";
 }
+
 if($pub != NULL && $priv != NULL)
 {
 	$sql = @mysql_query("SELECT * FROM Api_Keys WHERE `Public_Key`='$pub' AND `Authentication_Key` ='$priv' ");
@@ -39,6 +50,39 @@ if($user_id != 0)//Allow only verified users to use the following api functions.
 }
 
 //Public methods that do not require API key go below!
+if($method == "GetTradeHistory")
+{
+	$mid = @mysql_real_escape_string($_GET["MarketId"]) or null;
+	$limit = @mysql_real_escape_string($_GET["Limit"]);
+	if($mid == NULL)
+	{
+		$errors[count($errors)] = "MarketId not defined";
+	}
+
+	if($mid != NULL)
+	{
+		$trade_array = array();
+		
+		$sql = @mysql_query("SELECT * FROM Trade_History WHERE `Market_Id`='$mid' ORDER BY Timestamp DESC LIMIT " . intval($limit));
+		$num = @mysql_num_rows($sql);
+		for($i = 0;$i<$num;$i++)
+		{
+		
+			$amount = @mysql_result($sql,$i,"Quantity");
+			$price = @mysql_result($sql,$i,"Price");
+			$total = $amount * $price;
+			$timestamp = @mysql_result($sql,$i,"Timestamp");
+		
+		$results[count($results)] = array("Quantity" => sprintf("%.8f",$amount),"PricePer" => sprintf("%.8f",$price),"Total" => sprintf("%.8f",$total),"Timestamp" => $timestamp);
+		}
+		//$results[count($results)] = $trade_array;
+		$status = true;
+	}
+	else
+	{
+		$status = false;
+	}
+}
 if($method == "GetMarketData")
 {
 	$mid = mysql_real_escape_string($_GET["MarketId"]);
@@ -68,8 +112,8 @@ if($method == "GetMarketData")
 		$buy_array = array();
 		for($i = 0;$i<$num;$i++)
 		{
-			$amount = mysql_result($sql,$i,"Amount");
-			$price = mysql_result($sql,$i,"Value");
+			$amount = @mysql_result($sql,$i,"Amount");
+			$price = @mysql_result($sql,$i,"Value");
 			$total = $amount * $price;
 			$buy_array[$i] = array("Quantity" => sprintf("%.8f",$amount),"PricePer" => sprintf("%.8f",$price),"Total" => sprintf("%.8f",$total));
 		}

@@ -8,12 +8,12 @@ echo '<meta http-equiv="refresh" content="0; URL=access_denied.php">';
 if(isUserAdmin($id) === true)
 {
 echo "<h2>Welcome Admin</h2>";
-$sql = mysql_query("SELECT * FROM Tickets");
+$sql = mysql_query("SELECT * FROM Tickets WHERE `opened`='1'");
 }
 if(isUserMod($id) === true)
 {
 echo "<h2>Welcome Moderator</h2>";
-$sql = mysql_query("SELECT * FROM Tickets");
+$sql = mysql_query("SELECT * FROM Tickets WHERE `opened`='1'");
 }
 if(isUserNormal($id)){
 echo "<h2>How may I help you today, <b>".$account."</b> ?</h2>";

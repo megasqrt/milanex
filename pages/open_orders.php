@@ -21,22 +21,40 @@ $user = $loggedInUser->user_id;
 <table id="page" class="data" style="width: 100%;">
 <thead>
 <tr>
-    <th style="width: 25%;">Price (BTC)</th>	
-	<th style="width: 25%;">Quantity(<?php echo $name;?>)</th>	
-	<th style="width: 25%;">Total (BTC)</th>	
-	<th style="width: 25%;">Options</th>
+	<th style="width: 20%;">Type</th>
+    <th style="width: 20%;">Price (BTC)</th>	
+	<th style="width: 20%;">Quantity(<?php echo $name;?>)</th>	
+	<th style="width: 20%;">Total (BTC)</th>	
+	<th style="width: 20%;">Options</th>
 </tr>
 <?php
+if($user != 2)
+{
 $sql = mysql_query("SELECT * FROM trades WHERE `Type`='$type' AND `User_ID`='$user' ORDER BY `Value` ASC");
+}
+else
+{
+$sql = mysql_query("SELECT * FROM trades WHERE `Type`='$type' AND `User_ID`='$user' ORDER BY `Value` ASC");
+}
 while ($row = mysql_fetch_assoc($sql)) {
 	$marketid = $_GET["market"];
 	$ids = $row["Id"];
+	$from = $row["From"];
+	if($from == $row["Type"])
+	{
+		$type = "Sell";
+	}
+	else
+	{
+		$type = "Buy";
+	}
 ?>
 <tr>
-	<td style="width: 25%;"><?php echo sprintf('%.9f',$row["Value"]);?></td>
-    <td style="width: 25%;"><?php echo $row["Amount"];?></td>
-	<td style="width: 25%;"><?php echo sprintf('%.9f',$row["Amount"] * $row["Value"]);?></td>
-	<td style="width: 25%;"><a href="index.php?page=trade&market=<?php echo $marketid; ?>&cancel=<?php echo $ids; ?>">Cancel</a></td>
+	<td style="width: 20%;"><?php echo $type;?></td>
+	<td style="width: 20%;"><?php echo sprintf('%.9f',$row["Value"]);?></td>
+    <td style="width: 20%;"><?php echo $row["Amount"];?></td>
+	<td style="width: 20%;"><?php echo sprintf('%.9f',$row["Amount"] * $row["Value"]);?></td>
+	<td style="width: 20%;"><a href="index.php?page=trade&market=<?php echo $marketid; ?>&cancel=<?php echo $ids; ?>">Cancel</a></td>
 </tr>
 <?php
 }

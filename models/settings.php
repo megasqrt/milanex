@@ -12,7 +12,7 @@
 	
 
 	//Generic website variables
-	$websiteName = "OpenEx 0.3.6";
+	$websiteName = "OpenEx";
 	$websiteUrl = ""; //including trailing slash
 	$emailActivation = false;
 	$resend_activation_threshold = 24;

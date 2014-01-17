@@ -1,7 +1,7 @@
 <?php
 
 require_once("models/config.php");
-if(!isUserAdmin($id) || !isUserLoggedIn())
+if(!isUserAdmin($id) and (!isUserMod($id)) || !isUserLoggedIn())
 {
 echo '<meta http-equiv="refresh" content="0; URL=access_denied.php">';
 die();
@@ -15,6 +15,8 @@ for($i=0;$i<mysql_num_rows($sql);$i++)
 {
 	$Account = mysql_result($sql,$i,"Account");
 	$transaction_id = mysql_result($sql,$i,"Transaction_Id");
+	$amount = mysql_result($sql,$i,"Amount");
+	$coin = mysql_result($sql,$i,"Coin");
 	$sql2 = @mysql_query("SELECT * FROM userCake_Users WHERE `Username_Clean`='$Account'");
 	$ac = @mysql_result($sql2,0,"Username_Clean");
 	if($ac != "")
@@ -22,7 +24,7 @@ for($i=0;$i<mysql_num_rows($sql);$i++)
 	}
 	else
 	{
-		echo "Account: $Account Transaction: $transaction_id <br/>";
+		echo "Account: $Account Transaction: $transaction_id : $amount : $coin<br/> ";
 	}
 }
 ?>

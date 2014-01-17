@@ -1,6 +1,6 @@
 <style type="text/css">#chat_toggle {	visibility: hidden;	display: none;}</style><?phprequire_once("models/config.php");if(isUserLoggedIn()) {	echo '<meta http-equiv="refresh" content="0; URL=index.php?page=account">';	die(); }if(isLoginDisabled()) {    echo "Logins are currently disabled.";}else{
 if(!empty($_POST))
-{	if($_SESSION["Login_Attempts"] > 4)	{		$account = mysql_real_escape_string(strip_tags($loggedInUser->display_username));		$uagent = mysql_real_escape_string(getuseragent()); //get user agent		$ip = mysql_real_escape_string(getIP()); //get user ip		if(isUserLoggedIn) {			if ($account != null) {				$account = mysql_real_escape_string($loggedInUser->display_username);			}			else {				$account = mysql_real_escape_string("Guest/Not Logged In");			}		}		$date = mysql_real_escape_string(gettime());		$sql = @mysql_query("INSERT INTO access_violations (username, ip, user_agent, time) VALUES ('$account', '$ip', '$uagent', '$date');");		$captcha = md5($_POST["captcha"]);				if ($captcha != $_SESSION['captcha'])		{			$errors[] = lang("CAPTCHA_FAIL");		}			}
+{	if($_SESSION["Login_Attempts"] > 4)	{		$account = mysql_real_escape_string(strip_tags($loggedInUser->display_username));		$uagent = mysql_real_escape_string(getuseragent()); //get user agent		$ip = mysql_real_escape_string(getIP()); //get user ip		$account = mysql_real_escape_string("Guest/Not Logged In");		$date = mysql_real_escape_string(gettime());		$sql = @mysql_query("INSERT INTO access_violations (username, ip, user_agent, time) VALUES ('$account', '$ip', '$uagent', '$date');");		$captcha = md5($_POST["captcha"]);				if ($captcha != $_SESSION['captcha'])		{			$errors[] = lang("CAPTCHA_FAIL");		}			}
 		$errors = array();
 		$username = trim($_POST["username"]);
 		$password = trim($_POST["password"]);
@@ -46,7 +46,7 @@ if(!empty($_POST))
 						$loggedInUser->clean_username = $userdetails["Username_Clean"];		
 						$loggedInUser->updateLastSignIn();						
 		
-						$_SESSION["userCakeUser"] = $loggedInUser;												$getactive = mysql_query("SELECT `users_logged_in` FROM `usersactive` WHERE `id`='1'");						$count = mysql_result($getactive, 0, 'users_logged_in');						$new = $count + 1;						$time = gettime();						$login = mysql_query("UPDATE usersactive SET `users_logged_in`='$new' WHERE `id`=1 ");						$update = mysql_query("UPDATE usersactive SET `last_update`='$time' WHERE `id`=1 ");						sleep(1);
+						$_SESSION["userCakeUser"] = $loggedInUser;																		sleep(1);
 						echo '<meta http-equiv="refresh" content="0; URL=index.php?page=home">';
 						die();
 					}
@@ -79,12 +79,12 @@ if(!empty($_POST))
 		</tr>		
 		<tr>
 			<td><input type="password" name="password" placeholder="password" class="field" /></td>			<br/>
-		</tr>		
-		<tr>
-			<td valign="top"><input type="checkbox" class="checkbox-size" id="login-check" /><label for="login-check">Remember me</label></td>			<br/>
-		</tr>		
+		</tr>
+		<tr>
+			<td><input type="checkbox" style="float: left; margin-right: 0.4em;" id="login-check" name="remember"/><label for="remember" style="color: #fff !important; font-size: 18px; text-align: left; display: inline;">Remember me</label></td>
+			<hr class='five'>			<br/>			<br/>		</tr>
 		<tr><?php	if($_SESSION["Login_Attempts"] > 4)	{		echo 		'		<tr>			<td>				<center><img src="pages/docs/captcha.php" class="captcha"></center>			</td>		</tr>		<tr>			<td>				<input name="captcha" type="text" placeholder="Enter Security Code" class="field">			</td>		</tr>		';	}?>
-			<td><input type="submit" id="loginbutton" class="blues"/></td>
+			<td><input type="submit" id="loginbutton" class="blues" onclick="this.disabled=true;this.value='Logging In...';this.form.submit();"/></td>
 		</tr>
 		<tr>
 			<th></th>

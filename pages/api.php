@@ -13,7 +13,6 @@ $api_select = mysql_query("SELECT * FROM Api_Keys WHERE `User_ID`='$id'");
 if(mysql_num_rows($api_select) > 0) {
 	$pkey = mysql_result($api_select, 0, "Public_Key");
 	$akey = mysql_result($api_select, 0, "Authentication_Key");
-	
 	echo '<h3>Your Public Key is:</h3><br/>';
 	echo $pkey;
 	echo '<br/>';
@@ -32,11 +31,11 @@ if(mysql_num_rows($api_select) > 0) {
 	$priv_check_no_collision = mysql_query("SELECT `Authentication_Key` FROM Api_Keys WHERE `Authentication_Key` = '$toprivate'");
 
 	if(mysql_num_rows($pub_check_no_collision) > 0 ) {
-		echo '<meta http-equiv="refresh" content="0; URL=index.php?page=api2">';
+		echo '<meta http-equiv="refresh" content="0; URL=index.php?page=api">';
 	}else{
 	
 	$api_insert = mysql_query("INSERT INTO Api_Keys (`Public_Key`,`Authentication_Key`,`User_ID`) VALUES ('$topublic','$toprivate','$id')");
-	echo '<meta http-equiv="refresh" content="0; URL=index.php?page=api2">';
+	echo '<meta http-equiv="refresh" content="0; URL=index.php?page=api">';
 	}
 
 }

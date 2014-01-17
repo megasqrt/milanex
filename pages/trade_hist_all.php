@@ -22,7 +22,7 @@ while ($row = mysql_fetch_assoc($sqlz)) {
 ?>
 <tr>
 	<td style="width: 25%;"><?php echo sprintf('%.9f',$row["Price"]);?></td>
-    <td style="width: 25%;"><?php echo $row["Quantity"];?></td>
+    <td style="width: 25%;"><?php echo sprintf('%.9f',$row["Quantity"]);?></td>
 	<td style="width: 25%;"><?php echo sprintf('%.9f',$row["Quantity"] * $row["Price"]);?></td></tr>
 	<?php
 	}
