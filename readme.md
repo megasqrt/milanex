@@ -3,9 +3,9 @@ OpenEx.pw 0.3
 THIS IS BETA SOFTWARE. IT IS UNPROVEN. USE AT YOUR OWN RISK.
 
 build percentage=97%
-build status= functional
-build name= o-slice1.1
-release= openex 0.3.6
+build status= stable
+build name= l
+release= openex 0.4
 build date=1/9/2014
 
 technologies used/required:
