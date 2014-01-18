@@ -14,9 +14,11 @@ if(isMaintenanceDisabled()) {
 	session_start();
 	$_SESSION["BYPASS"] = $_GET["BYPASS"];
 	}
-	if(!isUserAdmin($id) && $_SESSION["BYPASS"] != "6e8a8b178d6898ee180b4fc600ec91885bbb21f6e3bad3870eb570a1d204f2022ba96d794c2f85e1d271abe266b01ee290edac18ee61cb461fc6ee2236eee73619c93c556bca803a04cf29bb0") {
-	echo '<meta http-equiv="refresh" content="0; URL='.$maint_url.'">';
-	die();
+	if(isUserAdmin($id)) {}
+	elseif($_SESSION["BYPASS"] == "ef81e7093975ee9ce364d9dc0aceabd056ee89bb9f5a230f3e1ccb08bbc610b40393b1871e840dda182715846a772084933d585499844b6521786c28b646cf52") {
+	}else{
+		echo '<meta http-equiv="refresh" content="0; URL='.$maint_url.'">';
+		die();
 	}
 }
 if(isUserLoggedIn){
@@ -164,7 +166,8 @@ if(isUserLoggedIn){
 				if($_GET['page'] == 'trade') {
 					?>
 
-					var MarketId = <?php echo($_GET['market']); ?>;
+				
+					var MarketId = <?php echo json_encode($_GET['market']); ?>;
 					$("#sellorders").load('./pages/open_orders_from.php?market=' + MarketId +'');
 					$("#buyorders").load('./pages/open_orders_to.php?market=' + MarketId +'');
 					var refreshOrderbooks = function() {
