@@ -15,7 +15,7 @@ if(isMaintenanceDisabled()) {
 	$_SESSION["BYPASS"] = $_GET["BYPASS"];
 	}
 	if(isUserAdmin($id)) {}
-	elseif($_SESSION["BYPASS"] == "ef81e7093975ee9ce364d9dc0aceabd056ee89bb9f5a230f3e1ccb08bbc610b40393b1871e840dda182715846a772084933d585499844b6521786c28b646cf52") {
+	elseif($_SESSION["BYPASS"] == "") {
 	}else{
 		echo '<meta http-equiv="refresh" content="0; URL='.$maint_url.'">';
 		die();
