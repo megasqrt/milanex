@@ -1,8 +1,8 @@
 <?php
+require_once ('system/csrfmagic/csrf-magic.php');
+$aboutpage = false;
 
-$aboutpage = true;
-
-if($aboutpage = true) {
+if($aboutpage == true) {
 
 	echo "under construction";
 }else{
@@ -42,17 +42,20 @@ if($aboutpage = true) {
 	
 <b><u>How much does OpenEx make in commissions?</u></b>
 	<div class="aboutlist">
-		<li>OpenEx charges a trade fee of 0.5% and a withdrawal fee of 0.1%. In the future, this will be changed to a fairer system where the percentage is roughly double the network transaction fee of each coin.</li>
+		<li>OpenEx charges a trade fee of 0.5% and a withdrawal fee of 0.02%. In the future, this will be changed to a fairer system where the percentage is roughly double the network transaction fee of each coin.</li>
 	</div>
 	
 <b><u>Who Are the Staff Members and what are their roles?</u></b>
 	<div class="aboutlist">
-		<li>r3wt- Administrator/Project Manager/Lead Designer</li>
-		<li>justin7674- Administrator/Lead Developer/Support Specialist</li>
+		<li>r3wt(Garrett Morris)- Administrator/Project Manager/Lead Designer</li>
+		<li>justin7674(Justin Gillett)- Original System Design</li>
+		<li>mblanchard(Michael Blanchard)- Administrator/Co-Developer</li>
+		<li>x3maniac- Administration/Developer</li>
 		<li>gorgorom- Penetration Tester/Risk Analyst</li>
 		<li>Koontas- Forum Administrator/Chat Moderator/Customer Support</li>
 		<li>fivemil420- ChatModerator/Customer Support</li>
 		<li>Krichwins- ChatModerator/Customer Support</li>
+		<li>Matt Smith- Moderator/Development Support</li>
 		<br/>
 	</div>
 	
@@ -103,7 +106,7 @@ if($aboutpage = true) {
 			
 			<tr>
 				<td><b>User System and Core Functions</b></td>
-				<td><a href="http://usercake.com">userCake v 1.4.2(Link)</a></td>
+				<td><a href="http://usercake.com">userCake v 1.4.1(Link)**heavily modified</a></td>
 			</tr>
 			
 			<tr>
@@ -155,6 +158,33 @@ if($aboutpage = true) {
 				<td><b>Deposit System</b></td>
 				<td>Justin Gillett</td>
 			</tr>
+			
+			<tr>
+				<td><b>Withdrawal System</b></td>
+				<td>Garrett Morris</td>
+			</tr>
+			
+			<tr>
+				<td><b>Security Fixes</b></td>
+				<td>The Flying Spaghetti Monster</td>
+			</tr>
+			
+			<tr>
+				<td><b>JSON-RPC Security Patch</b></td>
+				<td>Gweedo</td>
+			</tr>
+			
+			<tr>
+				<td><b>API</b></td>
+				<td>Justin Gillett</td>
+			</tr>
+			
+			<tr>
+				<td><b>API Keygen</b></td>
+				<td>Garrett Morris</td>
+			</tr>
+			
+			
 		</table>
 		</center>
 	</div>

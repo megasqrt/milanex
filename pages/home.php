@@ -1,4 +1,6 @@
-
+<?php
+require_once ('system/csrfmagic/csrf-magic.php');
+?>
 <div class="container">
 	<div class="innertube">
 		<h2>Welcome to</h2>

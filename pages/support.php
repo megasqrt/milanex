@@ -1,5 +1,5 @@
 <?php
-
+require_once ('system/csrfmagic/csrf-magic.php');
 $id = $loggedInUser->user_id;
 $account = $loggedInUser->display_username;
 if(!isUserLoggedIn()){
@@ -16,13 +16,14 @@ echo "<h2>Welcome Moderator</h2>";
 $sql = mysql_query("SELECT * FROM Tickets WHERE `opened`='1'");
 }
 if(isUserNormal($id)){
-echo "<h2>How may I help you today, <b>".$account."</b> ?</h2>";
-echo "
-<ul class='nobullets'>
-	<li style='width: 200px !important; lineheight: 35px;' class='blues'><h3><a href='index.php?page=newticket'>Get Support</a></h3></li>
-</ul>
-</br>";
-$sql = mysql_query("SELECT * FROM Tickets WHERE `user_id`='$id'");
+	echo "<h2>How may I help you today, <b>".$account."</b> ?</h2>";
+	echo "
+	<ul class='nobullets'>
+		<li style='width: 200px !important; lineheight: 35px;' class='blues'><h3><a href='index.php?page=newticket'>Get Support</a></h3></li>
+		<li style='width: 200px !important; lineheight: 35px;' class='blues'><h3><a href='index.php?page=fchk'>Missing Deposit</a></h3></li>
+	</ul>
+	</br>";
+	$sql = mysql_query("SELECT * FROM Tickets WHERE `user_id`='$id'");
 }
 
 $num = mysql_num_rows($sql);

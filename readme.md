@@ -2,11 +2,11 @@ OpenEx.pw 0.3
 
 THIS IS BETA SOFTWARE. IT IS UNPROVEN. USE AT YOUR OWN RISK.
 
-build percentage=97%
+build percentage=98%
 build status= stable
-build name= l
-release= openex 0.4
-build date=1/9/2014
+build name= l.2-dev
+release= openex 0.4.6
+build date=1/22/2014
 
 technologies used/required:
 nginx
@@ -17,20 +17,16 @@ jquery(included) <-- All rights reserved
 fontawesome(included) <-- All rights reserved
 userCake(Heavily Modified) <--All Rights reserved
 mysqli.class.php <--Jesse boyer, all rights reserved(jream.net)
-
+csrf-magic <-- all rights reserved
 
 Demo(live trading site)->https://openex.pw
 
 known issues:
 
-chat scroll doesn't always work.
-trading fee's sometimes don't refund on cancelled trades.
-ajax resources cause high load. you will need an expensive server if you plan on serving many users at all.
-site config page isn't functional. you will have to change the settings in the db.
-api key generation can cause extreme load on small servers.
-session timeout results in chat still showing the text box, but users can't submit a message
-withdrawal system is only semi automated. administrator's must confirm them in the withdrawal queue page
-
+unable to scroll up in chat. will fix in a later release.
+trade engine is closed source and not included unless purchased
+ajax resources cause high load.
+withdrawal system is only semi automated.
 
 other information:
 

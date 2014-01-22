@@ -1,5 +1,5 @@
 <?php
-
+require_once ('system/csrfmagic/csrf-magic.php');
 require_once("models/config.php");
 
 if(!isUserAdmin($id) || !isUserLoggedIn())

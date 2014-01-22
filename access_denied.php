@@ -1,4 +1,5 @@
 <?php
+require_once ('system/csrfmagic/csrf-magic.php');
 require_once("models/config.php");
 
 $account = mysql_real_escape_string(strip_tags($loggedInUser->display_username));

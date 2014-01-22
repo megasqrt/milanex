@@ -1,9 +1,5 @@
 <?php
-//error_reporting(E_ALL);
-//ini_set('display_errors', 1);
-$title="OpenEx";
-$maint_url = "system/maintenance.php";
-date_default_timezone_set('America/New_York');
+
 require_once("settings.php");
 require_once("db/".$dbtype.".php");
 $db = new $sql_db();
@@ -18,7 +14,7 @@ require_once("class.mail.php");
 require_once("funcs.user.php");
 require_once("funcs.general.php");
 require_once("class.newuser.php");
-require_once("class.wallet.php");
+include("class.wallet.php");
 
 session_start();
 if(isset($_SESSION["userCakeUser"]) && is_object($_SESSION["userCakeUser"])) {

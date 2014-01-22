@@ -1,4 +1,5 @@
 <?php
+require_once ('system/csrfmagic/csrf-magic.php');
 header('Content-type: text/json');
 require_once("models/config.php");
 error_reporting(E_ALL);
@@ -23,7 +24,7 @@ if($method == NULL)
 	$errors[count($errors)] = "Method not defined";
 }
 
-if($pub != NULL && $priv != NULL)
+if(isset($pub) && isset($priv))
 {
 	$sql = @mysql_query("SELECT * FROM Api_Keys WHERE `Public_Key`='$pub' AND `Authentication_Key` ='$priv' ");
 	$user_id = @mysql_result($sql,0,"User_ID") or 0;
@@ -35,22 +36,122 @@ if($pub != NULL && $priv != NULL)
 
 if($user_id != 0)//Allow only verified users to use the following api functions.
 {
-	if($method = "CreateNewTrade")
+	if($method == "GetPrivTradeHistory")
 	{
-		$price = mysql_real_escape_string($_GET["Price"]);
-		$amount = mysql_real_escape_string($_GET["Amount"]);
+		$mid = @mysql_real_escape_string($_GET["MarketId"]) or null;
+		$limit = @mysql_real_escape_string($_GET["Limit"]) or 10;
+		if($mid == NULL)
+		{
+			$errors[count($errors)] = "MarketId not defined";
+		}
+
+		if($mid != NULL)
+		{
+			$trade_array = array();
+			
+			$sql = @mysql_query("SELECT * FROM Trade_History WHERE `Market_Id`='" . intval($mid) . "' AND (`Buyer` = '". intval($user_id) . "' OR `Seller`='" . intval($user_id) ."') ORDER BY Timestamp DESC LIMIT " . intval($limit));
+			$num = @mysql_num_rows($sql);
+			for($i = 0;$i<$num;$i++)
+			{
+			
+				$amount = @mysql_result($sql,$i,"Quantity");
+				$price = @mysql_result($sql,$i,"Price");
+				$total = $amount * $price;
+				$timestamp = @mysql_result($sql,$i,"Timestamp");
+				$buyer = @mysql_result($sql,$i,"Buyer");
+				$type = "";
+				if($buyer == $user_id)
+				{
+					$type = "BUY";
+				}
+				else
+				{
+					$type = "SELL";
+				}
+				$status = true;
+				$results[count($results)] = array("Quantity" => sprintf("%.8f",$amount),"PricePer" => sprintf("%.8f",$price),"Total" => sprintf("%.8f",$total),"Timestamp" => $timestamp,"Type" => $type);
+			}
+		}
+		else
+		{
+			$status = false;
+		}
+	}
+	elseif($method = "GetBalance")
+	{
 		$mid = mysql_real_escape_string($_GET["MarketId"]);
+		if($mid == NULL)
+		$errors[count($errors)] = "MarketId not defined";
+		$b_sql = @mysql_query("SELECT SUM(Amount) as `Amount` FROM balances WHERE User_ID='" . intval($user_id) . "' AND `Wallet_ID` = '" . intval($mid) . "'");
+		$b_amt = mysql_result($b_sql,0,"Amount");
+		if($b_amt > 0.000000009)
+		{
+			$status = true;
+			$results[count($results)] = array("MarketId" => $mid, "Balance" => sprintf("%0.8f",$b_amt));
+		}
+		
+	}
+	elseif($method = "CreateNewTrade")
+	{
+		$price = @mysql_real_escape_string($_GET["Price"]);
+		$amount = @mysql_real_escape_string($_GET["Amount"]);
+		$type = @mysql_real_escape_string($_GET["Type"]);
+		$mid = @mysql_real_escape_string($_GET["MarketId"]);
 		if($price == NULL)
 		$errors[count($errors)] = "Price not defined";
 		if($amount == NULL)
 		$errors[count($errors)] = "Amount not defined";
 		if($mid == NULL)
 		$errors[count($errors)] = "MarketId not defined";
+		if($type == NULL)
+		$errors[count($errors)] = "Type not defined";
+		
+		if(count($errors) == 0)
+		{
+			$sql = @mysql_query("SELECT * FROM Wallets WHERE `Id`='" . intval($mid) . "'");
+			$w_name = mysql_result($sql,0,"Acronymn");
+			$s_trade_to = "";
+			$s_trade_from = "";
+			$s_trade_fee = $amount * $price * 0.005;
+			$status = true;
+			if($type == "BUY")
+			{
+				$s_price = $amount * $price * 1.005;
+				$s_trade_to = $w_name;
+				$s_trade_from = "BTC";
+			}
+			elseif($type == "SELL")
+			{
+				$s_price = $amount;
+				$s_trade_from = $w_name;
+				$s_trade_to = "BTC";
+			}
+			if(TakeMoney($s_price,$user_id,$s_trade_from) == true)
+			{
+				$New_Trade = new Trade();
+				$New_Trade->trade_to = $s_trade_to;
+				$New_Trade->trade_from = $s_trade_from;
+				$New_Trade->trade_amount = $amount;
+				$New_Trade->trade_value = $price;
+				$New_Trade->trade_owner = $user_id;
+				$New_Trade->trade_type = $w_name;
+				$New_Trade->trade_fees = $s_trade_fee;
+				$New_Trade->trade_total = $s_price;
+				$New_Trade->trade_type = $w_name;
+				$New_Trade->UpdateTrade();
+				$status = true;
+				$results[count($results)] = array("Fee" => $s_trade_fee,"Total" => $s_price);
+			}
+			else
+			{
+				$errors[count($errors)] = "You must have atleast $s_price $s_trade_from";
+			}
+		}
 	}
 }
 
 //Public methods that do not require API key go below!
-if($method == "GetTradeHistory")
+elseif($method == "GetTradeHistory")
 {
 	$mid = @mysql_real_escape_string($_GET["MarketId"]) or null;
 	$limit = @mysql_real_escape_string($_GET["Limit"]);
@@ -75,7 +176,6 @@ if($method == "GetTradeHistory")
 		
 		$results[count($results)] = array("Quantity" => sprintf("%.8f",$amount),"PricePer" => sprintf("%.8f",$price),"Total" => sprintf("%.8f",$total),"Timestamp" => $timestamp);
 		}
-		//$results[count($results)] = $trade_array;
 		$status = true;
 	}
 	else
@@ -83,7 +183,7 @@ if($method == "GetTradeHistory")
 		$status = false;
 	}
 }
-if($method == "GetMarketData")
+elseif($method == "GetMarketData")
 {
 	$mid = mysql_real_escape_string($_GET["MarketId"]);
 	if($mid == NULL)
@@ -122,7 +222,7 @@ if($method == "GetMarketData")
 	}
 }
 
-if($method == "GetConversion")
+elseif($method == "GetConversion")
 {
 	$mid = mysql_real_escape_string($_GET["MarketId"]);
 	$amt = mysql_real_escape_string($_GET["Amount"]);

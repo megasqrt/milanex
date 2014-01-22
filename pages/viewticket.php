@@ -1,6 +1,6 @@
-<?phpif(!isUserLoggedIn()) {	echo '<meta http-equiv="refresh" content="0; URL=access_denied.php">';	die(); }
+<?phprequire_once ('system/csrfmagic/csrf-magic.php');if(!isUserLoggedIn()) {	echo '<meta http-equiv="refresh" content="0; URL=access_denied.php">';	die(); }
 $id    = @mysql_real_escape_string($_GET["id"]);
-$sql   = @mysql_query("SELECT * FROM Tickets WHERE `id`=$id");
+$sql   = @mysql_query("SELECT * FROM Tickets WHERE `id`='$id'");
 $owner = @mysql_result($sql, 0, "user_id");
 if ($loggedInUser->user_id == $owner OR isUserAdmin($loggedInUser->user_id) OR isUserMod($loggedInUser->user_id)) {
     if (isset($_GET["action"])) {

@@ -1,5 +1,5 @@
 <?php
-
+require_once ('system/csrfmagic/csrf-magic.php');
 if(!isUserLoggedIn()) 
 {
 	echo '<meta http-equiv="refresh" content="0; URL=access_denied.php">';
@@ -40,9 +40,9 @@ else
 ?>
 <tr>
 	<td style="width: 25%;"><?php echo $info;?></td>
-	<td style="width: 25%;"><?php echo sprintf('%.9f',$row["Price"]);?></td>
+	<td style="width: 25%;"><?php echo sprintf('%.8f',$row["Price"]);?></td>
     <td style="width: 25%;"><?php echo $row["Quantity"];?></td>
-	<td style="width: 25%;"><?php echo sprintf('%.9f',$row["Quantity"] * $row["Price"]);?></td></tr>
+	<td style="width: 25%;"><?php echo sprintf('%.8f',$row["Quantity"] * $row["Price"]);?></td></tr>
 	<?php
 	}
 	?>

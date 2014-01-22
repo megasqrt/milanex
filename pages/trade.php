@@ -2,6 +2,7 @@
 error_reporting(E_ALL);
 require_once("models/config.php");
 include("models/class.trade.php");
+require_once ('system/csrfmagic/csrf-magic.php');
 $id = mysql_real_escape_string($_GET["market"]);
 $id2 = $loggedInUser->user_id;
 $s_id = 993;
@@ -42,6 +43,10 @@ $trade_data = $Trade_Data;
 
 if (isUserLoggedIn()) 
 { 
+$errors = array();
+$error = false;
+$successes = array();
+$success = false;
 $ip = getIP();
 $token1 = getToken($id2,$ip);
 $token2 = getToken($id2,$ip);
@@ -119,7 +124,8 @@ if(isset($_POST["price2"]))
 				}
 				else
 				{
-					echo "<p class='notify-red' id='notify'>You cannot afford that!</p>";
+					$error = true;
+					$errors[] = "You cannot afford that!<br/>";
 				}
 			}else{
 				echo "invalid token";
@@ -130,7 +136,8 @@ if(isset($_POST["price2"]))
 	}
 	else
 	{
-		echo "<p class='notify-red' id='notify'>Please fill in all the forms!!</p>";
+		$error = true;
+		$errors[] = "Please fill in all the forms!!<br/>";
 	}
 }
 if (isset($_GET["cancel"])) {
@@ -204,10 +211,12 @@ if(isset($_POST["Amount"]))
 					//$New_Trade->GetEquivalentTrade();
 					//$New_Trade->ExecuteTrade();
 					$New_Trade->UpdateTrade();
+					echo '<meta http-equiv="refresh" content="0; URL=index.php?page=trade&market='.$id.'">';
 				}
 				else
 				{
-					echo "<p class='notify-red' id='notify'>You cannot afford that!</p>";
+					$error = true;
+					$errors[] = "You cannot afford that!</br>";
 				}
 				
 			}else{
@@ -216,16 +225,22 @@ if(isset($_POST["Amount"]))
 			}
 		}	
 	}else{
-		echo "<p class='notify-red' id='notify'>Please fill in all the forms!!</p>";
+		$error = true;
+		$errors[] = "Please fill in all the forms!!<br/>";
+		
 	}
 }
 
+if($error == false) {
+	
+}else{
+	errorBlock($errors);
+}
 ?>
-<link rel="stylesheet" type="text/css" href="../assets/css/trade.css" />
-<link href="assets/css/tables.css" type="text/css" rel="stylesheet" />
 <center><h1>Trade <?php echo $fullname; ?></h1></center>
-	</body>
-</div>
+<hr class="five" />
+<a id="refresh" href="index.php?page=trade&market=<?php echo $id; ?>">Click Here to Refresh</a>
+<hr class="five" />
 <div id="boxB">
 	<div id="boxA">
 		<div id="col1">
@@ -236,14 +251,16 @@ if(isset($_POST["Amount"]))
 				$("#Amount").val(<?php echo sprintf("%.8f",$curbal); ?>);
 			}
 			</script>
-			<center><h2>Sell <?php echo $name; ?></h2></center>
-			<div id="sellform" >
+			<div class="top">
+			<center>Sell <?php echo $name; ?></center>
+			</div>
+			<div id="sellform" class="color3">
 				<center><h3>Available(<?php echo $name; ?>): <span onclick="fillSellAmount();" style="cursor:pointer; "><u><?php echo sprintf("%.8f",$curbal); ?></u></span></h3></center><br/>
 				<form action="index.php?page=trade&market=<?php echo $id; ?>" method="POST" autocomplete="off" history="off" onsubmit="document.getElementById('#Sell').disabled = 1;"> 
 					<input type="hidden" name="token1" value="<?php echo $token1;?>"/>
 					<input class="fieldsmall" type="text" style="width:150px;" name="Amount" onKeyUp="calculateFees1(this)" id="Amount" placeholder="Amount(<?php echo $name; ?>)"/><br/>
 					<input class="fieldsmall" type="text" style="width:150px;" name="price1" onKeyUp="calculateFees1(this)" id="price1" placeholder="Price(BTC)"/><br/>
-					<input class="fieldsmall" type="text" style="width:150px;" onKeyUp="calculateFees4()" id="earn1"placeholder="Receive(BTC)"/></br>
+					<input class="fieldsmall" type="text" style="width:150px;" onKeyUp="calculateFees4()" id="earn1"placeholder="Receive(BTC)" readonly /></br>
 					<input class="miniblues" style="width:150px; height: 25px;" type="submit" name="Sell" value="Sell" id="Sell" onclick="this.disabled=true;this.value='Submitting trade...';this.form.submit();"/>
 				</form>
 			</div>
@@ -261,14 +278,16 @@ if(isset($_POST["Amount"]))
 				$("#Amount2").val(<?php echo sprintf("%.8f",$curbtc); ?>);
 			}
 			</script>
-			<center><h2>Buy <?php echo $name; ?></h2></center>
-			<div id="buyform">
+			<div class="top">
+			<center>Buy <?php echo $name; ?></center>
+			</div>
+			<div id="buyform" class="color3">
 				<center><h3>Available(BTC): <span onclick="fillBuyAmount();" style="cursor:pointer; "><u><?php echo sprintf("%.8f",$curbtc); ?></u></span></h3></center><br/>
 				<form action="index.php?page=trade&market=<?php echo $id; ?>" method="POST" autocomplete="off" history="off" onsubmit="document.getElementById('#Buy').disabled = 1;">
 					<input type="hidden" name="token2" value="<?php echo $token2;?>"/>
 					<input class="fieldsmall" type="text" style="width:150px;" onKeyUp="calculateFees2()" name="Amount2" id="Amount2" placeholder="Amount(BTC)"/><br/>
 					<input class="fieldsmall" type="text" style="width:150px;" id="price2" onKeyUp="calculateFees2()" onKeyUp="calculateFees2()" name="price2" placeholder="Price(BTC)"/><br/>
-					<input class="fieldsmall" type="text" style="width:150px;" onKeyUp="calculateFees3()" id="fee2" placeholder="Receive (<?php echo $name;?>)"/><br/>
+					<input class="fieldsmall" type="text" style="width:150px;" onKeyUp="calculateFees3()" id="fee2" placeholder="Receive (<?php echo $name;?>)" readonly /><br/>
 					<input class="miniblues" style="width:150px; height: 25px;" type="submit" name="Buy" id="Buy" value="Buy" onclick="this.disabled=true;this.value='Submitting trade...';this.form.submit();"/>
 				</form>
 			</div>

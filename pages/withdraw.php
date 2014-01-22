@@ -1,5 +1,6 @@
 <?php
 require_once("models/config.php");
+require_once('system/csrfmagic/csrf-magic.php');
 if (isWithdrawalDisabled()) {
 	echo 'Withdrawals are currently disabled see our <a href="https://twitter.com/_OpenEx_">Twitter Account</a> for details.';
 }else{
@@ -12,13 +13,14 @@ if (isWithdrawalDisabled()) {
 		$idtw = mysql_real_escape_string(strip_tags($_GET["id"]));
 		$init = mysql_query("SELECT * FROM Wallets where `Id`='$idtw'");
 		if(mysql_num_rows($init) > 0) {
+			$maxwithdrawal = 10000000;
 			$coinfull = mysql_result($init, 0, "Name");
 			$coin = mysql_result($init, 0, "Acronymn");
 			if($idtw == 78) { $minwithdrawal = .00000001; }
-			elseif($idtw == 1) { $minwithdrawal = .001; }
+			elseif($idtw == 1) { $minwithdrawal = .01; }
 			elseif($idtw == 86) { $minwithdrawal = 1; }
 			elseif($idtw == 91) { $minwithdrawal = 1;}
-			else { $minwithdrawal = .001; }
+			else { $minwithdrawal = .1; }
 			$todo1 = mysql_query("SELECT * FROM balances WHERE `Wallet_ID`='$idtw' AND `User_Id`='$user_id'");
 			$total = mysql_result($todo1, 0, "Amount");
 			$token = getToken($user_id,$ip);
@@ -29,9 +31,7 @@ if (isWithdrawalDisabled()) {
 				$("#Amount").val(<?php echo sprintf("%.8f",$total); ?>);
 			}
 		</script>
-		<h3 color="red"> we have limited supply of BLC, 42, and SKC. if you keep getting rejected withdraw</br>
-		withdraw a smaller amount. we will have to owe you the difference.</br> we apologize in advance. </br>
-		this was separate than the hack, it was due to the double coin on cancel bug the site had a few days ago</br>
+		<h3 color="red">Withdrawals are subject to administrator approval and may be delayed.</br> 
 		</h3>
 		<hr class="five">
 		<h2>Withdraw <?php echo $coinfull; ?></h2>
@@ -63,10 +63,12 @@ if (isWithdrawalDisabled()) {
 			
 			if(isset($_POST["withdraw"]))  {
 				$errors = array();
+				$successes = array();
 				$userdetails = fetchUserDetails($account);
 				$password = mysql_real_escape_string(trim($_POST["password"]));
 				$entered_pass = generateHash($password,$userdetails["Password"]);
 				$error = false;
+				$success = false;
 				$postedToken = filter_input(INPUT_POST, 'token');
 				if(!empty($postedToken)){
 					if(isTokenValid($postedToken)){
@@ -79,7 +81,11 @@ if (isWithdrawalDisabled()) {
 							$error = true;
 						}
 						if($_POST["amount"] < $minwithdrawal) {
-							$errors[] = "The minimum allotted withdrawal for ".$coinfull." is ".$minwithdrawal." coins";	
+							$errors[] = "The minimum allotted withdrawal for ".$coinfull." is ".sprintf("%.8f",$minwithdrawal)." coins";	
+							$error = true;
+						}
+						if($_POST["amount"] > $maxwithdrawal) {
+							$errors[] = "The minimum allotted withdrawal for ".$coinfull." is ".$maxwithdrawal." coins";	
 							$error = true;
 						}
 						if(($_POST["amount"] == NULL)) {
@@ -91,6 +97,8 @@ if (isWithdrawalDisabled()) {
 							$error = true;
 						}
 						if($error == false){
+							$success = true;
+							
 							$to = mysql_real_escape_string(strip_tags($_POST["recipient"]));
 							$from = mysql_real_escape_string(strip_tags($user_id));
 							$amount = mysql_real_escape_string($_POST["amount"]);
@@ -105,13 +113,10 @@ if (isWithdrawalDisabled()) {
 							$newamt = $total2 - $amount;
 							$todo2 = mysql_query("UPDATE balances SET `Amount`='$newamt' WHERE `Wallet_ID`='$idtw' AND `User_Id`='$user_id'");
 							$todo3 = mysql_query("INSERT INTO Withdraw_Requests (`Amount`,`Address`,`User_Id`,`Wallet_Id`,`Account`,`CoinAcronymn`) VALUES ('$amountf','$to','$from','$idtw','$account','$coin')");
-							echo '<h3>you now have a pending withdrawal</h3><br/>';
+							$successes[] = 'you now have a pending withdrawal';
+							successBlock($successes);
 						}else{
-							echo '<ul class="nobullets">';
-							foreach($errors as $key => $value) {
-								echo '<li>'.$value.'</li>';
-							}
-							echo '</ul>';
+							errorBlock($errors);
 						}	
 					}
 				  }else{

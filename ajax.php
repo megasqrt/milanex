@@ -1,8 +1,8 @@
 <?php
 include 'models/config.php';
 include 'models/chat.config.php';
-$id = $loggedInUser->user_id;
-$username = $loggedInUser->display_username;
+$id = addslashes(strip_tags($loggedInUser->user_id));
+$username = addslashes(strip_tags($loggedInUser->display_username));
 $do = addslashes(strip_tags($_GET['do']));
 if($do === 'load'){
 	$db->query("SELECT * FROM (SELECT * FROM messages WHERE `hidden`='0' ORDER BY `id` DESC LIMIT 100) as last100 ORDER BY id");

@@ -1,0 +1,8 @@
+Hello #USERNAME#
+
+Your Login Token is 
+
+#CONFIRM-URL#
+
+
+OpenEx.pw

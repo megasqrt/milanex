@@ -1,6 +1,6 @@
 <?php
 require_once("models/config.php");
-
+require_once ('system/csrfmagic/csrf-magic.php');
 if(isTORnode()){
 	die("Due to legal restrictions users using TOR Browser are not allowed to access this website.");
 }
@@ -15,15 +15,15 @@ if(isMaintenanceDisabled()) {
 	$_SESSION["BYPASS"] = $_GET["BYPASS"];
 	}
 	if(isUserAdmin($id)) {}
-	elseif($_SESSION["BYPASS"] == "") {
+	if($_SESSION["BYPASS"] == $BYPASS_CONFIG) {
 	}else{
 		echo '<meta http-equiv="refresh" content="0; URL='.$maint_url.'">';
 		die();
 	}
 }
 if(isUserLoggedIn){
-	$account = $loggedInUser->display_username;
-	$id = $loggedInUser->user_id;
+	$id = addslashes(strip_tags($loggedInUser->user_id));
+	$account = addslashes(strip_tags($loggedInUser->display_username));
 	$loggedin = mysql_query("UPDATE `userCake_Users` SET `LastTimeSeen` = NOW() WHERE `User_ID` = '$id'");
 	if(isBant($id)){
 		echo '<meta http-equiv="refresh" content="0; URL=index.php?page=logout">';
@@ -45,7 +45,6 @@ if(isUserLoggedIn){
 	<link rel="stylesheet" href="assets/font-awesome/css/font-awesome.min.css" />
 	<script src="assets/js/jquery.min.js" type="text/javascript"></script>
 	<script type="text/javascript">
-	
 	$('document').ready(function() {
 		$('#chat_toggle').click(function() {
 			$('#chatbox').slideToggle();
@@ -135,20 +134,20 @@ if(isUserLoggedIn){
 	//page transitions
     $(document).ready(function() {
 			
-        $("#contentloader").slideDown(500, function() {
-            $('.spinner').fadeOut();
+        $("#contentchild").fadeIn(100, function() {
+            $('.spinner').fadeOut(500);
         });
 		
 		
         $("a").click(function(event){
-
+			$('.spinner').show();
             event.preventDefault();
 
             linkLocation = this.href;
             
-            $("#contentloader").slideUp(500, function() {
-                $('.spinner').fadeIn(0, redirectPage);
-            });    
+			$("#contentchild").val('');
+            redirectPage();
+                
         });
          
         function redirectPage() {
@@ -235,8 +234,6 @@ if(isUserLoggedIn){
 				';
 				}
 				?>
-				<!--<li><a href="https://openex.mobi" title="mobile sit"><i class="fa fa-mobile"></i></a></li>
-				<li><a href="https://openex.info" target="_blank" title="forums"><i class="fa fa-comments-o"></i></a></li>-->
 				<li><a  href="https://twitter.com/_OpenEx_" target="_blank" title="Follow us on Twitter"><i class="fa fa-twitter"></i></a></li>
 				<li><a  href="https://github.com/r3wt/openex.git" target="_blank" title="View source on Github"><i class="fa fa-github"></i></a></li>
 				<?php
@@ -263,7 +260,6 @@ if(isUserLoggedIn){
 				<li><a  href="index.php?page=moderate" title="moderator area"><i class="fa fa-gavel"></i></a></li>
 				<li><a  href="index.php?page=access_violations" title="access violations"><i class="fa fa-flag-o"></i></a></li>
 				<li><a  href="index.php?page=siteconfig" title="Enable/Disable Features"><i class="fa fa-lock"></i></a></li>
-				<li><a  href="index.php?page=optimize" title="optimize tables"><i class="fa fa-plus"></i></a></li>
 				';
 				} else {
 				
@@ -282,8 +278,12 @@ if(isUserLoggedIn){
 	</div>
 	
 	<div id="markets" class="semi-translucent color2">
+		<hr class="five" />
 		<center><i class="fa fa-bar-chart-o fa-2x" style="color: #fff;">Markets</i></center>
-		<ul class="nobullets">
+		<hr class="five" />
+		<hr/>
+		<hr class="five" />
+		<ul class="nobullets markets">
 		<?php
 			$sqlx = mysql_query("SELECT * FROM Wallets WHERE `disabled`='0' ORDER BY `Acronymn` ASC");
 
@@ -297,9 +297,13 @@ if(isUserLoggedIn){
 				$sqls_2 = @mysql_query("SELECT * FROM Trade_History WHERE `Market_Id`='". $row["Id"] . "' ORDER BY Timestamp DESC");
 				
 				$last_trade = @mysql_result($sqls_2,0,"Price");
-				
+				if($last_trade > 9){
+					$p2disp = round($last_trade);
+				}else{
+					$p2disp = sprintf("%2.8f",$last_trade);
+				}
 			?>
-			<li class='left' ><p title="Trade <?php echo $row["Name"] ?>" onclick="window.location = 'index.php?page=trade&market=<?php echo $row["Id"]; ?>';"><?php echo $row["Acronymn"];?> / BTC<?php echo "<font class='price'>".sprintf("%2.8f",$last_trade)."</font>"; ?></p></li>
+			<li class='box2' ><p title="Trade <?php echo $row["Name"] ?>" onclick="window.location = 'index.php?page=trade&market=<?php echo $row["Id"]; ?>';"><?php echo $row["Acronymn"];?> / BTC<br/><?php echo $p2disp; ?></p></li>
 			<?php
 			
 			}
@@ -311,31 +315,177 @@ if(isUserLoggedIn){
 	<div id="main_content">
 		<center>
 		<div id="contentloader">
+			<center>
+			<div class="spinner"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+			</center>
 			<div id="contentchild">
 			<center>
-				<h3 style="color: green;">If a deposit you made never cleared to your account, please contact support.</h3>
-				<div class="spinner"><i class="fa fa-spinner"></i><i class="fa fa-spinner"></i><i class="fa fa-spinner"></i><i class="fa fa-spinner"></i><i class="fa fa-spinner"></i><i class="fa fa-spinner"></i><i class="fa fa-spinner"></i><i class="fa fa-spinner"></i><i class="fa fa-spinner"></i><i class="fa fa-spinner"></i><i class="fa fa-spinner"></i><i class="fa fa-spinner"></i></div>
+				
 				<?php
-					if($_GET["page"] == "")
-					{
-						if(isUserLoggedIn())
-						{
-							include("pages/account.php");
-						} 
-						else 
-						{
-							include("pages/home.php");
+						switch($_GET['page']) {
+
+							case 'about':
+
+								include('pages/about.php');
+
+								break;
+
+							case 'access_violations':
+
+								include('pages/access_violations.php');
+
+								break;
+							case 'account':
+
+								include('pages/account.php');
+
+								break;
+							
+							case 'account_history':
+
+								include('pages/account_history.php');
+
+								break;
+							case 'admin':
+
+								include('pages/admin.php');
+
+								break;
+							case 'api':
+
+								include('pages/api.php');
+
+								break;
+							
+							case 'changepassword':
+
+								include('pages/changepassword.php');
+
+								break;
+							case 'deposit':
+
+								include('pages/deposit.php');
+
+								break;
+							case 'home':
+
+								include('pages/home.php');
+
+								break;
+							
+							case 'invalid_market':
+
+								include('pages/invalid_market.php');
+
+								break;
+							case 'loggedout':
+
+								include('pages/loggedout.php');
+
+								break;
+							case 'logout':
+
+								include('pages/logout.php');
+
+								break;
+							
+							case 'login':
+
+								include('pages/login.php');
+
+								break;
+							case 'moderate':
+
+								include('pages/moderate.php');
+
+								break;
+							case 'newticket':
+
+								include('pages/newticket.php');
+
+								break;
+							case 'preferences':
+
+								include('pages/preferences.php');
+
+								break;
+							case 'register':
+
+								include('pages/register.php');
+
+								break;
+							case 'reset':
+
+								include('pages/reset.php');
+
+								break;
+							case 'site_monitor':
+
+								include('pages/site_monitor.php');
+
+								break;
+							
+							case 'siteconfig':
+
+								include('pages/siteconfig.php');
+
+								break;
+							case 'support':
+
+								include('pages/support.php');
+
+								break;
+							case 'tos':
+
+								include('pages/tos.php');
+
+								break;
+							case 'trade':
+
+								include('pages/trade.php');
+
+								break;
+							case 'trade_hist_all':
+
+								include('pages/trade_hist_all.php');
+
+								break;
+							case 'trade_history':
+
+								include('pages/trade_history.php');
+
+								break;
+							case 'viewticket':
+
+								include('pages/viewticket.php');
+
+								break;
+							case 'withdraw':
+
+								include('pages/withdraw.php');
+
+								break;
+							case 'withdrawalhist':
+
+								include('pages/withdrawalhist.php');
+
+								break;
+							case 'withdrawalqueue':
+
+								include('pages/withdrawalqueue.php');
+
+								break;
+							case 'fchk':
+							
+								include('pages/fchk.php');
+								
+								break;
+							default:
+
+								include('pages/home.php');
+
 						}
-					} 
-					else
-					{
-						$p="pages/".basename($_GET['page']).".php";
-			            if(file_exists($p)){
-							include($p);  
-			            }else{
-							include("pages/404.php");
-			            }
-					}
+					
 				?>
 			</center>
 			</div>

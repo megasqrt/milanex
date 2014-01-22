@@ -1,5 +1,6 @@
 <?php
 require_once("models/config.php");
+require_once ('system/csrfmagic/csrf-magic.php');
 if(!isUserLoggedIn()) {
 	echo '<meta http-equiv="refresh" content="0; URL=access_denied.php">';
 	die();
@@ -32,6 +33,18 @@ if(!isUserAdmin($id)) {
 <div class="coinstatus">
 	<form action="" name="coinstatus" method="POST" onsubmit="document.getElementById('#submit').disabled = 1;">
 		<input type="submit" name="coinstatus" value="Check Coin Stats" class="blues" id="submit" />
+	</form>
+</div>
+<hr class="five" />
+<div class="optsql">
+	<form action="" name="optimizesql" method="POST" onsubmit="document.getElementById('#submit').disabled = 1;">
+		<input type="submit" name="optimizesql" value="Optimize SQL" class="blues" id="submit" />
+	</form>
+</div>
+<hr class="five" />
+<div class="missingp">
+	<form action="" name="missingpeople" method="POST" onsubmit="document.getElementById('#submit').disabled = 1;">
+		<input type="submit" name="missingpeople" value="Missing Accounts" class="blues" id="submit" />
 	</form>
 </div>
 <hr class="five" />
@@ -116,7 +129,7 @@ if (isset($_POST["coinstatus"])) {
 				</tr>
 				';
 
-				$result = mysql_query("SELECT * FROM `Wallets` ORDER BY `Wallets`.`Acronymn` ASC");
+				$result = mysql_query("SELECT * FROM `Wallets` WHERE `disabled`='0' ORDER BY `Wallets`.`Acronymn` ASC");
 				
 				while($row = mysql_fetch_array($result))
 				{
@@ -132,7 +145,7 @@ if (isset($_POST["coinstatus"])) {
 				echo "<td>" . $row['Acronymn'] . "</td>";
 				foreach($info as $key => $value) {
 					if($key == "balance"){
-						echo '<td>'.$value.'</td>';
+						echo '<td>'.round($value, 8).'</td>';
 					}
 					elseif($key == "blocks"){
 						echo '<td>'.$value.'</td>';
@@ -151,6 +164,44 @@ if (isset($_POST["coinstatus"])) {
 				}
 			
 		echo'</center></table>';
+}
+if(isset($_POST["optimizesql"])) {
+	mysql_query("OPTIMIZE TABLE TicketReplies");
+	mysql_query("OPTIMIZE TABLE Trade_History");
+	mysql_query("OPTIMIZE TABLE Wallets");
+	mysql_query("OPTIMIZE TABLE Withdraw_History");
+	mysql_query("OPTIMIZE TABLE Withdraw_Requests");
+	mysql_query("OPTIMIZE TABLE access_violations");
+	mysql_query("OPTIMIZE TABLE balances");
+	mysql_query("OPTIMIZE TABLE bantables_ip");
+	mysql_query("OPTIMIZE TABLE config");
+	mysql_query("OPTIMIZE TABLE deposits");
+	mysql_query("OPTIMIZE TABLE messages");
+	mysql_query("OPTIMIZE TABLE trades");
+	mysql_query("OPTIMIZE TABLE userCake_Groups");
+	mysql_query("OPTIMIZE TABLE userCake_Users");
+	mysql_query("OPTIMIZE TABLE usersactive");
+echo "done : database was optimized";
+}
+
+if(isset($_POST["missingpeople"])) {
+	echo '<h1>Missing People</h1>';
+	$sql = mysql_query("SELECT * FROM deposits");
+	for($i=0;$i<mysql_num_rows($sql);$i++)
+	{
+		$Account = mysql_result($sql,$i,"Account");
+		$transaction_id = mysql_result($sql,$i,"Transaction_Id");
+		$amount = mysql_result($sql,$i,"Amount");
+		$coin = mysql_result($sql,$i,"Coin");
+		$sql2 = @mysql_query("SELECT * FROM userCake_Users WHERE `Username_Clean`='$Account'");
+		$ac = @mysql_result($sql2,0,"Username_Clean");
+		if($ac != "")
+		{
+		}else{
+			echo "Account: $Account Transaction: $transaction_id : $amount : $coin<br/> ";
+		}
+	}
+
 }
 ?>
 </div>

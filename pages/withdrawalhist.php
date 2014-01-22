@@ -1,4 +1,5 @@
 <?php
+require_once ('system/csrfmagic/csrf-magic.php');
 if(!isUserAdmin($id) || !isUserLoggedIn())
 {
 echo '<meta http-equiv="refresh" content="0; URL=access_denied.php">';

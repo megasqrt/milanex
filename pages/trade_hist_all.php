@@ -1,5 +1,6 @@
 <center>
 <?
+require_once ('system/csrfmagic/csrf-magic.php');
 $id     = mysql_real_escape_string($_GET["market"]);
 $result = mysql_query("SELECT * FROM Wallets WHERE `Id`='$id'");
 $name   = mysql_real_escape_string(mysql_result($result, 0, "Acronymn"));
@@ -21,9 +22,9 @@ $sqlz = mysql_query("SELECT * FROM Trade_History WHERE `Market_Id`='$id' ORDER B
 while ($row = mysql_fetch_assoc($sqlz)) {
 ?>
 <tr>
-	<td style="width: 25%;"><?php echo sprintf('%.9f',$row["Price"]);?></td>
-    <td style="width: 25%;"><?php echo sprintf('%.9f',$row["Quantity"]);?></td>
-	<td style="width: 25%;"><?php echo sprintf('%.9f',$row["Quantity"] * $row["Price"]);?></td></tr>
+	<td style="width: 25%;"><?php echo sprintf('%.8f',$row["Price"]);?></td>
+    <td style="width: 25%;"><?php echo sprintf('%.8f',$row["Quantity"]);?></td>
+	<td style="width: 25%;"><?php echo sprintf('%.8f',$row["Quantity"] * $row["Price"]);?></td></tr>
 	<?php
 	}
 	?>

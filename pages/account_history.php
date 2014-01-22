@@ -1,19 +1,14 @@
 <?php
+require_once ('system/csrfmagic/csrf-magic.php');
 require_once("models/config.php");
 if(!isUserLoggedIn())
 {
 echo '<meta http-equiv="refresh" content="0; URL=index.php?page=login">';
 die();
 }
-$user = $loggedInUser->user_id;
-$act_name = $loggedInUser->display_username;
-
+$user = addslashes(strip_tags($loggedInUser->user_id));
+$act_name = addslashes(strip_tags($loggedInUser->display_username));
 ?>
-<b style='color: red;'>Don't panic. The history is wrong because the order<br/> 
-stacking causes all orders to execute simultaneously</br> 
-when possible, causing one history record for many trades</br>.
- we'll have this issue resolved shortly. just calm down.
- Thank you.</b><br/>
 <div style="margin: 0 auto;">
 <h1>All History for <?php echo $act_name; ?></h1>
 <div class="top">

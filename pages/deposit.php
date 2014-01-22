@@ -1,4 +1,5 @@
 <?php
+require_once ('system/csrfmagic/csrf-magic.php');
 if (isDepositDisabled()) {
 	echo 'Deposits are currently disabled.';
 }else{

@@ -1,5 +1,5 @@
 <?php
-
+require_once ('system/csrfmagic/csrf-magic.php');
 $id = $loggedInUser->user_id;
 $account = $loggedInUser->display_username;
 

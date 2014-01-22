@@ -46,9 +46,12 @@ class Wallet
 	}
 	public function GetTransactions()
 	{
-		return $this->Client->listtransactions();
+		return $this->Client->listtransactions("*", 100);
 	}
-
+	public function GetTransaction($id)
+	{
+		return $this->Client->gettransaction($id);
+	}
 
 	public function GetInfo($id,$pw,$usr,$requestkey,$id_check)
 	{	

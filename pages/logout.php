@@ -1,4 +1,5 @@
 <?php
+require_once ('system/csrfmagic/csrf-magic.php');
 if(isUserLoggedIn){
 $loggedInUser->userLogOut();
 sleep(1);
