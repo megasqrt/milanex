@@ -18,7 +18,7 @@ require_once("models/config.php");
 $account = mysql_real_escape_string(strip_tags($loggedInUser->display_username));
 $uagent = mysql_real_escape_string(getuseragent()); //get user agent
 $ip = mysql_real_escape_string(getIP()); //get user ip
-if(isUserLoggedIn) {
+if(isUserLoggedIn()) {
 	if ($account != null) {
 		$account = mysql_real_escape_string($loggedInUser->display_username);
 	}
