@@ -58,12 +58,12 @@ $open = "<b>Closed</b>";
 ?>
 				<tr>
 					<td><input  type="checkbox"/></td>
-					<td><a href="index.php?page=viewticket&id=<?echo $id; ?>"><? echo $subject;?></a></td>
-					<td><? echo $posted;?></td>
-<td><? echo $answers;?></td>
-<td><? echo $open; ?></td>
+					<td><a href="index.php?page=viewticket&id=<?php echo $id; ?>"><?php echo $subject;?></a></td>
+					<td><?php echo $posted;?></td>
+<td><?php echo $answers;?></td>
+<td><?php echo $open; ?></td>
 				</tr>
-<?
+<?php
 }
 ?>
 

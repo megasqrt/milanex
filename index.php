@@ -1,5 +1,5 @@
 <?php
-/**~2014 MilanEx.pw Developers. All Rights Reserved.~**->>
+/**~2014 milanoin.org Developers. All Rights Reserved.~**->>
  *               http://www.milancoin.org/milanex/
  *Licensed Under the MIT License : http://www.opensource.org/licenses/mit-license.php
  *
@@ -22,14 +22,14 @@ if(isIPbanned()){
 }
 if(isMaintenanceDisabled()) {
 }else{
-	if($_GET["BYPASS"] != "")
+	if((isset($_GET["BYPASS"])?$_GET["BYPASS"]:"") != "")
 	{
 		session_start();
 		$_SESSION["BYPASS"] = $_GET["BYPASS"];
 	}
-	if(isUserAdmin($id)) {}
+	//if(isUserAdmin($id)) {}
 	//session bypass key for maintenance mode.
-	if($_SESSION["BYPASS"] == "") {
+	if((isset($_SESSION["BYPASS"])?$_SESSION["BYPASS"]:"") == "") {
 	}else{
 		echo '<meta http-equiv="refresh" content="0; URL='.$maint_url.'">';
 		die();
@@ -65,7 +65,9 @@ sha-256, open source, crypto exchange">
 <script src="assets/js/jquery.cookie.js" type="text/javascript"></script>
 <script type="text/javascript" src="assets/js/tabber.min.js">
 </script>
-<?php if($_GET["page"] == "trade")
+<?php
+$_GET["page"] = isset($_GET["page"])?$_GET["page"]:"";
+ if($_GET["page"] == "trade")
 {
 	?>
 	<script type="text/javascript" src="/assets/js/canvasXpress.min.js"></script>
@@ -382,7 +384,7 @@ sha-256, open source, crypto exchange">
 	</div>
 	<!--menu-->
 	<nav class="clearfix">  
-		<a id="logo" href="http://www.milancoin.org"><img src="assets/img/MilanEx.png" height="40" /></a>
+		<a id="logo" href="http://www.milancoin.org"><img src="assets/img/OpenEx.png" height="40" /></a>
 		<ul class="clearfix">  
 			<li><a  href="index.php?page=home" title="home"><i class="fa fa-home"></i></a></li>
 			<li><a  href="index.php?page=about" title="about"><i class="fa fa-info"></i></a></li>
@@ -416,7 +418,7 @@ sha-256, open source, crypto exchange">
 			}
 			?>   
 		</ul>  
-		<a href="#" id="pull"><img src="assets/img/MilanEx.png" height="40" /></a>  
+		<a href="#" id="pull"><img src="assets/img/OpenEx.png" height="40" /></a>  
 	</nav> 	
 	<!--user content area-->
 	

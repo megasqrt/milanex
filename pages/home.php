@@ -79,7 +79,7 @@ if(!isUserLoggedIn()){
 					window.location = 'index.php?page=trade&market=<?php echo $market_id; ?>';
 				});
 				</script>
-				<?
+				<?php
 			}
 			echo'</table></div>';		
 		?>

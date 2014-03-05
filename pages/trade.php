@@ -4,7 +4,6 @@ require_once("models/config.php");
 include("models/class.trade.php");
 require_once ('system/csrfmagic/csrf-magic.php');
 $id = mysql_real_escape_string(strip_tags((int)$_GET["market"]));
-$id2 = $loggedInUser->user_id;
 $s_id = 993;
 if(!is_numeric($id)) {
 	?>
@@ -16,8 +15,10 @@ $name = mysql_real_escape_string(mysql_result($result, 0, "Acronymn"));
 $fullname = mysql_real_escape_string(mysql_result($result, 0, "Name"));
 $disabled = mysql_real_escape_string(mysql_result($result, 0, "disabled"));
 $market_id = mysql_result($result, 0, "Market_Id");
+$error = false;
 if (isUserLoggedIn()) 
 { 
+        $id2 = $loggedInUser->user_id;
 	$errors = array();
 	$error = false;
 	$successes = array();
