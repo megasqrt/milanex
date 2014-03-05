@@ -18,9 +18,9 @@ if(!isUserLoggedIn())
 <tr>
 	<th style="width: 15%;">Coin</th>
 	<th style="width: 15%;">Type</th>
-    <th style="width: 20%;">Price (BTC)</th>	
+    <th style="width: 20%;">Price (MLC)</th>	
 	<th style="width: 20%;">Quantity</th>	
-	<th style="width: 20%;">Total (BTC)</th>	
+	<th style="width: 20%;">Total (MLC)</th>	
 	<th style="width: 10%;">Options</th>
 </tr>
 <?php

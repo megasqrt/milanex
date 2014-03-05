@@ -1,6 +1,6 @@
 <?php
-/**~2014 OpenEx.pw Developers. All Rights Reserved.~*
- *               https://openex.pw/
+/**~2014 MilanEx.pw Developers. All Rights Reserved.~*
+ *               https://www.milancoin.org/milanex/
  *Licensed Under the MIT License : http://www.opensource.org/licenses/mit-license.php
  *
  *WARRANTY INFORMATION:
@@ -134,13 +134,13 @@ if($user_id != 0)//Allow only verified users to use the following api functions.
 			{
 				$s_price = $amount * $price * 1.005;
 				$s_trade_to = $w_name;
-				$s_trade_from = "BTC";
+				$s_trade_from = "MLC";
 			}
 			elseif($type == "SELL")
 			{
 				$s_price = $amount;
 				$s_trade_from = $w_name;
-				$s_trade_to = "BTC";
+				$s_trade_to = "MLC";
 			}
 			if(TakeMoney($s_price,$user_id,$s_trade_from) == true)
 			{
@@ -255,7 +255,7 @@ if($method == "GetConversion")
 		$last_trade = @mysql_result($sql,0,"Price");
 		$total = sprintf("%.8f",$last_trade * $amt);
 		$status = true;
-		$results[count($results)] = array('Total' => $total,'Acronymn' => "BTC");
+		$results[count($results)] = array('Total' => $total,'Acronymn' => "MLC");
 	}
 }
 

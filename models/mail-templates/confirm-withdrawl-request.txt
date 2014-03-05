@@ -1,4 +1,4 @@
-OpenEx.pw -- The Open Source Cryptocurrency exchange
+MilanEx.pw -- The Open Source Cryptocurrency exchange
 
 
 Hello #USERNAME#
@@ -15,4 +15,4 @@ Confirm: #CONFIRM-URL#
 Deny: #DENY-URL#
 
 
-OpenEx.pw
+MilanEx.pw

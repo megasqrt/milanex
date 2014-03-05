@@ -1,7 +1,7 @@
 <?php
 //error_reporting(E_ALL);
 //ini_set('display_errors', 1);
-$title="OpenEx";
+$title="MilanEx";
 $maint_url = "system/maintenance.php";
 date_default_timezone_set('America/New_York');
 require_once("settings.php");

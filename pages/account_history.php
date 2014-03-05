@@ -23,7 +23,7 @@ $act_name = addslashes(strip_tags($loggedInUser->display_username));
     <th style="width: 10%;">Type</th>
 	<th style="width: 20%;">Price</th>
 	<th style="width: 20%;">Quantity</th>	
-	<th style="width: 20%;">Total(BTC)</th>	
+	<th style="width: 20%;">Total(MLC)</th>	
 </tr>
 <?php
 $sqlz = mysql_query("SELECT * FROM Trade_History WHERE (`Buyer`='$user' OR `Seller`='$user')");

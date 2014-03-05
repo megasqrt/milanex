@@ -1,11 +1,11 @@
-OpenEx.pw 0.3
+MilanEx.pw 0.3
 
 THIS IS BETA SOFTWARE. IT IS UNPROVEN. USE AT YOUR OWN RISK.
 
 build percentage=98%
 build status= stable
 build name= l.2-dev
-release= openex 0.4.6
+release= milanex 0.4.6
 build date=1/22/2014
 
 technologies used/required:
@@ -19,7 +19,7 @@ userCake(Heavily Modified) <--All Rights reserved
 mysqli.class.php <--Jesse boyer, all rights reserved(jream.net)
 csrf-magic <-- all rights reserved
 
-Demo(live trading site)->https://openex.pw
+Demo(live trading site)->https://www.milancoin.org
 
 known issues:
 

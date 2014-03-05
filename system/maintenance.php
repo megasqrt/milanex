@@ -1,7 +1,7 @@
 <?php
 require_once("../models/config.php");
 if(isMaintenanceDisabled()) {
-	echo '<meta http-equiv="refresh" content="0; URL= https://openex.pw">';
+	echo '<meta http-equiv="refresh" content="0; URL= https://www.milancoin.org">';
 	die();
 }else{
 
@@ -10,7 +10,7 @@ if(isMaintenanceDisabled()) {
 <!Doctype html5 lang="en">
 <html>
 	<head>
-	<meta http-equiv="refresh" content="350; URL=https://openex.pw/system/maintenance.php">
+	<meta http-equiv="refresh" content="350; URL=https://www.milancoin.org/milanex/system/maintenance.php">
 	<link rel="stylesheet" href="../assets/css/style.css" type="text/css" />
 	<title>Maintenance</title>
 	<style>
@@ -45,7 +45,7 @@ if(isMaintenanceDisabled()) {
 <body>
 	<div class="centered"><br/>
 			<center>
-		<p id="Splash">OpenEx Is Undergoing Maintenance</p><br/>
+		<p id="Splash">MilanEx Is Undergoing Maintenance</p><br/>
 		<p id="message">We'll Be Back Soon! :-)</p>
 			</center>
 	</div>

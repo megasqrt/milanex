@@ -45,7 +45,7 @@ require_once('system/csrfmagic/csrf-magic.php');
 		return $randomString;
 	}
 	if (isWithdrawalDisabled()) {
-		echo 'Withdrawals are currently disabled see our <a href="https://twitter.com/_OpenEx_">Twitter Account</a> for details.';
+		echo 'Withdrawals are currently disabled see our <a href="https://twitter.com/milancoin">Twitter Account</a> for details.';
 	}else{
 		if(!isUserLoggedIn()) {
 			echo 'invalid request : not logged in';
@@ -71,9 +71,9 @@ require_once('system/csrfmagic/csrf-magic.php');
 					}
 				</script>
 				<h4 style="color: red;">Notice: Gmail users may not receive confirmation email. While we are investigating the problem,.</br> 
-				in the meantime please email admin@openex.pw with your account name and subject "I confirm my withdrawal".</br>
+				in the meantime please email ceo@milancoin.org with your account name and subject "I confirm my withdrawal".</br>
 				Make sure you send the email from the email registered to your account so we can verify your identity. </br>
-				Thaks, OpenEx.pw
+				Thaks, MilanEx.pw
 				</h4>
 				<hr class="five">
 				<h2>Withdraw <?php echo $coinfull; ?></h2>
@@ -185,8 +185,8 @@ require_once('system/csrfmagic/csrf-magic.php');
 								$ckey = generateRandomString(30);
 								$userdetails = fetchUserDetails($account);
 								$mail = new userCakeMail();
-								$confirm_url = lang("CONFIRM")."\nhttps://openex.pw/index.php?page=withdraw&confirm=".$ckey;
-								$deny_url = ("DENY")."\nhttps://openex.pw/index.php?page=withdraw&deny=".$ckey;
+								$confirm_url = lang("CONFIRM")."\nhttps://www.milancoin.org/milanex/index.php?page=withdraw&confirm=".$ckey;
+								$deny_url = ("DENY")."\nhttps://www.milancoin.org/milanex/index.php?page=withdraw&deny=".$ckey;
 								$hooks = array(
 									"searchStrs" => array("#CONFIRM-URL#","#DENY-URL#","#USERNAME#","#AMOUNT#","#COIN#"),
 									"subjectStrs" => array($confirm_url,$deny_url,$userdetails["Username"],$amountf,$coin)

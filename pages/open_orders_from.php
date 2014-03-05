@@ -28,7 +28,7 @@ if($g & 1) {
 } else {
 	$color = "darkgray";
 }
-if($row["To"] == "BTC") { 
+if($row["To"] == "MLC") { 
 if(sprintf("%.8f",$row["Value"]) != sprintf("%.8f",$previous))
 {
 $value = sprintf("%.8f",$row["Value"]);

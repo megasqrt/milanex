@@ -1,6 +1,6 @@
 <?php
-/**~2014 OpenEx.pw Developers. All Rights Reserved.~*
- *               https://openex.pw/
+/**~2014 MilanEx.pw Developers. All Rights Reserved.~*
+ *               https://www.milancoin.org/milanex/
  *Licensed Under the MIT License : http://www.opensource.org/licenses/mit-license.php
  *
  *WARRANTY INFORMATION:
@@ -32,7 +32,7 @@ if(!isUserLoggedIn()){
 					<td style="width: 20%; text-align: right; margin-right: 10px;">Current Ask</td>
 					<td style="width: 20%; text-align: right; margin-right: 10px;">Current Bid</td>
 					<td style="width: 20%; text-align: right; margin-right: 10px;">Last Price</td>
-					<td style="width: 20%; text-align: right; margin-right: 10px;">Volume(BTC)</td>
+					<td style="width: 20%; text-align: right; margin-right: 10px;">Volume(MLC)</td>
 			';
 			$rows = mysql_num_rows($getmarkets);
 			for($i = 1;$i < $rows;$i++) {
@@ -66,11 +66,11 @@ if(!isUserLoggedIn()){
 				$volume = sprintf("%0.8f",array_sum($vol));
 				echo'
 					<tr id="'.$market_id.'" style="cursor: pointer;" title="'.$name.' Market" class="'.$color.'">
-						<td style="width: 20%;">'.$acro.' / BTC</td>
-						<td style="width: 20%; text-align: right; margin-right: 10px;">'.$curask1.' BTC</td>
-						<td style="width: 20%; text-align: right; margin-right: 10px;">'.$curoffer1.' BTC</td>
-						<td style="width: 20%; text-align: right; margin-right: 10px;">'.$lastprice.' BTC</td>
-						<td style="width: 20%; text-align: right; margin-right: 10px;">'.$volume.' BTC</td>
+						<td style="width: 20%;">'.$acro.' / MLC</td>
+						<td style="width: 20%; text-align: right; margin-right: 10px;">'.$curask1.' MLC</td>
+						<td style="width: 20%; text-align: right; margin-right: 10px;">'.$curoffer1.' MLC</td>
+						<td style="width: 20%; text-align: right; margin-right: 10px;">'.$lastprice.' MLC</td>
+						<td style="width: 20%; text-align: right; margin-right: 10px;">'.$volume.' MLC</td>
 					</tr>
 					';
 				?>

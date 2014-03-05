@@ -6,7 +6,7 @@ if(!empty($_POST))
 		$username = trim($_POST["username"]);
 		$password = trim($_POST["password"]);
 		$confirm_pass = trim($_POST["passwordc"]);
-		$captcha = md5($_POST["captcha"]);					if ($captcha != $_SESSION['captcha'])		{			$errors[] = lang("CAPTCHA_FAIL");		}		if (is_numeric($username)) {			$errors[] = "Username contains no Alphanumeric charachters";		}		if ($username == "OpenExMasterAccount") {			$errors[] = "Username Unavailable";		}		$gmail = "gmail";		if (strpos($email, $gmail)) {			$errors[] = "Gmail addresses arent supported. please sign up with a different address.";		}
+		$captcha = md5($_POST["captcha"]);					if ($captcha != $_SESSION['captcha'])		{			$errors[] = lang("CAPTCHA_FAIL");		}		if (is_numeric($username)) {			$errors[] = "Username contains no Alphanumeric charachters";		}		if ($username == "MilanExMasterAccount") {			$errors[] = "Username Unavailable";		}		$gmail = "gmail";		if (strpos($email, $gmail)) {			$errors[] = "Gmail addresses arent supported. please sign up with a different address.";		}
 		if(minMaxRange(5,25,$username))
 		{
 			$errors[] = lang("ACCOUNT_USER_CHAR_LIMIT",array(5,25));

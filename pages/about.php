@@ -12,7 +12,7 @@ require_once ('system/csrfmagic/csrf-magic.php');
 	<table>
 		<tr>
 			<td>
-				Openex, LLC.</br>
+				Milanex, LLC.</br>
 				214 S Crawford St Clarksville, Arkansas 72830</br>
 				Established on February 7th, 2014</br>
 			</td>
@@ -26,7 +26,7 @@ require_once ('system/csrfmagic/csrf-magic.php');
 	<h3> Contact Information </h3>
 	<table>
 		<tr>
-			<td>Contact: <a href="mailto:admin@openex.pw">Email(Link)</a></td>
+			<td>Contact: <a href="mailto:ceo@milancoin.org">Email(Link)</a></td>
 		</tr>
 	</table>
 

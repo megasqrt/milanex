@@ -1,6 +1,6 @@
 <?php
-/**~2014 OpenEx.pw Developers. All Rights Reserved.~*
- *               https://openex.pw/
+/**~2014 MilanEx.pw Developers. All Rights Reserved.~*
+ *               https://www.milancoin.org/milanex/
  *Licensed Under the MIT License : http://www.opensource.org/licenses/mit-license.php
  *
  *WARRANTY INFORMATION:

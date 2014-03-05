@@ -1,5 +1,5 @@
 <?php
 //give illusion of denying access to site dependendencies. 
-header( 'Location: http://openex.pw/access_denied.php' ) ;
+header( 'Location: http://www.milancoin.org/milanex/access_denied.php' ) ;
 die();
 ?>

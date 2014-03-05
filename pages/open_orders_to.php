@@ -28,11 +28,11 @@ while ($row = mysql_fetch_assoc($sql)) {
 	} else {
 		$color = "darkgray";
 	}
-	if($row["From"] == "BTC") { 
+	if($row["From"] == "MLC") { 
 		if(sprintf("%.8f",$row["Value"]) != sprintf("%.8f",$previous)) {
 			$value = sprintf("%.8f",$row["Value"]);
 			$amount = 0;
-			$sqls = mysql_query("SELECT * FROM trades WHERE `Value`='$value' AND `From`='BTC' AND `Type`='$type'");
+			$sqls = mysql_query("SELECT * FROM trades WHERE `Value`='$value' AND `From`='MLC' AND `Type`='$type'");
 			$num = mysql_num_rows($sqls);
 			while($rows = mysql_fetch_assoc($sqls)) {
 				$amount += $rows["Amount"];

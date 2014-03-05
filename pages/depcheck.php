@@ -19,7 +19,7 @@ die();
 
 	<form method="POST" action="index.php?page=depositchecker">
 		<input type="text" class="fieldsmall" name="Transaction_Id" placeholder="Transaction Id"/>
-		<input type="text" class="fieldsmall" name="Coin" placeholder="Coin (Example: BTC)"/>
+		<input type="text" class="fieldsmall" name="Coin" placeholder="Coin (Example: MLC)"/>
 		<input type="submit" class="miniblues" name="fchk"/>
 	</form>
 	<hr class="five">

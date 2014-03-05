@@ -16,7 +16,7 @@ $type = $name;
 	<th style="width: 25%;">Date</th>
 	<th style="width: 25%;">Price</th>
 	<th style="width: 25%;">Quantity(<?php echo $name;?>)</th>	
-	<th style="width: 25%;">Total (BTC)</th>	
+	<th style="width: 25%;">Total (MLC)</th>	
 </tr>
 <?php
 $sqlz = mysql_query("SELECT * FROM Trade_History WHERE `Market_Id`='$id' ORDER BY `Timestamp` DESC");

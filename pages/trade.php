@@ -68,7 +68,7 @@ if(isset($_POST["price2"])) {
 			if(isTokenValid($postedToken)) {
 				$PricePer = mysql_real_escape_string($_POST["price2"]);
 				$Amount = mysql_real_escape_string($_POST["Amount2"]);
-				//$Total = $Amount  file_get_contents("http://openex.pw/openex.pw/system/calculatefees2.php?P=" . $Amount);
+				//$Total = $Amount  file_get_contents("http://www.milancoin.org/milanex/system/calculatefees2.php?P=" . $Amount);
 				$Fees = $Amount * 0.005;
 				$X = sprintf("%.8f",($Amount-$Fees)/$PricePer);
 				$user_id = $loggedInUser->user_id; 
@@ -225,8 +225,8 @@ if($error == false) {
 						<form action="index.php?page=trade&market=<?php echo $id; ?>" method="POST" autocomplete="off" history="off" onsubmit="document.getElementById('#Sell').disabled = 1;"> 
 							<input type="hidden" name="token1" value="<?php echo $token1;?>"/>
 							<input class="fieldsmall" type="text" style="width:150px;" name="Amount" onKeyUp="calculateFees1(this)" id="Amount" placeholder="Amount(<?php echo $name; ?>)"/><br/>
-							<input class="fieldsmall" type="text" style="width:150px;" name="price1" onKeyUp="calculateFees1(this)" id="price1" placeholder="Price(BTC)"/><br/>
-							<input class="fieldsmall" type="text" style="width:150px;" onKeyUp="calculateFees4()" id="earn1"placeholder="Receive(BTC)" readonly /></br>
+							<input class="fieldsmall" type="text" style="width:150px;" name="price1" onKeyUp="calculateFees1(this)" id="price1" placeholder="Price(MLC)"/><br/>
+							<input class="fieldsmall" type="text" style="width:150px;" onKeyUp="calculateFees4()" id="earn1"placeholder="Receive(MLC)" readonly /></br>
 							<input class="miniblues" style="width:176px; height: 55px; padding: 5px 5px;" type="submit" name="Sell" value="Sell" id="Sell" onclick="this.disabled=true;this.value='Submitting trade...';this.form.submit();"/>
 						</form>
 					</div>
@@ -240,11 +240,11 @@ if($error == false) {
 					<!--Buy Form-->
 					<?php if (isUserLoggedIn()) { ?>
 					<div id="buyform">
-						<center><h3 style="color:#000;">Buy: Avail. BTC: <span style="cursor:pointer; " id="btcBalance"><u><?php echo sprintf("%.8f",$curbal2); ?></u></span></h3></center><br/>
+						<center><h3 style="color:#000;">Buy: Avail. MLC: <span style="cursor:pointer; " id="btcBalance"><u><?php echo sprintf("%.8f",$curbal2); ?></u></span></h3></center><br/>
 						<form action="index.php?page=trade&market=<?php echo $id; ?>" method="POST" autocomplete="off" history="off" onsubmit="document.getElementById('#Buy').disabled = 1;">
 							<input type="hidden" name="token2" value="<?php echo $token2;?>"/>
-							<input class="fieldsmall" type="text" style="width:150px;" onKeyUp="calculateFees2()" name="Amount2" id="Amount2" placeholder="Amount(BTC)"/><br/>
-							<input class="fieldsmall" type="text" style="width:150px;" id="price2" onKeyUp="calculateFees2()" onKeyUp="calculateFees2()" name="price2" placeholder="Price(BTC)"/><br/>
+							<input class="fieldsmall" type="text" style="width:150px;" onKeyUp="calculateFees2()" name="Amount2" id="Amount2" placeholder="Amount(MLC)"/><br/>
+							<input class="fieldsmall" type="text" style="width:150px;" id="price2" onKeyUp="calculateFees2()" onKeyUp="calculateFees2()" name="price2" placeholder="Price(MLC)"/><br/>
 							<input class="fieldsmall" type="text" style="width:150px;" onKeyUp="calculateFees3()" id="fee2" placeholder="Receive (<?php echo $name;?>)" readonly /><br/>
 							<input class="miniblues" style="width:176px; height: 55px; padding: 5px 5px;" type="submit" name="Buy" id="Buy" value="Buy" onclick="this.disabled=true;this.value='Submitting trade...';this.form.submit();"/>
 						</form>

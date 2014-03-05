@@ -1,6 +1,6 @@
 <?php
-/**~2014 OpenEx.pw Developers. All Rights Reserved.~**->>
- *               https://openex.pw/
+/**~2014 MilanEx.pw Developers. All Rights Reserved.~**->>
+ *               https://www.milancoin.org/milanex/
  *Licensed Under the MIT License : http://www.opensource.org/licenses/mit-license.php
  *
  *WARRANTY INFORMATION:
@@ -18,7 +18,7 @@ if(isTORnode()){
 	die("Due to legal restrictions users using TOR Browser are not allowed to access this website.");
 }
 if(isIPbanned()){
-	die("ip address is banned. You can appeal this decision by contacting an administrator at admin@openex.pw");
+	die("ip address is banned. You can appeal this decision by contacting an administrator at ceo@milancoin.org");
 }
 if(isMaintenanceDisabled()) {
 }else{
@@ -51,12 +51,12 @@ if(isUserLoggedIn()){
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">  
 <title><?php echo $title ?></title>
 <meta name="keywords" 
-content="cryptocurrency, bitcoin, trading, altcoin, OpenEx, openex.pw, 
+content="cryptocurrency, bitcoin, trading, altcoin, MilanEx, www.milancoin.org, 
 litecoin, feathercoin, opensourcecoin, gldcoin, protoshares, 
 memorycoin, radioactivecoin, 42coin, primecoin, unobtanium, novacoin, 
 nanotokens, skeincoin, blakecoin, mincoin, megacoin, scrypt, 
 sha-256, open source, crypto exchange">
-<meta name="description" content="OpenEx.pw, the one and only open source cryptocurrency exchange for all your trading needs.">
+<meta name="description" content="MilanEx.pw, the one and only open source cryptocurrency exchange for all your trading needs.">
 <link rel="shortcut icon" href="assets/img/favicon.ico" type="image/x-icon" />
 <link rel="stylesheet" href="assets/font-awesome/css/font-awesome.min.css" />
 <link rel="stylesheet" href="assets/css/stylez0r.min.css" />
@@ -382,7 +382,7 @@ sha-256, open source, crypto exchange">
 	</div>
 	<!--menu-->
 	<nav class="clearfix">  
-		<a id="logo" href="https://openex.pw"><img src="assets/img/OpenEx.png" height="40" /></a>
+		<a id="logo" href="https://www.milancoin.org"><img src="assets/img/MilanEx.png" height="40" /></a>
 		<ul class="clearfix">  
 			<li><a  href="index.php?page=home" title="home"><i class="fa fa-home"></i></a></li>
 			<li><a  href="index.php?page=about" title="about"><i class="fa fa-info"></i></a></li>
@@ -416,7 +416,7 @@ sha-256, open source, crypto exchange">
 			}
 			?>   
 		</ul>  
-		<a href="#" id="pull"><img src="assets/img/OpenEx.png" height="40" /></a>  
+		<a href="#" id="pull"><img src="assets/img/MilanEx.png" height="40" /></a>  
 	</nav> 	
 	<!--user content area-->
 	
@@ -443,7 +443,7 @@ sha-256, open source, crypto exchange">
 					$p2disp = sprintf("%2.8f",$last_trade);
 				}
 				?>
-				<li class='box2'><p title="Trade <?php echo $coinnm; ?>" onclick="window.location = 'index.php?page=trade&market=<?php echo $coinid; ?>';"><?php echo $coinac;?> / BTC<br/><?php echo $p2disp; ?></p></li>
+				<li class='box2'><p title="Trade <?php echo $coinnm; ?>" onclick="window.location = 'index.php?page=trade&market=<?php echo $coinid; ?>';"><?php echo $coinac;?> / MLC<br/><?php echo $p2disp; ?></p></li>
 				<?php
 			}
 		?>
@@ -615,13 +615,13 @@ sha-256, open source, crypto exchange">
 	<div id="filler">
 		<!--footer-->
 		<ul id="footerl" class="nobullets">
-			<li><a  href="https://twitter.com/_OpenEx_" target="_blank" title="Follow us on Twitter"><i class="fa fa-twitter"></i> <font class="mhead">Follow Us</font></a></li>
-			<li><a  href="https://github.com/r3wt/openex.git" target="_blank" title="View source on Github"><i class="fa fa-github"></i><font class="mhead">View The Source</font></a></li>
+			<li><a  href="https://twitter.com/milancoin" target="_blank" title="Follow us on Twitter"><i class="fa fa-twitter"></i> <font class="mhead">Follow Us</font></a></li>
+			<li><a  href="https://github.com/milancoin-project/milanex.git" target="_blank" title="View source on Github"><i class="fa fa-github"></i><font class="mhead">View The Source</font></a></li>
 		</ul>
 		<!--copyright-->
 		<div id="centerfooter" class="mhead">
 			<center>
-			&copy; 2014 OpenEx LLC. All Rights Reserved.
+			&copy; 2014 MilanEx LLC. All Rights Reserved.
 			</center>
 		</div>
 		<!--chat toggle-->
@@ -660,7 +660,7 @@ sha-256, open source, crypto exchange">
 	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
 	  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-	  ga('create', 'UA-47016814-1', 'openex.pw');
+	  ga('create', 'UA-48607759-1', 'milancoin.org');
 	  ga('send', 'pageview');
 
 	</script>

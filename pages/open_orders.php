@@ -34,9 +34,9 @@ if($num_rows > 0) {
 	<thead>
 	<tr>
 		<th style="width: 20%;">Type</th>
-		<th style="width: 20%;">Price (BTC)</th>	
+		<th style="width: 20%;">Price (MLC)</th>	
 		<th style="width: 20%;">Quantity(<?php echo $name;?>)</th>	
-		<th style="width: 20%;">Total (BTC)</th>	
+		<th style="width: 20%;">Total (MLC)</th>	
 		<th style="width: 20%;">Options</th>
 	</tr>
 	<?php

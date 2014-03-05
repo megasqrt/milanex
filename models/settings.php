@@ -12,11 +12,11 @@
 	
 
 	//Generic website variables
-	$websiteName = "OpenEx";
-	$websiteUrl = "http://openex.pw/"; //including trailing slash
+	$websiteName = "MilanEx";
+	$websiteUrl = "http://www.milancoin.org/milanex/"; //including trailing slash
 	$emailActivation = false;
 	$resend_activation_threshold = 24;
-	$emailAddress = "no-reply@server.openex.pw";
+	$emailAddress = "no-reply@server.www.milancoin.org";
 	$emailDate = date("l \\t\h\e jS");
 	$mail_templates_dir = "models/mail-templates/";
 	$default_hooks = array("#WEBSITENAME#","#WEBSITEURL#","#DATE#");
