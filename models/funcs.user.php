@@ -20,7 +20,7 @@
 		}
 	}
 	function isBant($user)	{		$sqlxG = mysql_query("SELECT `Banned` FROM userCake_Users WHERE `User_ID`='$user'");		if (mysql_result($sqlxG, 0, "Banned") == 1) {			return true;		} else {			return false;		}	}
-	
+	function lockToIP($account,$ip){		$sqlquery = mysql_query("UPDATE `userCake_Users` SET `lockip`='$ip' WHERE `Username`='$account'");		if(mysql_error($sqlquery)) {			return false;		}else{			return true;		}	}
 	function usernameExists($username)
 	{
 		global $db,$db_table_prefix;

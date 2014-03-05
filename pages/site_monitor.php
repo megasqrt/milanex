@@ -1,4 +1,17 @@
 <?php
+/**~2014 OpenEx.pw Developers. All Rights Reserved.~*
+ *               https://openex.pw/
+ *Licensed Under the MIT License : http://www.opensource.org/licenses/mit-license.php
+ *
+ *WARRANTY INFORMATION:
+ *THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ *IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ *FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ *AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ *LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ *OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ *THE SOFTWARE. 
+ ***************************************/
 require_once("models/config.php");
 require_once ('system/csrfmagic/csrf-magic.php');
 if(!isUserLoggedIn()) {
@@ -14,37 +27,37 @@ if(!isUserAdmin($id)) {
 <h1>Site Monitor</h1>
 <div class="serverload">
 	<form action="" name="serverload" method="POST" onsubmit="document.getElementById('#submit').disabled = 1;">
-		<input type="submit" name="serverload" value="Show Server Load" class="blues" id="submit" />
+		<input type="submit" name="serverload" value="Show Server Load" class="blues stdsize" id="submit" />
 	</form>	
 </div>
 <hr class="five" />
 <div class="mysqlload">
 	<form action="" name="mysqlload" method="POST" onsubmit="document.getElementById('#submit').disabled = 1;">
-		<input type="submit" name="mysqlload" value="Show SQL Status" class="blues" id="submit" />
+		<input type="submit" name="mysqlload" value="Show SQL Status" class="blues stdsize" id="submit" />
 	</form>
 </div>
 <hr class="five" />
 <div class="users">
 	<form action="" name="userstats" method="POST" onsubmit="document.getElementById('#submit').disabled = 1;">
-		<input type="submit" name="userstats" value="Show User Statistics" class="blues" id="submit" />
+		<input type="submit" name="userstats" value="Show User Statistics" class="blues stdsize" id="submit" />
 	</form>
 </div>
 <hr class="five" />
 <div class="coinstatus">
 	<form action="" name="coinstatus" method="POST" onsubmit="document.getElementById('#submit').disabled = 1;">
-		<input type="submit" name="coinstatus" value="Check Coin Stats" class="blues" id="submit" />
+		<input type="submit" name="coinstatus" value="Check Coin Stats" class="blues stdsize" id="submit" />
 	</form>
 </div>
 <hr class="five" />
 <div class="optsql">
 	<form action="" name="optimizesql" method="POST" onsubmit="document.getElementById('#submit').disabled = 1;">
-		<input type="submit" name="optimizesql" value="Optimize SQL" class="blues" id="submit" />
+		<input type="submit" name="optimizesql" value="Optimize SQL" class="blues stdsize" id="submit" />
 	</form>
 </div>
 <hr class="five" />
-<div class="missingp">
-	<form action="" name="missingpeople" method="POST" onsubmit="document.getElementById('#submit').disabled = 1;">
-		<input type="submit" name="missingpeople" value="Missing Accounts" class="blues" id="submit" />
+<div class="earnings">
+	<form action="" name="revenue" method="POST" onsubmit="document.getElementById('#submit').disabled = 1;">
+		<input type="submit" name="revenue" value="Site Revenue" class="blues stdsize" id="submit" />
 	</form>
 </div>
 <hr class="five" />
@@ -118,6 +131,7 @@ if (isset($_POST["coinstatus"])) {
 		<a href class="miniblues" onclick="$('#result').html('');" height="30" width="200"/>Click Here To Close</a>
 <?php
 	echo'<b class="title-point">Coin Status:</b></br>
+		<div id="page">
 		<table id="page">
 			<center>
 				<tr>
@@ -125,45 +139,39 @@ if (isset($_POST["coinstatus"])) {
 					<th>Balance</th>
 					<th>Blocks</th>
 					<th>Connections</th>
-					<th>errors</th>
 				</tr>
 				';
-
 				$result = mysql_query("SELECT * FROM `Wallets` WHERE `disabled`='0' ORDER BY `Wallets`.`Acronymn` ASC");
-				
-				while($row = mysql_fetch_array($result))
-				{
-				$id = $row["Id"];
-				$pw = $row["Wallet_Password"];
-				$usr = $row["Wallet_Username"];
-				$wallet = new Wallet($id);
-				$id_check = $loggedInUser->user_id;
-				$requestkey = md5( hash('sha512', $id_check.$id.$usr.$pw));
-				$info = $wallet->GetInfo($id,$pw,$usr,$requestkey,$id_check);
-
-				echo "<tr>";
-				echo "<td>" . $row['Acronymn'] . "</td>";
-				foreach($info as $key => $value) {
-					if($key == "balance"){
-						echo '<td>'.round($value, 8).'</td>';
+				$num_rows = mysql_num_rows($result);
+				//new method
+				for($i=0; $i < $num_rows; $i++) {
+					if($i & 1) {
+						$color = "lightgray";
+					} else {
+						$color = "darkgray";
 					}
-					elseif($key == "blocks"){
-						echo '<td>'.$value.'</td>';
-					}
-					elseif($key == "connections"){
-						echo '<td>'.$value.'</td>';
-					}
-					elseif($key == "errors"){
-						echo '<td>'.$value.'</td>';
-					}else{
-						
-					}
-				}
-				echo "</tr>";
-				
-				}
-			
-		echo'</center></table>';
+					$id         = mysql_result($result,$i,"Id");
+					$pw         = mysql_result($result,$i,"Wallet_Password");
+					$usr        = mysql_result($result,$i,"Wallet_Username");
+					$acro       = mysql_result($result,$i,"Acronymn");
+					$wallet     = new Wallet($id);
+					$id_check   = $loggedInUser->user_id;
+					$requestkey = md5( hash('sha512', $id_check.$id.$usr.$pw));
+					$info       = $wallet->GetInfo($id,$pw,$usr,$requestkey,$id_check);
+					$balance    = round($info["balance"], 8);
+					$blocks     = $info["blocks"];
+					$connects   = $info["connections"];
+					echo
+					'
+					<tr class='.$color.'>
+					<td>'.$acro.'</td>
+					<td>'.$balance.'</td>
+					<td>'.$blocks.'</td>
+					<td>'.$connects.'</td>
+					</tr>
+					';
+				}			
+		echo'</center></table></div>';
 }
 if(isset($_POST["optimizesql"])) {
 	mysql_query("OPTIMIZE TABLE TicketReplies");
@@ -184,24 +192,26 @@ if(isset($_POST["optimizesql"])) {
 echo "done : database was optimized";
 }
 
-if(isset($_POST["missingpeople"])) {
-	echo '<h1>Missing People</h1>';
-	$sql = mysql_query("SELECT * FROM deposits");
-	for($i=0;$i<mysql_num_rows($sql);$i++)
-	{
-		$Account = mysql_result($sql,$i,"Account");
-		$transaction_id = mysql_result($sql,$i,"Transaction_Id");
-		$amount = mysql_result($sql,$i,"Amount");
-		$coin = mysql_result($sql,$i,"Coin");
-		$sql2 = @mysql_query("SELECT * FROM userCake_Users WHERE `Username_Clean`='$Account'");
-		$ac = @mysql_result($sql2,0,"Username_Clean");
-		if($ac != "")
-		{
-		}else{
-			echo "Account: $Account Transaction: $transaction_id : $amount : $coin<br/> ";
-		}
-	}
+if(isset($_POST["revenue"])) {
+?>
+		<a href class="miniblues" onclick="$('#result').html('');" height="30" width="200"/>Click Here To Close</a>
+<?php
 
+	$getearnings = @mysql_query("SELECT SUM(Amount) as `Amount`  FROM balances WHERE User_ID='-12' AND `Wallet_ID` = '1'");
+	$earnings = mysql_result($getearnings,0,"Amount");
+	$earned = array();
+	$earned["staff"]   = $earnings * 0.6;
+	$earned["shares"] = $earnings * 0.2;
+	$earned["site"]   = $earnings * 0.2;
+	echo'<b class="title-point">Site Revenue:</b></br>
+	<table id="page">';
+	echo '<tr><td>Total</td><td>'.$earnings.'</td></tr>';
+	foreach($earned as $key => $value) {
+	
+		echo '<tr><td>'.$key.'</td><td>'.$value.'</td></tr>';
+	
+	}
+	echo '</table>';
 }
 ?>
 </div>

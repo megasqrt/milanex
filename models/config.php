@@ -1,5 +1,9 @@
 <?php
-
+//error_reporting(E_ALL);
+//ini_set('display_errors', 1);
+$title="OpenEx";
+$maint_url = "system/maintenance.php";
+date_default_timezone_set('America/New_York');
 require_once("settings.php");
 require_once("db/".$dbtype.".php");
 $db = new $sql_db();

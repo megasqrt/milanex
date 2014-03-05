@@ -1,0 +1,18 @@
+OpenEx.pw -- The Open Source Cryptocurrency exchange
+
+
+Hello #USERNAME#
+
+
+A withdraw request has been received for #AMOUNT# #COIN#
+
+To confirm / deny this request click one of the below links
+
+Confirm: #CONFIRM-URL#
+
+(OR)
+
+Deny: #DENY-URL#
+
+
+OpenEx.pw

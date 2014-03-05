@@ -13,7 +13,7 @@ class loggedInUser {
 	public $user_id = NULL;
 	public $clean_username = NULL;
 	public $display_username = NULL;
-	
+		public function getbalance($coin) {		$getbal = mysql_query("SELECT `Amount` FROM balances WHERE `User_Id`='". $this->user_id ."' AND `Wallet_ID` = '$coin'");		$curbal = mysql_result($getbal, 0, "Amount");		return sprintf("%.8f",$curbal);	}
 	//Simple function to update the last sign in of a user
 	public function updateLastSignIn()
 	{

@@ -1,4 +1,17 @@
 <?php
+/**~2014 OpenEx.pw Developers. All Rights Reserved.~*
+ *               https://openex.pw/
+ *Licensed Under the MIT License : http://www.opensource.org/licenses/mit-license.php
+ *
+ *WARRANTY INFORMATION:
+ *THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ *IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ *FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ *AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ *LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ *OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ *THE SOFTWARE. 
+ ***************************************/
 require_once ('system/csrfmagic/csrf-magic.php');
 header('Content-type: text/json');
 require_once("models/config.php");
@@ -44,7 +57,6 @@ if($user_id != 0)//Allow only verified users to use the following api functions.
 		{
 			$errors[count($errors)] = "MarketId not defined";
 		}
-
 		if($mid != NULL)
 		{
 			$trade_array = array();
@@ -77,7 +89,7 @@ if($user_id != 0)//Allow only verified users to use the following api functions.
 			$status = false;
 		}
 	}
-	elseif($method = "GetBalance")
+	if($method == "GetBalance")
 	{
 		$mid = mysql_real_escape_string($_GET["MarketId"]);
 		if($mid == NULL)
@@ -91,8 +103,12 @@ if($user_id != 0)//Allow only verified users to use the following api functions.
 		}
 		
 	}
-	elseif($method = "CreateNewTrade")
+	if($method == "CreateNewTrade")
 	{
+		if($mid == 104)
+		{
+			$errors[count($errors)] = "This Market Disabled.";
+		}
 		$price = @mysql_real_escape_string($_GET["Price"]);
 		$amount = @mysql_real_escape_string($_GET["Amount"]);
 		$type = @mysql_real_escape_string($_GET["Type"]);
@@ -151,7 +167,7 @@ if($user_id != 0)//Allow only verified users to use the following api functions.
 }
 
 //Public methods that do not require API key go below!
-elseif($method == "GetTradeHistory")
+if($method == "GetTradeHistory")
 {
 	$mid = @mysql_real_escape_string($_GET["MarketId"]) or null;
 	$limit = @mysql_real_escape_string($_GET["Limit"]);
@@ -180,10 +196,10 @@ elseif($method == "GetTradeHistory")
 	}
 	else
 	{
-		$status = false;
+		//$status = false;
 	}
 }
-elseif($method == "GetMarketData")
+if($method == "GetMarketData")
 {
 	$mid = mysql_real_escape_string($_GET["MarketId"]);
 	if($mid == NULL)
@@ -218,11 +234,11 @@ elseif($method == "GetMarketData")
 			$buy_array[$i] = array("Quantity" => sprintf("%.8f",$amount),"PricePer" => sprintf("%.8f",$price),"Total" => sprintf("%.8f",$total));
 		}
 		$status = true;
-		$results[count($results)] = array("MarketId" => $mid, "Name" => $name, "Acronymn" => $acronymn, "LastTradePrice" => $last_trade,"SellOrders" => $sell_array,"BuyOrders" => $buy_array);
+		$results[count($results)] = array("MarketId" => $mid, "Name" => $name, "Acronymn" => $acronymn, "LastTradePrice" => sprintf("%.8f",$last_trade),"SellOrders" => $sell_array,"BuyOrders" => $buy_array);
 	}
 }
 
-elseif($method == "GetConversion")
+if($method == "GetConversion")
 {
 	$mid = mysql_real_escape_string($_GET["MarketId"]);
 	$amt = mysql_real_escape_string($_GET["Amount"]);

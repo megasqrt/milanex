@@ -19,7 +19,10 @@ if(mysql_num_rows($api_select) > 0) {
 	echo '<br/>';
 	echo '<h3>Your Server Key is:</h3><br/>';
 	echo $akey;
-	echo '<br/>';		
+	echo '<br/>';	
+	echo '<h3>API Reference and Examples</h3>';
+	
+	echo '<a href="ajax.php?do=getapireference">Download Reference(RTF Format)</a>';
 
 }else{
 
@@ -40,4 +43,5 @@ if(mysql_num_rows($api_select) > 0) {
 	}
 
 }
+
 ?>

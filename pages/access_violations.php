@@ -8,6 +8,7 @@ die();
 }
 
 $access = mysql_query("SELECT * FROM access_violations");
+$access2 = mysql_query("SELECT * FROM bantables_ip");
 ?>
 <table id="page">
 <tr>
@@ -18,7 +19,6 @@ $access = mysql_query("SELECT * FROM access_violations");
 	<th>Ban Ip</th>
 </tr>
 <?php
-
 while($row = mysql_fetch_assoc($access)) {
 	echo
 	'
@@ -31,10 +31,25 @@ while($row = mysql_fetch_assoc($access)) {
 	</tr>
 	';
 }
+while($row = mysql_fetch_assoc($access2)) {
+	echo
+	'
+	<tr>
+		<td>0</td>
+		<td>'.$row["ip"].'</td>
+		<td>0</td>
+		<td>0</td>
+		<td><a href="index.php?page=access_violations&unban='.$row["ip"].'">UnBan</a></td>
+	</tr>
+	';
+}
 ?>
 </table>
 <?php
-
+if(isset($_GET["unban"])) {
+	$ipis = mysql_real_escape_string(strip_tags($_GET["unban"]));
+	$sql1 = mysql_query("DELETE FROM bantables_ip WHERE `ip`='$ipis'");	
+}
 if(isset($_GET["ban"])) {
 	$ipis = mysql_real_escape_string(strip_tags($_GET["ban"]));
 	$sql2 = mysql_query("SELECT ip FROM bantables_ip WHERE ip = '$ipis';");

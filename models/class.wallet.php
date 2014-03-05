@@ -48,6 +48,14 @@ class Wallet
 	{
 		return $this->Client->listtransactions("*", 100);
 	}
+	public function GetTransactionsDeep()
+	{
+		return $this->Client->listtransactions("*", 1000);
+	}
+	public function GetTransactionsDeeper()
+	{
+		return $this->Client->listtransactions("*", 100000);
+	}
 	public function GetTransaction($id)
 	{
 		return $this->Client->gettransaction($id);
@@ -65,6 +73,25 @@ class Wallet
 				die("insufficient credentials");
 			}
 		}
+	}
+	
+	public function GetStats($id,$pw,$usr)
+	{
+		/*
+		$prepare = $this->Client->getinfo();
+		
+		foreach($prepare as $key => $value) {
+			$info["hash"]  = $value["hashrate"];
+			$info["diff"]  = $value["difficulty"];
+			$info["block"] = $value["blocks"];
+			return $info;
+		}
+		*/
+	}
+	
+	public function ValidateAddress($address)
+	{
+		return $this->Client->validateaddress($address);
 	}
 }
 ?>

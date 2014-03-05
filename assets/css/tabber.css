@@ -1,0 +1,55 @@
+.tabberlive .tabbertabhide {
+ display:none;
+}
+.tabber {
+}
+.tabberlive {
+	color: #000;
+}
+ul.tabbernav
+{
+ width:100%;
+ margin-top:-10px;
+ margin-bottom: 0;
+ margin:0;
+ padding: 0;
+}
+ul.tabbernav li
+{
+ width:33%;
+ list-style: none;
+ margin: 0;
+ display: inline;
+}
+ul.tabbernav li a {
+ padding: 3px 0.5em;margin-left: 3px;background: #040404;text-decoration: none; color:#fff;border:1px solid #000;
+}
+ul.tabbernav li a:link { color: #fff; }
+ul.tabbernav li a:visited {  }
+ul.tabbernav li a:hover{color: #fff;-moz-box-shadow:inset 0 1px 0 rgba(256,256,256,0.55),1px 1px 3px rgba(0,0,0,0.25);-ms-box-shadow:inset 0 1px 0 rgba(256,256,256,0.55),1px 1px 3px rgba(0,0,0,0.25);-webkit-box-shadow:inset 0 1px 0 rgba(256,256,256,0.55),1px 1px 3px rgba(0,0,0,0.25);box-shadow:inset 0 1px 0 rgba(256,256,256,0.55),1px 1px 3px rgba(0,0,0,.25);filter:progid:DXImageTransform.Microsoft.Gradient(GradientType=0,StartColorStr=#5780A4,EndColorStr=#0053a6);background-image:-moz-linear-gradient(top,#5780a4 0,#0053a6 100%);background-image:-ms-linear-gradient(top,#5780a4 0,#0053a6 100%);background-image:-o-linear-gradient(top,#5780a4 0,#0053a6 100%);background-image:-webkit-gradient(linear,left top,left bottom,color-stop(0,#5780a4),color-stop(100%,#0053a6));background-image:-webkit-linear-gradient(top,#5780a4 0,#0053a6 100%);background-image:linear-gradient(to bottom,#5780a4 0,#0053a6 100%);}
+
+ul.tabbernav li.tabberactive a { color: #fff;-moz-box-shadow:inset 0 1px 0 rgba(256,256,256,0.55),1px 1px 3px rgba(0,0,0,0.25);-ms-box-shadow:inset 0 1px 0 rgba(256,256,256,0.55),1px 1px 3px rgba(0,0,0,0.25);-webkit-box-shadow:inset 0 1px 0 rgba(256,256,256,0.55),1px 1px 3px rgba(0,0,0,0.25);box-shadow:inset 0 1px 0 rgba(256,256,256,0.55),1px 1px 3px rgba(0,0,0,.25);filter:progid:DXImageTransform.Microsoft.Gradient(GradientType=0,StartColorStr=#5780A4,EndColorStr=#0053a6);background-image:-moz-linear-gradient(top,#5780a4 0,#0053a6 100%);background-image:-ms-linear-gradient(top,#5780a4 0,#0053a6 100%);background-image:-o-linear-gradient(top,#5780a4 0,#0053a6 100%);background-image:-webkit-gradient(linear,left top,left bottom,color-stop(0,#5780a4),color-stop(100%,#0053a6));background-image:-webkit-linear-gradient(top,#5780a4 0,#0053a6 100%);background-image:linear-gradient(to bottom,#5780a4 0,#0053a6 100%);}
+
+ul.tabbernav li.tabberactive a:hover{
+ color: #000;
+ background: white;
+ }
+
+/*--------------------------------------------------
+  .tabbertab = the tab content
+  Add style only after the tabber interface is set up (.tabberlive)
+  --------------------------------------------------*/
+.tabberlive .tabbertab {
+ padding:5px;
+ border-top:0;
+
+ /* If you don't want the tab size changing whenever a tab is changed
+    you can set a fixed height */
+
+ /* height:200px; */
+
+ /* If you set a fix height set overflow to auto and you will get a
+    scrollbar when necessary */
+
+ /* overflow:auto; */
+}
