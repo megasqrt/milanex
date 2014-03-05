@@ -16,7 +16,7 @@
 	$websiteUrl = "http://www.milancoin.org/milanex/"; //including trailing slash
 	$emailActivation = false;
 	$resend_activation_threshold = 24;
-	$emailAddress = "no-reply@server.www.milancoin.org";
+	$emailAddress = "ceo@milancoin.org";
 	$emailDate = date("l \\t\h\e jS");
 	$mail_templates_dir = "models/mail-templates/";
 	$default_hooks = array("#WEBSITENAME#","#WEBSITEURL#","#DATE#");

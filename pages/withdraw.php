@@ -185,8 +185,8 @@ require_once('system/csrfmagic/csrf-magic.php');
 								$ckey = generateRandomString(30);
 								$userdetails = fetchUserDetails($account);
 								$mail = new userCakeMail();
-								$confirm_url = lang("CONFIRM")."\nhttps://www.milancoin.org/milanex/index.php?page=withdraw&confirm=".$ckey;
-								$deny_url = ("DENY")."\nhttps://www.milancoin.org/milanex/index.php?page=withdraw&deny=".$ckey;
+								$confirm_url = lang("CONFIRM")."\nhttp://www.milancoin.org/milanex/index.php?page=withdraw&confirm=".$ckey;
+								$deny_url = ("DENY")."\nhttp://www.milancoin.org/milanex/index.php?page=withdraw&deny=".$ckey;
 								$hooks = array(
 									"searchStrs" => array("#CONFIRM-URL#","#DENY-URL#","#USERNAME#","#AMOUNT#","#COIN#"),
 									"subjectStrs" => array($confirm_url,$deny_url,$userdetails["Username"],$amountf,$coin)

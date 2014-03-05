@@ -19,7 +19,7 @@ userCake(Heavily Modified) <--All Rights reserved
 mysqli.class.php <--Jesse boyer, all rights reserved(jream.net)
 csrf-magic <-- all rights reserved
 
-Demo(live trading site)->https://www.milancoin.org
+Demo(live trading site)->http://www.milancoin.org
 
 known issues:
 

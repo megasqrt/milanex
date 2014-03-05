@@ -1,6 +1,6 @@
 <?php
 /**~2014 MilanEx.pw Developers. All Rights Reserved.~**->>
- *               https://www.milancoin.org/milanex/
+ *               http://www.milancoin.org/milanex/
  *Licensed Under the MIT License : http://www.opensource.org/licenses/mit-license.php
  *
  *WARRANTY INFORMATION:
@@ -382,7 +382,7 @@ sha-256, open source, crypto exchange">
 	</div>
 	<!--menu-->
 	<nav class="clearfix">  
-		<a id="logo" href="https://www.milancoin.org"><img src="assets/img/MilanEx.png" height="40" /></a>
+		<a id="logo" href="http://www.milancoin.org"><img src="assets/img/MilanEx.png" height="40" /></a>
 		<ul class="clearfix">  
 			<li><a  href="index.php?page=home" title="home"><i class="fa fa-home"></i></a></li>
 			<li><a  href="index.php?page=about" title="about"><i class="fa fa-info"></i></a></li>

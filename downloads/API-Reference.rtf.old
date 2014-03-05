@@ -49,7 +49,7 @@ Example Output: \par
 \ulnone\b0 Method: \f1\fs20 GetTradeHistory\f0\fs24\par
 Parameters: \f1\fs20 MarketId (int), Limit (int)\par
 \f0\fs24 Description: \f1\fs20 Retrieves the trading history for the specified market starting with the most recent up to the value of Limit.\par
-\f0\fs24 Example Usage: {\f1\fs20{\field{\*\fldinst{HYPERLINK https://www.milancoin.org/milanex/api.php?Method=GetTradeHistory&MarketId=104&Limit=10 }}{\fldrslt{https://www.milancoin.org/milanex/api.php?Method=GetTradeHistory&MarketId=104&Limit=10\ul0\cf0}}}}\f0\fs24\par
+\f0\fs24 Example Usage: {\f1\fs20{\field{\*\fldinst{HYPERLINK http://www.milancoin.org/milanex/api.php?Method=GetTradeHistory&MarketId=104&Limit=10 }}{\fldrslt{http://www.milancoin.org/milanex/api.php?Method=GetTradeHistory&MarketId=104&Limit=10\ul0\cf0}}}}\f0\fs24\par
 Example Output: \par
 \cf3\highlight4\f2\fs20\{\par
 \f3  \f2 "Status":"Success",\par
@@ -88,7 +88,7 @@ Example Output: \par
 \cf0\highlight0\f0\fs24 Method: \f1\fs20 GetMarketData\f0\fs24\par
 Parameters: \f1\fs20 MarketId (int)\par
 \f0\fs24 Description: \f1\fs20 Retrieves the market data from one market.\par
-\f0\fs24 Example Usage: {\f1\fs20{\field{\*\fldinst{HYPERLINK https://www.milancoin.org/milanex/api.php?Method=GetMarketData&MarketId=104 }}{\fldrslt{https://www.milancoin.org/milanex/api.php?Method=GetMarketData&MarketId=104\ul0\cf0}}}}\f0\fs24\par
+\f0\fs24 Example Usage: {\f1\fs20{\field{\*\fldinst{HYPERLINK http://www.milancoin.org/milanex/api.php?Method=GetMarketData&MarketId=104 }}{\fldrslt{http://www.milancoin.org/milanex/api.php?Method=GetMarketData&MarketId=104\ul0\cf0}}}}\f0\fs24\par
 Example Output: \par
 \cf3\highlight4\f2\fs20\{\par
 \f3  \f2 "Status":"Success",\par
@@ -126,7 +126,7 @@ Example Output: \par
 \cf0\highlight0\f0\fs24 Method: \f1\fs20 GetConversion\f0\fs24\par
 Parameters: \f1\fs20 MarketId (int), Amount (float), Acronym (unused?)\par
 \f0\fs24 Description: \f1\fs20 Converts amount specified to its MLC equivelant based on the rate that the last trade occurred at.\par
-\f0\fs24 Example Usage: {\f1\fs20{\field{\*\fldinst{HYPERLINK https://www.milancoin.org/milanex/api.php?Method=GetConversion&MarketId=98&Amount=1000.1 }}{\fldrslt{https://www.milancoin.org/milanex/api.php?Method=GetConversion&MarketId=98&Amount=1000.1\ul0\cf0}}}}\f0\fs24\par
+\f0\fs24 Example Usage: {\f1\fs20{\field{\*\fldinst{HYPERLINK http://www.milancoin.org/milanex/api.php?Method=GetConversion&MarketId=98&Amount=1000.1 }}{\fldrslt{http://www.milancoin.org/milanex/api.php?Method=GetConversion&MarketId=98&Amount=1000.1\ul0\cf0}}}}\f0\fs24\par
 Example Output: \par
 \cf3\highlight4\f2\fs20\{\par
 \f3  \f2 "Status":"Success",\par
@@ -157,7 +157,7 @@ Example Output: \par
 \cf3\highlight5\b                 \b0 curl_setopt($hCurl, \cf2 CURLOPT_RETURNTRANSFER\cf3 , \cf9 true\cf3 )\b ;\cf0\highlight0\b0\par
 \cf3\highlight5\b                 \b0 curl_setopt($hCurl, \cf2 CURLOPT_USERAGENT\cf3 ,\cf0  \cf3\b '\cf2\b0 Mozilla/4.0 (compatible; MilanEx API PHP client; \cf3\b '\b0 .php_uname(\b '\cf2\b0 s\cf3\b '\b0 ).\b '\cf2\b0 ; PHP/\cf3\b '\b0 .phpversion().\b '\cf2\b0 )\cf3\b '\b0 )\b ;\cf0\highlight0\b0\par
 \cf3\highlight5\b         \b0\}\cf0\highlight0\par
-\cf3\highlight5\tab\tab $request \cf2 =\cf0  \cf3\b '{\cf0\b0{\field{\*\fldinst{HYPERLINK https://www.milancoin.org/milanex/api.php?'.$get }}{\fldrslt{https://www.milancoin.org/milanex/api.php?\b '\b0 .$get\ul0\cf0}}}}\f2\fs20 ;\cf0\highlight0\b0\par
+\cf3\highlight5\tab\tab $request \cf2 =\cf0  \cf3\b '{\cf0\b0{\field{\*\fldinst{HYPERLINK http://www.milancoin.org/milanex/api.php?'.$get }}{\fldrslt{http://www.milancoin.org/milanex/api.php?\b '\b0 .$get\ul0\cf0}}}}\f2\fs20 ;\cf0\highlight0\b0\par
 \cf3\highlight5\b         \b0 curl_setopt($hCurl, \cf2 CURLOPT_URL\cf3 , $request)\b ;\cf0\highlight0\b0\par
 \cf3\highlight5\b\tab\tab\b0 curl_setopt($hCurl, \cf2 CURLOPT_HEADER\cf3 , 0)\b ;\cf0\highlight0\b0\par
 \cf3\highlight5\b         \b0 curl_setopt($hCurl, \cf2 CURLOPT_SSL_VERIFYPEER\cf3 , \cf9 FALSE\cf3 )\b ;\cf0\highlight0\b0\par
