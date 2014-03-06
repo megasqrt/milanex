@@ -160,7 +160,7 @@ if (isset($_POST["coinstatus"])) {
 					$info       = $wallet->GetInfo($id,$pw,$usr,$requestkey,$id_check);
 					$balance    = round($info["balance"], 8);
 					$blocks     = $info["blocks"];
-					$connects   = $info["connections"];
+					$connects   = isset($info["connections"])?$info["connections"]:1;
 					echo
 					'
 					<tr class='.$color.'>

@@ -85,8 +85,8 @@ if(isset($_POST["price2"])) {
 					$New_Trade->trade_total = $Amount;
 					$New_Trade->trade_type = $name;
 					$New_Trade->standard = $X;
-					//$New_Trade->GetEquivalentTrade();
-					//$New_Trade->ExecuteTrade();
+					$New_Trade->GetEquivalentTrade();
+					$New_Trade->ExecuteTrade();
 					$New_Trade->UpdateTrade();
 					echo '<meta http-equiv="refresh" content="0; URL=index.php?page=trade&market='.$id.'">';
 				}else{
@@ -183,8 +183,8 @@ if(isset($_POST["Amount"]))
 					$New_Trade->trade_total = $Amount;
 					$New_Trade->trade_type = $name;
 					$New_Trade->standard = $Amount;
-					//$New_Trade->GetEquivalentTrade();
-					//$New_Trade->ExecuteTrade();
+					$New_Trade->GetEquivalentTrade();
+					$New_Trade->ExecuteTrade();
 					$New_Trade->UpdateTrade();
 					echo '<meta http-equiv="refresh" content="0; URL=index.php?page=trade&market='.$id.'">';
 				}

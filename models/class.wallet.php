@@ -16,7 +16,7 @@ class Wallet
 		$this->password = mysql_result($wallet_sql,0,"Wallet_Password");
 		$this->Wallet_Id = $Wallet_Id;
 		$this->port = mysql_result($wallet_sql,0,"Wallet_Port");
-		$this->Client = new jsonRPCClient('http://' . $this->username . ':' .$this->password . '@' . $this->ip . ':' . $this->port);
+		$this->Client = new jsonRPCClient((($this->port == 443)?"https":"http").'://' . $this->username . ':' .$this->password . '@' . $this->ip . ':' . $this->port);
 	}
 	public function GetDepositAddress($account)
 	{

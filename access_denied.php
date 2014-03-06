@@ -1,5 +1,5 @@
 <?php
-/**~2014 MilanEx.pw Developers. All Rights Reserved.~*
+/**~2014 MilanCoin Developers. All Rights Reserved.~*
  *               http://www.milancoin.org/milanex/
  *Licensed Under the MIT License : http://www.opensource.org/licenses/mit-license.php
  *
@@ -15,15 +15,13 @@
 require_once ('system/csrfmagic/csrf-magic.php');
 require_once("models/config.php");
 //$account = mysql_real_escape_string(strip_tags($loggedInUser->display_username));
+$account = mysql_real_escape_string("Guest/Not Logged In");
 $uagent = mysql_real_escape_string(getuseragent()); //get user agent
 $ip = mysql_real_escape_string(getIP()); //get user ip
 if(isUserLoggedIn()) {
-	if ($account != null) {
+	//if ($account != null) {
 		$account = mysql_real_escape_string($loggedInUser->display_username);
-	}
-	else {
-		$account = mysql_real_escape_string("Guest/Not Logged In");
-	}
+	//}else {$account = mysql_real_escape_string("Guest/Not Logged In");}
 }
 $date = mysql_real_escape_string(gettime());
 $sql = @mysql_query("INSERT INTO access_violations (username, ip, user_agent, time) VALUES ('$account', '$ip', '$uagent', '$date');");

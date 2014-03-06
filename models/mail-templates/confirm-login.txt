@@ -5,4 +5,4 @@ Your Login Token is
 #CONFIRM-URL#
 
 
-MilanEx.pw
+MilanCoin

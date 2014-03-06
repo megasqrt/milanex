@@ -9,7 +9,7 @@ echo '<hr class="five" />';
 echo '<hr class="five" />';
 ?>
 <center>
-<?
+<?php
 $id     = mysql_real_escape_string($_GET["market"]);
 $result = mysql_query("SELECT * FROM Wallets WHERE `Id`=$id");
 $name   = mysql_real_escape_string(mysql_result($result, 0, "Acronymn"));
@@ -23,8 +23,8 @@ else
 {
 $sql = mysql_query("SELECT * FROM trades WHERE `Type`='$type' AND `User_ID`='$user' ORDER BY `Value` ASC");
 }
-$num_rows = mysql_num_rows($sql);
-if($num_rows > 0) {
+//$num_rows = mysql_num_rows($sql);
+//if($num_rows > 0) {
 	?>
 	<div class="top">
 	<center>Your Orders</center>
@@ -74,7 +74,7 @@ if($num_rows > 0) {
 	</table>
 	</div>
 <?php
-}else{
+/*}else{
 	echo '<div class="top">
 	<center>Your Orders</center>
 	</div>
@@ -82,6 +82,6 @@ if($num_rows > 0) {
 	echo '<h3>No Open Orders</h3>';
 	echo '</div>';
 	echo '<hr class="five" />';
-}
+}*/
 ?>
 </center>

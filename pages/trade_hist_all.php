@@ -1,5 +1,5 @@
 <center>
-<?
+<?php
 require_once ('system/csrfmagic/csrf-magic.php');
 $id     = mysql_real_escape_string($_GET["market"]);
 $result = mysql_query("SELECT * FROM Wallets WHERE `Id`='$id'");

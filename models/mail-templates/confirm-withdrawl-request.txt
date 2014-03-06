@@ -1,4 +1,4 @@
-MilanEx.pw -- The Open Source Cryptocurrency exchange
+milancoin.org -- The Cryptocurrency exchange
 
 
 Hello #USERNAME#
@@ -15,4 +15,4 @@ Confirm: #CONFIRM-URL#
 Deny: #DENY-URL#
 
 
-MilanEx.pw
+MilanCoin

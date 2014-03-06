@@ -7,7 +7,7 @@ if(!isUserLoggedIn())
 }
 ?>
 <center>
-<?
+<?php
 $id     = mysql_real_escape_string($_GET["market"]);
 $result = mysql_query("SELECT * FROM Wallets WHERE `Id`='$id'");
 $name   = mysql_real_escape_string(mysql_result($result, 0, "Acronymn"));

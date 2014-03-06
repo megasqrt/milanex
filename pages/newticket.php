@@ -1,4 +1,4 @@
-<?require_once ('system/csrfmagic/csrf-magic.php');if(!isUserLoggedIn()) {	echo '<meta http-equiv="refresh" content="0; URL=access_denied.php">';	die(); }
+<?phprequire_once ('system/csrfmagic/csrf-magic.php');if(!isUserLoggedIn()) {	echo '<meta http-equiv="refresh" content="0; URL=access_denied.php">';	die(); }
 
 if (isset($_POST['subject']) && isset($_POST['post']) && trim($_POST['subject']) != '' && trim($_POST['post']) != '' ) {
     $post    = mysql_real_escape_string(strip_tags($_POST["post"]));

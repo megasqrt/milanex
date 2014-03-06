@@ -136,7 +136,7 @@ class jsonRPCClient {
                 }
                
                 // final checks and return
-                if (!$this->notification) {
+                if (!$this->notification and $response !== NULL) {
                         // check
                         if ($response['id'] != $currentId) {
                                 throw new Exception('Incorrect response id (request id: '.$currentId.', response id: '.$response['id'].')');

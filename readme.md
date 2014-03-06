@@ -1,4 +1,4 @@
-MilanEx.pw 0.3
+MilanCoin.org 0.3
 
 THIS IS BETA SOFTWARE. IT IS UNPROVEN. USE AT YOUR OWN RISK.
 

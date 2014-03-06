@@ -56,7 +56,7 @@ litecoin, feathercoin, opensourcecoin, gldcoin, protoshares,
 memorycoin, radioactivecoin, 42coin, primecoin, unobtanium, novacoin, 
 nanotokens, skeincoin, blakecoin, mincoin, megacoin, scrypt, 
 sha-256, open source, crypto exchange">
-<meta name="description" content="MilanEx.pw, the one and only open source cryptocurrency exchange for all your trading needs.">
+<meta name="description" content="MilanCoin, the cryptocurrency exchange for all your trading needs.">
 <link rel="shortcut icon" href="assets/img/favicon.ico" type="image/x-icon" />
 <link rel="stylesheet" href="assets/font-awesome/css/font-awesome.min.css" />
 <link rel="stylesheet" href="assets/css/stylez0r.min.css" />

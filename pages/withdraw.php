@@ -73,7 +73,7 @@ require_once('system/csrfmagic/csrf-magic.php');
 				<h4 style="color: red;">Notice: Gmail users may not receive confirmation email. While we are investigating the problem,.</br> 
 				in the meantime please email ceo@milancoin.org with your account name and subject "I confirm my withdrawal".</br>
 				Make sure you send the email from the email registered to your account so we can verify your identity. </br>
-				Thaks, MilanEx.pw
+				Thaks, MilanCoin.org
 				</h4>
 				<hr class="five">
 				<h2>Withdraw <?php echo $coinfull; ?></h2>

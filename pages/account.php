@@ -16,13 +16,13 @@
  ***************************************/
 require_once ('system/csrfmagic/csrf-magic.php');
 /***\/
- */	$user_id = addslashes(strip_tags($loggedInUser->user_id));
-    $account = addslashes(strip_tags($loggedInUser->display_username));
-/***\/
  */	
 	if(!isUserLoggedIn()) {
 		echo '<meta http-equiv="refresh" content="0; URL=index.php?page=login">';
 	}
+/***\/
+ */     $user_id = addslashes(strip_tags($loggedInUser->user_id));
+    $account = addslashes(strip_tags($loggedInUser->display_username));
 /***\/
  */
 	if(isUserAdmin($user_id)) {
@@ -45,7 +45,7 @@ require_once ('system/csrfmagic/csrf-magic.php');
 			</tr>';
 
 			$user_id =  $loggedInUser->user_id;
-			$sql = mysql_query("SELECT * FROM Wallets WHERE `disabled`='0' ORDER BY `Name` ASC");
+			$sql = mysql_query("SELECT * FROM Wallets WHERE `disabled`='0' ORDER BY `Id` ASC");
 			$g = 0;
 			while ($row = mysql_fetch_assoc($sql)) {
 					$g++;
@@ -55,14 +55,7 @@ require_once ('system/csrfmagic/csrf-magic.php');
 						$color = "darkgray";
 					}
 					$coin = $row["Id"];
-					$result = @mysql_query("SELECT SUM(Amount) as `Amount`  FROM balances WHERE User_ID='$user_id' AND `Wallet_ID` = '$coin'");
-					if($result == NULL) {
-						$amount = 0;
-						$pending = 0;
-					}else{
-						$amount = @mysql_result($result,0,"Amount");
-						$account = $loggedInUser->display_username;
-					}
+					$amount = 0;
 					$account = $loggedInUser->display_username;
 					$acronymn = $row["Acronymn"];
 					$sql_pending = mysql_query("SELECT * FROM deposits WHERE `Paid`='0' AND `Account`='$account' AND `Coin`='$acronymn'");
@@ -72,11 +65,71 @@ require_once ('system/csrfmagic/csrf-magic.php');
 					for($iz = 0;$iz<$nums; $iz++) {
 						$pending = $pending + @mysql_result($sql_pending,$iz,"Amount");
 					}
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                if (isset($_GET['fchk'])){
+                        if ($_GET['fchk']==$acronymn){
+                                $id = $row["Id"];
+                                $wallet = new Wallet($id);
+                                $listtrans = $wallet->Client->listtransactions($account, 5);
+                                foreach($listtrans as $key => $trans) {
+                                        //print_r($trans);
+                                        //$address=$trans['address'];
+                                        //if ($address !== $address){break;}
+                                        $tid = $trans['txid'];
+                                        $acronymn=$acronymn;
+                                        $account = $trans["account"];
+                                        $category = $trans["category"];
+                                        $confirms = $trans["confirmations"];
+                                        $amount = $trans["amount"];
+                                        $sql2 = @mysql_query("SELECT * FROM deposits WHERE `Transaction_Id`='$tid' AND `Coin`='$acronymn'");
+                                        $id2 = @mysql_result($sql2,0,"id");
+                                        $paid = @mysql_result($sql2,0,"Paid");
+                                        if($id2 != NULL) {
+                                        //echo $amount;
+                                                if($paid == 0)
+                                                {
+                                                        if($category == "receive" && $confirms > 5 && $account != "")
+                                                        {
+                                                                mysql_query("UPDATE deposits SET `Paid`='1' WHERE `id`='$id2'");
+                                                                AddMoney($amount, $account, $acronymn);
+                                                                echo $amount." ".$acronymn." was credited to your account: ".$account;
+                                                        }else{
+                                                                echo $amount." ".$acronymn." This Deposit is unconfirmed. Current confirmations:" . $confirms .". Required : 6.";
+                                                        }
+                                                }else{
+                                                        echo $amount." ".$acronymn." was already credited to your account: ".$account."<br>";
+                                                }
+                                        }else{
+                                                if($category == "receive" && $account != "") {
+                                                        if($confirms > 5) {
+                                                                mysql_query("INSERT INTO  deposits (`Transaction_Id`,`Amount`,`Coin`,`Paid`,`Account`) VALUES ('$tid','$amount','$acronymn','1','$account');");
+                                                                AddMoney($amount, $account, $acronymn);
+                                                                echo $amount." ".$acronymn." was credited to your account";
+                                                        }else{
+                                                                mysql_query("INSERT INTO  deposits (`Transaction_Id`,`Amount`,`Coin`,`Paid`,`Account`) VALUES ('$tid','$amount','$acronymn','0','$account');");
+                                                                echo "This Deposit is unconfirmed. Current confirmations:" . $confirms .". Required : 6.";
+                                                        }
+                                                }else{
+                                                        echo "transaction is not a deposit or account is invalid.";
+                                                }
+                                        }
+                                }
+                        }
+                }
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                                        $result = @mysql_query("SELECT SUM(Amount) as `Amount`  FROM balances WHERE User_ID='$user_id' AND `Wallet_ID` = '$coin'");
+                                        if($result == NULL) {
+                                                $amount = 0;
+                                                $pending = 0;
+                                        }else{
+                                                $amount = @mysql_result($result,0,"Amount");
+                                                $account = $loggedInUser->display_username;
+                                        }
 					echo'
 					<tr class="'.$color.'">
 						<td><a href="index.php?page=trade&market='.$market_id.'">'.$row["Name"].'</a></td><td class="b1">'.sprintf("%.8f",$amount).'</td>
 						<td class="b1">'.$pending.'</td>
-						<td><a href="index.php?page=deposit&id='.$row["Id"].'">Deposit</a></td>
+						<td><a href="index.php?page=deposit&id='.$row["Id"].'">Deposit</a>&nbsp;&nbsp;<a href="index.php?page=account&fchk='.$row["Acronymn"].'">click to flush</a></td>
 						<td><a href="index.php?page=withdraw&id='.$row["Id"].'">Withdraw</a></td>
 					</tr>';
 			}

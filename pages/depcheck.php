@@ -37,9 +37,9 @@ die();
 				$paid = @mysql_result($sql2,0,"Paid");
 				$wallet = new Wallet($id);
 				$trans = @$wallet->gettransaction($tid);
-				echo '<pre>';
+				//echo '<pre>';
 				print_r($trans);
-				echo '</pre>';
+				//echo '</pre>';
 				if($trans != null) {
 					if(is_array($trans)) {
 						if(in_array("Invalid or non-wallet transaction id", $trans,true)) {
