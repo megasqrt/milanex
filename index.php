@@ -18,7 +18,7 @@ if(isTORnode()){
 	die("Due to legal restrictions users using TOR Browser are not allowed to access this website.");
 }
 if(isIPbanned()){
-	die("ip address is banned. You can appeal this decision by contacting an administrator at ceo@milancoin.org");
+	die("ip address is banned. You can appeal this decision by contacting an administrator at milancoin@vip.qq.com");
 }
 if(isMaintenanceDisabled()) {
 }else{
@@ -213,7 +213,6 @@ $_GET["page"] = isset($_GET["page"])?$_GET["page"]:"";
 	var total = document.getElementById('Amount2').value;
 	var earn = document.getElementById('Amount2').value / document.getElementById('price2').value;
 		$.get("system/calculatefees.php?P=" + earn,function(data,status){
-		var xx = data / document.getElementById('price2').value;
 		  document.getElementById('fee2').value = data;
 		});
 	}

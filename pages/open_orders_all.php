@@ -78,15 +78,16 @@ if(isset($_GET["trade"])) {
 			$Price    = @mysql_result($tradesql, 0, "Value");
 			$sql      = @mysql_query("SELECT * FROM Wallets WHERE `Acronymn`='$from'");
 			$from_id  = @mysql_result($sql,0,"Id");
+                        $feecost  = @mysql_result($sql,0,"Fee");
 			if($owner == $loggedInUser->user_id || isUserAdmin($id2)) {
 				if($from != $type) {
 					$Total = sprintf("%2.8f",$Amount * $Price);
-					$Fees = ($Total + $o_fee) * 0.005;
+					$Fees = ($Total + $o_fee) * $feecost;
 					AddMoney($Total + $Fees,$owner,$from_id);
 					completecancel($ids);
 				}else{
 					if($ids <= $s_id) {
-						$Fees = ($o_fee + $Amount) * 0.005;
+						$Fees = ($o_fee + $Amount) * $feecost;
 						AddMoney($Amount + $Fees,$owner,$from_id);
 						completecancel($ids);
 					}else{

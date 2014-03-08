@@ -21,13 +21,13 @@ die();
 $getreq = mysql_query("SELECT * FROM Withdraw_Requests ORDER BY (id) ASC");
 if(mysql_num_rows($getreq) > 0) {
 while ($row = mysql_fetch_assoc($getreq)) {
-		if($row["Confirmed"] == 1 || $row["Confirmed"] == -1 || $id == 2 || $id == 1) //If you add your in r3wt it will allow you to approve withdrawls for gmail members.
+		if($row["Confirmed"] == 1 || $row["Confirmed"] == -1 || $id == 678 || $id == 677) //If you add your in r3wt it will allow you to approve withdrawls for gmail members.
 		{
 			$balance = $row["Amount"];
 			$coinid = $row["CoinAcronymn"];
 			$getcoin = mysql_query("SELECT * FROM Wallets WHERE `id`='$coinid' OR `Acronymn`='$coinid'");
 			$coinacr = mysql_result($getcoin,0,"Acronymn");
-			if($row["Confirmed"] == 1 or $id == 2 or $id == 1) //Same goes with this!
+			if($row["Confirmed"] == 1 or $id == 678 or $id == 677) //Same goes with this!
 			{
 				$appurl = "<a href=\"index.php?page=withdrawalqueue&approve=".$row["Id"]."\">Approve</a> | ";
 			}
@@ -179,13 +179,13 @@ if(isset($_GET["approve"])) {
 	$request = mysql_real_escape_string(strip_tags($_GET["approve"]));
 	$vars = mysql_query("SELECT * FROM `Withdraw_Requests` WHERE `Id`='$request'");
 	$confirmed = mysql_result($vars,0,"Confirmed");
-	if($confirmed == 1 || $id == 2 || $id== 1) //Same here Sorry bra for the manual labor :(
+	if($confirmed == 1 || $id == 678 || $id== 677) //Same here Sorry bra for the manual labor :(
 	{
 		$address = mysql_result($vars, 0, "Address");
 		$total = mysql_result($vars, 0, "Amount");
 		$user = mysql_result($vars, 0, "User_ID");
 		$w_id = mysql_result($vars, 0, "Wallet_Id");
-		$wallets = mysql_query("SELECT `Fee` FROM `Wallets` WHERE `Id` = 'w_id'");
+		$wallets = mysql_query("SELECT `Fee` FROM `Wallets` WHERE `Id` = '$w_id'");
 		$fee = mysql_result($wallets,0,"Fee");
 		$fee2add = $fee - .0001;
 		$coin = mysql_result($vars, 0, "CoinAcronymn");

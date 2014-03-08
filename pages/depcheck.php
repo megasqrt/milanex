@@ -38,7 +38,7 @@ die();
 				$wallet = new Wallet($id);
 				$trans = @$wallet->gettransaction($tid);
 				//echo '<pre>';
-				print_r($trans);
+				//print_r($trans);
 				//echo '</pre>';
 				if($trans != null) {
 					if(is_array($trans)) {

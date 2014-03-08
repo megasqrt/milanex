@@ -12,9 +12,7 @@ require_once ('system/csrfmagic/csrf-magic.php');
 	<table>
 		<tr>
 			<td>
-				Milanex, LLC.</br>
-				214 S Crawford St Clarksville, Arkansas 72830</br>
-				Established on February 7th, 2014</br>
+				milancoin.org</br>
 			</td>
 		</tr>
 	</table>
@@ -26,7 +24,7 @@ require_once ('system/csrfmagic/csrf-magic.php');
 	<h3> Contact Information </h3>
 	<table>
 		<tr>
-			<td>Contact: <a href="mailto:ceo@milancoin.org">Email(Link)</a></td>
+			<td>Contact: <a href="mailto:milancoin@vip.qq.com">Email(Link)</a></td>
 		</tr>
 	</table>
 

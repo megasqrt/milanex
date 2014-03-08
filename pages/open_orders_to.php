@@ -3,6 +3,7 @@ include("../models/config.php");
 $id     = mysql_real_escape_string($_GET["market"]);
 $result = mysql_query("SELECT * FROM Wallets WHERE `Id`='$id'");
 $name   = mysql_real_escape_string(mysql_result($result, 0, "Acronymn"));
+$feecost   = mysql_real_escape_string(mysql_result($result, 0, "Fee"));
 $type = $name;
 ?>
 <div class="top">
@@ -30,7 +31,7 @@ while ($row = mysql_fetch_assoc($sql)) {
 	}
 	if($row["From"] == "MLC") { 
 		if(sprintf("%.8f",$row["Value"]) != sprintf("%.8f",$previous)) {
-			$value = sprintf("%.8f",$row["Value"]);
+			$value = $row["Value"];
 			$amount = 0;
 			$sqls = mysql_query("SELECT * FROM trades WHERE `Value`='$value' AND `From`='MLC' AND `Type`='$type'");
 			$num = mysql_num_rows($sqls);
@@ -42,10 +43,10 @@ while ($row = mysql_fetch_assoc($sql)) {
 			if($amount < .001 && $row["Value"] < 1){
 			}else{
 			?>
-			<tr style="cursor:pointer;" title="Click To Fill Order Form" class="<?php echo $color; ?>" onclick="document.getElementById('Amount').value = '<?php echo sprintf('%.8f',$amount); ?>'; document.getElementById('price1').value = '<?php echo sprintf('%.8f',$value); ?>';calculateFees1(this); ">
-				<td style="width: 33%;"><?php echo sprintf('%.8f',$row["Value"]);?></td>
+			<tr style="cursor:pointer;" title="Click To Fill Order Form" class="<?php echo $color; ?>" onclick="document.getElementById('Amount').value = '<?php echo sprintf('%.8f',$amount); ?>'; document.getElementById('price1').value = '<?php echo $value; ?>';calculateFees1(this); ">
+				<td style="width: 33%;"><?php echo $row["Value"];?></td>
 				<td style="width: 33%;"><?php echo $amount2;?></td>
-				<td style="width: 33%;"><?php echo sprintf('%.8f',$amount * $value);?></td>
+				<td style="width: 33%;"><?php echo $amount * $value;?></td>
 			</tr>
 			<?php
 			}

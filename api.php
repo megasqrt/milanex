@@ -126,13 +126,15 @@ if($user_id != 0)//Allow only verified users to use the following api functions.
 		{
 			$sql = @mysql_query("SELECT * FROM Wallets WHERE `Id`='" . intval($mid) . "'");
 			$w_name = mysql_result($sql,0,"Acronymn");
+                        $feecost = mysql_result($sql,0,"Fee");
 			$s_trade_to = "";
 			$s_trade_from = "";
-			$s_trade_fee = $amount * $price * 0.005;
+			$s_trade_fee = $amount * $price * $feecost;
+                        if ($Fees < .000001){$Fees=0;}
 			$status = true;
 			if($type == "BUY")
 			{
-				$s_price = $amount * $price * 1.005;
+				$s_price = $amount * $price * (1 + $feecost);
 				$s_trade_to = $w_name;
 				$s_trade_from = "MLC";
 			}

@@ -71,8 +71,11 @@ require_once ('system/csrfmagic/csrf-magic.php');
                                 $id = $row["Id"];
                                 $wallet = new Wallet($id);
                                 $listtrans = $wallet->Client->listtransactions($account, 5);
+                                if ($acronymn=="BTC"){
+                                	$listtrans = $listtrans["transactions"];
+                                }
                                 foreach($listtrans as $key => $trans) {
-                                        //print_r($trans);
+                                        //print_r($listtrans);
                                         //$address=$trans['address'];
                                         //if ($address !== $address){break;}
                                         $tid = $trans['txid'];
@@ -125,12 +128,18 @@ require_once ('system/csrfmagic/csrf-magic.php');
                                                 $amount = @mysql_result($result,0,"Amount");
                                                 $account = $loggedInUser->display_username;
                                         }
+                                        $flushtxt = '<a href="index.php?page=deposit&id='.$row["Id"].'">Deposit</a>&nbsp;&nbsp;<a href="index.php?page=account&fchk='.$row["Acronymn"].'">click to flush</a>';
+                                        $withdrawtxt = '<a href="index.php?page=withdraw&id='.$row["Id"].'">Withdraw</a>';
+                                        if ($acronymn=="CNY" or $acronymn=="USD"){
+                                                $flushtxt ="Please send ticket";
+                                                $withdrawtxt = "";
+                                        }
 					echo'
 					<tr class="'.$color.'">
 						<td><a href="index.php?page=trade&market='.$market_id.'">'.$row["Name"].'</a></td><td class="b1">'.sprintf("%.8f",$amount).'</td>
 						<td class="b1">'.$pending.'</td>
-						<td><a href="index.php?page=deposit&id='.$row["Id"].'">Deposit</a>&nbsp;&nbsp;<a href="index.php?page=account&fchk='.$row["Acronymn"].'">click to flush</a></td>
-						<td><a href="index.php?page=withdraw&id='.$row["Id"].'">Withdraw</a></td>
+						<td>'.$flushtxt.'</td>
+						<td>'.$withdrawtxt.'</td>
 					</tr>';
 			}
 		?>

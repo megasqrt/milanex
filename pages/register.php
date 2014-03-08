@@ -52,17 +52,19 @@ if (isset($errors)){errorBlock($errors);}
 		<center>
 		</center>
 		<div id="login-inner"><form method="POST" action="">
-<table border="0" cellpadding="0" cellspacing="0">		<tr>		<td>			<input type="text" name="email" placeholder="Email" class="field stdsize"/>		</td>	</tr>
+<table border="0" cellpadding="0" cellspacing="0">		<tr>		<td>			<input type="text" name="email" placeholder="常用Email(非常重要)" class="field stdsize"/>		</td>	</tr>
 	<tr>
 		<td>
-			<input name="username" type="text" class="field stdsize" placeholder="Desired Username"/>
+			<input name="username" type="text" class="field stdsize" placeholder="Username(英文登陆名)"/>
 		</td>
 	</tr>
 	<tr>
 		<td>
-			<input type="password" id="password1" name="password" class="field stdsize" placeholder="Password" onkeyup="passwordStrength(this.value)"/>
+			<input type="password" id="password1" name="password" class="field stdsize" placeholder="Password(登陆密码)" onkeyup="passwordStrength(this.value)"/>
 		</td>
-	</tr>	</br>	</br>	<tr>		<td>							<div id="passwordDescription">Password strength: not entered</div>								<div class="strength stdsize">					<div id="passwordStrength" class="strength0"></div>				</div>					</td>	</tr>		<tr>		<td>			<input type="password" id="password2" name="passwordc" class="field stdsize" placeholder="Repeat Password"/>		</td>	</tr>	<tr>		<td>			<center><img src="pages/docs/captcha.php" class="captcha stdsize"></center>		</td>	</tr>	<tr>		<td>			<input name="captcha" type="text" placeholder="Enter Security Code" class="field stdsize">		</td>	</tr>
+	</tr>	</br>	</br>	<tr>		<td>							<div id="passwordDescription">Password strength: not entered(密码强度)</div>								<div class="strength stdsize">					<div id="passwordStrength" class="strength0"></div>				</div>					</td>	</tr>	
+	<tr>		<td>			<input type="password" id="password2" name="passwordc" class="field stdsize" placeholder="Repeat Password(重输密码)"/>		</td>	</tr>
+	<tr>		<td>			<center><img src="pages/docs/captcha.php" class="captcha stdsize"></center>		</td>	</tr>	<tr>		<td>			<input name="captcha" type="text" placeholder="Enter Security Code(验证码)" class="field stdsize">		</td>	</tr>
 	<tr>
 		<td>
 			<input type="submit" class="blues stdsize" onclick="this.disabled=true;this.value='Registering...';this.form.submit();"/>

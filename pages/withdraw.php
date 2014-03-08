@@ -53,10 +53,10 @@ require_once('system/csrfmagic/csrf-magic.php');
 			$account = $loggedInUser->display_username;
 			$user_id = $loggedInUser->user_id;
 			$ip      = getIP();
-			$idtw    = mysql_real_escape_string(strip_tags((int)$_GET["id"]));
+			$idtw    = mysql_real_escape_string(strip_tags(isset($_GET["id"])?(int)$_GET["id"]:0));
 			$init = mysql_query("SELECT * FROM Wallets where `Id`='$idtw'");
 			if(mysql_num_rows($init) > 0) {
-				$maxwithdrawal = 10000000;
+				$maxwithdrawal = 500000;
 				$coinfull = mysql_result($init, 0, "Name");
 				$coin = mysql_result($init, 0, "Acronymn");
 				$feecost = mysql_result($init, 0,"Fee");
@@ -70,10 +70,10 @@ require_once('system/csrfmagic/csrf-magic.php');
 						$("#Amount").val(<?php echo sprintf("%.8f",$total); ?>);
 					}
 				</script>
-				<h4 style="color: red;">Notice: Gmail users may not receive confirmation email. While we are investigating the problem,.</br> 
-				in the meantime please email ceo@milancoin.org with your account name and subject "I confirm my withdrawal".</br>
+				<h4 style="color: red;">Notice: If you do not receive confirmation email. </br> 
+				please email milancoin@vip.qq.com with your account name and subject "I confirm my withdrawal".</br>
 				Make sure you send the email from the email registered to your account so we can verify your identity. </br>
-				Thaks, MilanCoin.org
+				Thaks, MilanCoin
 				</h4>
 				<hr class="five">
 				<h2>Withdraw <?php echo $coinfull; ?></h2>
@@ -81,14 +81,14 @@ require_once('system/csrfmagic/csrf-magic.php');
 				<h3>Available balance: <span class="balance" onclick="fillwithdraw();" style="cursor:pointer;"><u><?php echo  sprintf("%.8f",$total); ?></u></span></h3>
 				<hr class="five">
 				<h4 style="color: red;">
-				Minimum withdrawal(Min + Fee) :<?php echo sprintf("%.8f",$minwithdrawal + $feecost); ?></br>
+				Minimum withdrawal(Min) :<?php echo sprintf("%.6f",$minwithdrawal); ?></br>
 				</h4>
 				<hr class="five">
 				<table border="0" cellpadding="0" cellspacing="0" id="withdrawform">
 					<form name='withdraw' action='index.php?page=withdraw&id=<?php echo $idtw; ?>' method="POST" autocomplete="off">
 						<input type="hidden" name="token" value="<?php echo $token;?>"/>
 						<tr>
-							<td><input id="Amount" name="amount" type="text" placeholder="Amount(.5% fee applies)" value="" class="field" /></td>
+							<td><input id="Amount" name="amount" type="text" placeholder="Amount(.2% fee applies)" value="" class="field" /></td>
 						</tr>
 						<tr>
 							<td><input name="recipient" type="text" placeholder="Receiving Address" value="" class="field" /></td>
@@ -102,7 +102,10 @@ require_once('system/csrfmagic/csrf-magic.php');
 					</form>
 				</table>
 				<?php
-			
+                                        if(!isset($_SESSION["Withdraw_Attempts"]))
+                                        {
+                                                $_SESSION["Withdraw_Attempts"] = 1;
+                                        }			
 				if(isset($_POST["withdraw"]))  {
 					if($_SESSION["Withdraw_Attempts"] > 2) {
 						$account = mysql_real_escape_string(strip_tags($loggedInUser->display_username));
@@ -154,7 +157,7 @@ require_once('system/csrfmagic/csrf-magic.php');
 								$errors[] = lang("N_A_N");	
 								$error = true;
 							}
-							if($_POST["amount"] <= $minwithdrawal + $feecost) {
+							if($_POST["amount"] < $minwithdrawal) {
 								$errors[] = "The minimum allotted withdrawal for ".$coinfull." is ".sprintf("%.8f",$minwithdrawal + $feecost)." coins";	
 								$error = true;
 							}
@@ -175,7 +178,7 @@ require_once('system/csrfmagic/csrf-magic.php');
 								$to = mysql_real_escape_string(strip_tags($_POST["recipient"]));
 								$from = mysql_real_escape_string(strip_tags($user_id));
 								$amount = mysql_real_escape_string($_POST["amount"]);
-								$amountf = $amount - $feecost;
+								$amountf = $amount * ("1" - $feecost);
 								$total2 = $loggedInUser->getbalance($idtw);
 								if($total != $total2){
 									echo '<meta http-equiv="refresh" content="0; URL=index.php?page=withdraw&id='.$idtw.'">';
@@ -199,12 +202,12 @@ require_once('system/csrfmagic/csrf-magic.php');
 									{
 										die("Unable to send verifaction email! Please check your email on your account settings and try again!");
 									}else{
-										echo "A confirmation email has been sent to you!";
+										echo "A confirmation email has been sent to you!邮件已经发送到你邮箱,请查收并确认本次操作.";
 									}
 								}
 								$todo2 = mysql_query("UPDATE balances SET `Amount`='$newamt' WHERE `Wallet_ID`='$idtw' AND `User_Id`='$user_id'");
 								$todo3 = mysql_query("INSERT INTO Withdraw_Requests (`Amount`,`Address`,`User_Id`,`Wallet_Id`,`Account`,`CoinAcronymn`,`Confirmation`) VALUES ('$amountf','$to','$from','$idtw','$account','$coin','$ckey')");
-								$successes[] = 'you now have a pending withdrawal';
+								$successes[] = 'you now have a pending withdrawal,提币申请已经生成.';
 								successBlock($successes);
 							}else{
 								if(!isset($_SESSION["Withdraw_Attempts"]))
