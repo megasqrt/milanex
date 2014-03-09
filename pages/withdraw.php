@@ -56,10 +56,13 @@ require_once('system/csrfmagic/csrf-magic.php');
 			$idtw    = mysql_real_escape_string(strip_tags(isset($_GET["id"])?(int)$_GET["id"]:0));
 			$init = mysql_query("SELECT * FROM Wallets where `Id`='$idtw'");
 			if(mysql_num_rows($init) > 0) {
-				$maxwithdrawal = 500000;
+				$maxwithdrawal = 30;
 				$coinfull = mysql_result($init, 0, "Name");
 				$coin = mysql_result($init, 0, "Acronymn");
-				$feecost = mysql_result($init, 0,"Fee");
+                                $feecost = mysql_result($init, 0,"Fee");
+                                if ($coin=="MLC"){
+                                        $maxwithdrawal=1000000;
+                                }
 				$minwithdrawal = mysql_result($init, 0,"Minimum_Withdrawal");
 				$total = $loggedInUser->getbalance($idtw);
 				$token = getToken($user_id,$ip);
@@ -71,7 +74,7 @@ require_once('system/csrfmagic/csrf-magic.php');
 					}
 				</script>
 				<h4 style="color: red;">Notice: If you do not receive confirmation email. </br> 
-				please email milancoin@vip.qq.com with your account name and subject "I confirm my withdrawal".</br>
+				please email ceo@milancoin.org with your account name and subject "I confirm my withdrawal".</br>
 				Make sure you send the email from the email registered to your account so we can verify your identity. </br>
 				Thaks, MilanCoin
 				</h4>
@@ -104,7 +107,7 @@ require_once('system/csrfmagic/csrf-magic.php');
 				<?php
                                         if(!isset($_SESSION["Withdraw_Attempts"]))
                                         {
-                                                $_SESSION["Withdraw_Attempts"] = 1;
+                                                $_SESSION["Withdraw_Attempts"] = 0;
                                         }			
 				if(isset($_POST["withdraw"]))  {
 					if($_SESSION["Withdraw_Attempts"] > 2) {
@@ -178,7 +181,11 @@ require_once('system/csrfmagic/csrf-magic.php');
 								$to = mysql_real_escape_string(strip_tags($_POST["recipient"]));
 								$from = mysql_real_escape_string(strip_tags($user_id));
 								$amount = mysql_real_escape_string($_POST["amount"]);
-								$amountf = $amount * ("1" - $feecost);
+                                                                $fees = $amount *  $feecost;
+                                                                if ($fees < 0.0006){
+                                                                        $fees = 0.0006;
+                                                                }
+								$amountf = $amount - $fees;
 								$total2 = $loggedInUser->getbalance($idtw);
 								if($total != $total2){
 									echo '<meta http-equiv="refresh" content="0; URL=index.php?page=withdraw&id='.$idtw.'">';
