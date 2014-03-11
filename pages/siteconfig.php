@@ -1,6 +1,5 @@
 <?php
 /**~2014 MilanCoin Developers. All Rights Reserved.~*
- *               http://www.milancoin.org/milanex/
  *Licensed Under the MIT License : http://www.opensource.org/licenses/mit-license.php
  *
  *WARRANTY INFORMATION:

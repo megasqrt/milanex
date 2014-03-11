@@ -1,6 +1,8 @@
 <?php
+if ($_SERVER['SERVER_NAME'] != "milancoin.com" or $_SERVER['SERVER_PORT'] != "443"){
+       header('location:https://milancoin.com');
+}
 /**~2014 milanoin.org Developers. All Rights Reserved.~**->>
- *               http://www.milancoin.org/milanex/
  *Licensed Under the MIT License : http://www.opensource.org/licenses/mit-license.php
  *
  *WARRANTY INFORMATION:
@@ -18,7 +20,7 @@ if(isTORnode()){
 	die("Due to legal restrictions users using TOR Browser are not allowed to access this website.");
 }
 if(isIPbanned()){
-	die("ip address is banned. You can appeal this decision by contacting an administrator at milancoin@vip.qq.com");
+	die("ip address is banned. You can appeal this decision by contacting an administrator at support@milancoin.com");
 }
 if(isMaintenanceDisabled()) {
 }else{
@@ -51,11 +53,10 @@ if(isUserLoggedIn()){
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">  
 <title><?php echo $title ?></title>
 <meta name="keywords" 
-content="cryptocurrency, bitcoin, trading, altcoin, MilanEx, www.milancoin.org, 
+content="cryptocurrency, bitcoin, trading, altcoin, MilanEx, milancoin.com, 
 litecoin, feathercoin, opensourcecoin, gldcoin, protoshares, 
 memorycoin, radioactivecoin, 42coin, primecoin, unobtanium, novacoin, 
-nanotokens, skeincoin, blakecoin, mincoin, megacoin, scrypt, 
-sha-256, open source, crypto exchange">
+nanotokens, skeincoin, blakecoin, mincoin, megacoin, scrypt,a-256, open source, crypto exchange">
 <meta name="description" content="MilanCoin, the cryptocurrency exchange for all your trading needs.">
 <link rel="shortcut icon" href="assets/img/favicon.ico" type="image/x-icon" />
 <link rel="stylesheet" href="assets/font-awesome/css/font-awesome.min.css" />
@@ -127,7 +128,7 @@ $_GET["page"] = isset($_GET["page"])?$_GET["page"]:"";
 
 		var moveChatDown = true;
 		var chatMoved = false;
-		var chatReloadTime = 2000;
+		var chatReloadTime = 240000;
 
 		$('#messages').scroll(function () {
 			chatMoved = true;
@@ -157,7 +158,7 @@ $_GET["page"] = isset($_GET["page"])?$_GET["page"]:"";
 						function() 
 						{
 							if(moveChatDown && (chatMoved == false)) {
-								$('#messages').animate({scrollTop: $('#messages')[0].scrollHeight}, 500);
+								$('#messages').animate({scrollTop: $('#messages')[0].scrollHeight}, 60000);
 							}
 						}
 					);
@@ -187,7 +188,7 @@ $_GET["page"] = isset($_GET["page"])?$_GET["page"]:"";
                                 $('#messages').animate({
 									
                                     scrollTop: $('#messages')[0].scrollHeight
-                                  }, 1000);
+                                  }, 120000);
                             }); 
 			});
 			return false; 
@@ -383,7 +384,7 @@ $_GET["page"] = isset($_GET["page"])?$_GET["page"]:"";
 	</div>
 	<!--menu-->
 	<nav class="clearfix">  
-		<a id="logo" href="http://www.milancoin.org"><img src="assets/img/OpenEx.png" height="40" /></a>
+		<a id="logo" href="https://milancoin.com"><img src="assets/img/OpenEx.png" height="40" /></a>
 		<ul class="clearfix">  
 			<li><a  href="index.php?page=home" title="home"><i class="fa fa-home"></i></a></li>
 			<li><a  href="index.php?page=about" title="about"><i class="fa fa-info"></i></a></li>
@@ -655,15 +656,15 @@ $_GET["page"] = isset($_GET["page"])?$_GET["page"]:"";
 		} 
 ?>
 	</div>
-	<script>
-	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-	  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-	  ga('create', 'UA-48607759-1', 'milancoin.org');
-	  ga('send', 'pageview');
+  ga('create', 'UA-48607759-2', 'milancoin.com');
+  ga('send', 'pageview');
 
-	</script>
+</script>
 </body>
 </html>

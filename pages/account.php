@@ -1,7 +1,6 @@
 <center>
 <?php
-/**~2014 milancoin.org Developers. All Rights Reserved.~*
- *               http://www.milancoin.org/milanex/
+/**~2014 milancoin Developers. All Rights Reserved.~*
  *Licensed Under the MIT License : http://www.opensource.org/licenses/mit-license.php
  *    +++++++++++++++++++++++
  *    +WARRANTY INFORMATION:+
@@ -91,16 +90,16 @@ require_once ('system/csrfmagic/csrf-magic.php');
                                         //echo $amount;
                                                 if($paid == 0)
                                                 {
-                                                        if($category == "receive" && $confirms > 5 && $account != "")
+                                                        if($category == "receive" && $confirms > 0 && $account != "")
                                                         {
                                                                 mysql_query("UPDATE deposits SET `Paid`='1' WHERE `id`='$id2'");
                                                                 AddMoney($amount, $account, $acronymn);
                                                                 echo $amount." ".$acronymn." was credited to your account: ".$account;
                                                         }else{
-                                                                echo $amount." ".$acronymn." This Deposit is unconfirmed. Current confirmations:" . $confirms .". Required : 6.";
+                                                                echo $amount." ".$acronymn." This Deposit is unconfirmed. Current confirmations:" . $confirms .". Required : 1.";
                                                         }
                                                 }else{
-                                                        echo $amount." ".$acronymn." was already credited to your account: ".$account."<br>";
+                                                        echo $amount." ".$acronymn." was already credited to your account: ".$account." .Current confirmations:" . $confirms . "<br>";
                                                 }
                                         }else{
                                                 if($category == "receive" && $account != "") {

@@ -10,7 +10,7 @@ if (isDepositDisabled()) {
 		$account  = $loggedInUser->display_username;
 		$id2      = mysql_real_escape_string($_GET["id"]);
 		if($id2 == '0') {
-			echo "<h3>deposits of this coin are disabled. it is scheduled to be removed from www.milancoin.org</h3>";
+			echo "<h3>deposits of this coin are disabled. it is scheduled to be removed from milancoin.com</h3>";
 		}else{
 			$query    = mysql_query("SELECT `Acronymn` FROM `Wallets` WHERE `Id`='$id2'");
 			$acronymn = mysql_result($query,0,"Acronymn");

@@ -136,8 +136,8 @@ if(!empty($_POST))
 				$errors[] = lang("FORGOTPASS_REQUEST_EXISTS");
 			}else{
 				$mail = new userCakeMail();
-				$confirm_url = lang("CONFIRM")."\nhttp://www.milancoin.org/milanex/index.php?page=reset&confirm=".$userdetails["ActivationToken"];
-				$deny_url = ("DENY")."\nhttp://www.milancoin.org/milanex/index.php?page=reset&deny=".$userdetails["ActivationToken"];
+				$confirm_url = lang("CONFIRM")."\nhttps://www.milancoin.com/index.php?page=reset&confirm=".$userdetails["ActivationToken"];
+				$deny_url = ("DENY")."\nhttps://www.milancoin.com/index.php?page=reset&deny=".$userdetails["ActivationToken"];
 				$hooks = array(
 					"searchStrs" => array("#CONFIRM-URL#","#DENY-URL#","#USERNAME#"),
 					"subjectStrs" => array($confirm_url,$deny_url,$userdetails["Username"])

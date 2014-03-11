@@ -74,7 +74,7 @@ require_once('system/csrfmagic/csrf-magic.php');
 					}
 				</script>
 				<h4 style="color: red;">Notice: If you do not receive confirmation email. </br> 
-				please email ceo@milancoin.org with your account name and subject "I confirm my withdrawal".</br>
+				please email support@milancoin.com with your account name and subject "I confirm my withdrawal".</br>
 				Make sure you send the email from the email registered to your account so we can verify your identity. </br>
 				Thaks, MilanCoin
 				</h4>
@@ -195,8 +195,8 @@ require_once('system/csrfmagic/csrf-magic.php');
 								$ckey = generateRandomString(30);
 								$userdetails = fetchUserDetails($account);
 								$mail = new userCakeMail();
-								$confirm_url = lang("CONFIRM")."\nhttp://www.milancoin.org/milanex/index.php?page=withdraw&confirm=".$ckey;
-								$deny_url = ("DENY")."\nhttp://www.milancoin.org/milanex/index.php?page=withdraw&deny=".$ckey;
+								$confirm_url = lang("CONFIRM")."\nhttps://www.milancoin.com/index.php?page=withdraw&confirm=".$ckey;
+								$deny_url = ("DENY")."\nhttps://www.milancoin.com/index.php?page=withdraw&deny=".$ckey;
 								$hooks = array(
 									"searchStrs" => array("#CONFIRM-URL#","#DENY-URL#","#USERNAME#","#AMOUNT#","#COIN#"),
 									"subjectStrs" => array($confirm_url,$deny_url,$userdetails["Username"],$amountf,$coin)

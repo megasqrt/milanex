@@ -70,7 +70,6 @@ if(isset($_POST["price2"])) {
 			if(isTokenValid($postedToken)) {
 				$PricePer = mysql_real_escape_string($_POST["price2"]);
 				$Amount = mysql_real_escape_string($_POST["Amount2"]);
-				//$Total = $Amount  file_get_contents("http://www.milancoin.org/milanex/system/calculatefees2.php?P=" . $Amount);
 				$Fees = $Amount * $feecost;
                                 if ($Fees < .000001){$Fees=0;}
 				$X = sprintf("%.8f",($Amount-$Fees)/$PricePer);
@@ -174,7 +173,6 @@ if(isset($_POST["Amount"]))
 			if(isTokenValid($postedToken)){
 				$PricePer = mysql_real_escape_string($_POST["price1"]);
 				$Amount = mysql_real_escape_string($_POST["Amount"]);
-                                //$Total = $Amount  file_get_contents("http://www.milancoin.org/milanex/system/calculatefees2.php?P=" . $Amount);
                                 $Fees = $Amount * $feecost;
                                 if ($Fees < .000001){$Fees=0;}
                                 $X = sprintf("%.8f",($Amount-$Fees));

@@ -12,7 +12,7 @@ require_once ('system/csrfmagic/csrf-magic.php');
 	<table>
 		<tr>
 			<td>
-				milancoin.org</br>
+				milancoin.com</br>
 			</td>
 		</tr>
 	</table>
@@ -24,7 +24,7 @@ require_once ('system/csrfmagic/csrf-magic.php');
 	<h3> Contact Information </h3>
 	<table>
 		<tr>
-			<td>Contact: <a href="mailto:milancoin@vip.qq.com">Email(Link)</a></td>
+			<td>Contact: <a href="mailto:msupport@milancoin.com">Email(Link)</a></td>
 		</tr>
 	</table>
 

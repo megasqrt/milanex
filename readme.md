@@ -1,4 +1,4 @@
-MilanCoin.org 0.3
+MilanCoin.com 0.4.6
 
 THIS IS BETA SOFTWARE. IT IS UNPROVEN. USE AT YOUR OWN RISK.
 
@@ -19,7 +19,7 @@ userCake(Heavily Modified) <--All Rights reserved
 mysqli.class.php <--Jesse boyer, all rights reserved(jream.net)
 csrf-magic <-- all rights reserved
 
-Demo(live trading site)->http://www.milancoin.org
+Demo(live trading site)->https://milancoin.com
 
 known issues:
 

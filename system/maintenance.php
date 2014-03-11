@@ -1,7 +1,7 @@
 <?php
 require_once("../models/config.php");
 if(isMaintenanceDisabled()) {
-	echo '<meta http-equiv="refresh" content="0; URL= http://www.milancoin.org">';
+	echo '<meta http-equiv="refresh" content="0; URL= https://milancoin.com">';
 	die();
 }else{
 
@@ -10,7 +10,7 @@ if(isMaintenanceDisabled()) {
 <!Doctype html5 lang="en">
 <html>
 	<head>
-	<meta http-equiv="refresh" content="350; URL=http://www.milancoin.org/milanex/system/maintenance.php">
+	<meta http-equiv="refresh" content="350; URL=https://milancoin.com/system/maintenance.php">
 	<link rel="stylesheet" href="../assets/css/style.css" type="text/css" />
 	<title>Maintenance</title>
 	<style>
